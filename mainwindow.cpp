@@ -1,0 +1,348 @@
+#include "mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    buttonGroup = new QButtonGroup(this);
+    buttonGroup->setExclusive(true);
+
+    horizontalLayout = ui->horizontalLayout;
+
+    diskName = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("diskName"));
+    temperatureValue = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("temperatureValueLabel"));
+    healthStatusValue = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("healthStatusValueLabel"));
+
+    firmwareLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("firmwareLineEdit"));
+    serialNumberLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("serialNumberLineEdit"));
+    typeLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("typeLineEdit"));
+    protocolLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("protocolLineEdit"));
+    deviceNodeLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("deviceNodeLineEdit"));
+
+    totalReadsLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("totalReadsLineEdit"));
+    totalWritesLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("totalWritesLineEdit"));
+    rotationRateLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("rotationRateLineEdit"));
+    powerOnCountLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("powerOnCountLineEdit"));
+    powerOnHoursLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("powerOnHoursLineEdit"));
+
+    tableWidget = qobject_cast<QTableWidget *>(ui->centralwidget->findChild<QTableWidget*>("dataTable"));;
+    serialNumberLineEdit->setEchoMode(QLineEdit::Password);
+
+    QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
+    connect(toggleEchoModeAction, &QAction::triggered, [=]() {
+        if (serialNumberLineEdit->echoMode() == QLineEdit::Password) {
+            serialNumberLineEdit->setEchoMode(QLineEdit::Normal);
+            toggleEchoModeAction->setIcon(QIcon::fromTheme(QStringLiteral("hint")));
+        } else if (serialNumberLineEdit->echoMode() == QLineEdit::Normal) {
+            serialNumberLineEdit->setEchoMode(QLineEdit::Password);
+            toggleEchoModeAction->setIcon(QIcon::fromTheme(QStringLiteral("visibility")));
+        }
+    });
+
+    scanDevices();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::scanDevices()
+{
+    QString output = getSmartctlOutput({"--scan", "--json"}, false);
+    QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
+    QJsonObject jsonObj = doc.object();
+    QJsonArray devices = jsonObj["devices"].toArray();
+    QJsonObject globalObj;
+    QString globalHealth;
+    bool firstTime = true;
+
+    for (const QJsonValue &value : devices) {
+        QJsonObject device = value.toObject();
+        QString deviceName = device["name"].toString();
+
+        QString allOutput = getSmartctlOutput({"--all", "--json", deviceName}, true);
+
+        QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
+        QJsonObject localObj = localDoc.object();
+
+        QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+        QString temperature = "N/A";
+        bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
+        bool caution = false;
+        QString health;
+        QColor healthColor;
+
+        bool isNvme = false;
+        QString protocol = localObj["device"].toObject()["protocol"].toString();
+        if (protocol == "NVMe") {
+            isNvme = true;
+        }
+
+        for (const QJsonValue &attr : attributes) { // Need different logic for NVMe
+            QJsonObject attrObj = attr.toObject();
+            if (attrObj["id"] == 194 && !isNvme) {
+                QString raw = attrObj["raw"].toObject()["string"].toString();
+                int spaceIndex = raw.indexOf(' ');
+                if (spaceIndex != -1) {
+                    raw = raw.left(spaceIndex);
+                }
+                int tempInt = raw.toInt();
+                temperature = QString::number(tempInt) + " °C";
+            } else if (!isNvme && (attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && (attrObj["raw"].toObject()["value"].toInt() != 0)) {
+                caution = true;
+            }
+        }
+
+        if (healthPassed && !caution) {
+            health = "Good";
+            healthColor = Qt::green;
+        } else if (healthPassed && caution) {
+            health = "Caution";
+            healthColor = Qt::yellow;
+        } else {
+            health = "Bad";
+            healthColor = Qt::red;
+        }
+
+        CustomButton *button = new CustomButton(health, deviceName, temperature, healthColor, this);
+
+        buttonGroup->addButton(button);
+        horizontalLayout->addWidget(button);
+
+        button->setCheckable(true);
+        button->setAutoExclusive(true);
+
+        connect(button, &QPushButton::clicked, this, [=]() {
+            populateWindow(localObj, health);
+        });
+
+        if (firstTime) {
+            globalObj = localObj;
+            globalHealth = health;
+            button->setChecked(true);
+        }
+
+        firstTime = false;
+    }
+    horizontalLayout->addStretch();
+    populateWindow(globalObj, globalHealth);
+}
+
+void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health)
+{
+    QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+    QString modelName = localObj["model_name"].toString();
+    QString firmwareVersion = localObj["firmware_version"].toString();
+    float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+    QString userCapacityString = QString::number(static_cast<int>(userCapacityGB)) + "." + QString::number(static_cast<int>((userCapacityGB - static_cast<int>(userCapacityGB)) * 10)) + " GB";
+    QString totalReads = "----";
+    QString totalWrites = "----";
+    QString serialNumber = localObj["serial_number"].toString();
+    QJsonObject deviceObj = localObj["device"].toObject();
+    QString protocol = deviceObj["protocol"].toString();
+    QString type = deviceObj["type"].toString();
+    QString name = deviceObj["name"].toString();
+    int tempInt = 0;
+
+    bool isNvme = false;
+    if (protocol == "NVMe") {
+        isNvme = true;
+    }
+
+    diskName->setText("<html><head/><body><p><span style='font-size:14pt; font-weight:bold;'>" + modelName + " " + userCapacityString + "</span></p></body></html>");
+    firmwareLineEdit->setText(firmwareVersion);
+    serialNumberLineEdit->setText(serialNumber);
+    typeLineEdit->setText(type);
+    protocolLineEdit->setText(protocol);
+    deviceNodeLineEdit->setText(name);
+
+    int rotationRateInt = localObj["rotation_rate"].toInt(-1);
+    QString rotationRate;
+    if (rotationRateInt > 0) {
+        rotationRate = QString::number(rotationRateInt);
+    } else if (rotationRateInt == 0) {
+        rotationRate = "---- (SSD)";
+    } else {
+        rotationRate = "----";
+    }
+
+    rotationRateLineEdit->setText(rotationRate);
+    rotationRateLineEdit->setAlignment(Qt::AlignRight);
+
+    int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
+    QString powerCycleCount;
+    if (powerCycleCountInt >= 0) {
+        powerCycleCount = QString::number(powerCycleCountInt) + " count";
+    } else {
+        powerCycleCount = "Unknown";
+    }
+
+    powerOnCountLineEdit->setText(powerCycleCount);
+    powerOnCountLineEdit->setAlignment(Qt::AlignRight);
+
+    int powerOnTimeInt = localObj["power_on_time"].toObject().value("hours").toInt(-1);
+    QString powerOnTime;
+    if (powerOnTimeInt >= 0) {
+        powerOnTime = QString::number(powerOnTimeInt) + " hours";
+    } else {
+        powerOnTime = "Unknown";
+    }
+
+    powerOnHoursLineEdit->setText(powerOnTime);
+    powerOnHoursLineEdit->setAlignment(Qt::AlignRight);
+
+    for (const QJsonValue &attr : attributes) { //Need different logic for NVMe
+        QJsonObject attrObj = attr.toObject();
+        if (attrObj["id"] == 241 && !isNvme) {
+            totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+        } else if (attrObj["id"] == 242 && !isNvme) {
+            totalReads = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+        } else if (attrObj["id"] == 194 && !isNvme) {
+            QString raw = attrObj["raw"].toObject()["string"].toString();
+            int spaceIndex = raw.indexOf(' ');
+            if (spaceIndex != -1) {
+                raw = raw.left(spaceIndex);
+            }
+            tempInt = raw.toInt();
+        }
+    }
+
+    totalReadsLineEdit->setText(totalReads);
+    totalReadsLineEdit->setAlignment(Qt::AlignRight);
+
+    totalWritesLineEdit->setText(totalWrites);
+    totalWritesLineEdit->setAlignment(Qt::AlignRight);
+
+    if (tempInt > 55) {
+        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::red).name() + ";");
+    } else if ((tempInt < 55) && (tempInt > 50)){
+        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::yellow).name() + ";");
+    } else if (tempInt == 0) {
+        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::gray).name() + ";");
+    } else {
+        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::green).name() + ";");
+    }
+
+    QString labelStyle = "font-size:12pt; font-weight:700; color:black";
+
+    if (tempInt > 0) {
+        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(tempInt) + " °C</span></p></body></html>");
+    } else {
+        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>N/A</span></p></body></html>");
+    }
+
+    temperatureValue->setAlignment(Qt::AlignCenter);
+
+    if (health == "Bad") {
+        healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::red).name() + ";");
+    } else if (health == "Caution"){
+        healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::yellow).name() + ";");
+    } else {
+        healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::green).name() + ";");
+    }
+
+    healthStatusValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + health + "</span></p></body></html>");
+    healthStatusValue->setAlignment(Qt::AlignCenter);
+
+    if (protocol != "NVMe") {
+        addSmartAttributesTable(attributes);
+    }
+}
+
+void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
+{
+    tableWidget->setColumnCount(7);
+    tableWidget->setHorizontalHeaderLabels({"", "ID", "Attribute Name", "Current", "Worst", "Threshold", "Raw Values"});
+    tableWidget->verticalHeader()->setVisible(false);
+    tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
+    tableWidget->setRowCount(attributes.size());
+
+    int row = 0;
+    for (const QJsonValue &attr : attributes) {
+        QJsonObject attrObj = attr.toObject();
+        QString id = QString("%1").arg(attrObj["id"].toInt(), 2, 16, QChar('0')).toUpper();
+        QString name = attrObj["name"].toString().replace("_", " ");
+        int value = attrObj["value"].toInt();
+        int worst = attrObj["worst"].toInt();
+        int thresh = attrObj["thresh"].toInt();
+        QString raw = attrObj["raw"].toObject()["string"].toString();
+
+        int spaceIndex = raw.indexOf(' ');
+        if (spaceIndex != -1) {
+            raw = raw.left(spaceIndex);
+        }
+        raw = QString("%1").arg(raw.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
+
+        QColor statusColor;
+        if ((thresh != 0) && (value < thresh)) {
+            statusColor = Qt::red;
+        } else if ((id == "05" || id == "C5" || id == "C6") && (raw != "0")) {
+            statusColor = Qt::yellow;
+        } else {
+            statusColor = Qt::green;
+        }
+
+        QTableWidgetItem *statusItem = new QTableWidgetItem();
+        statusItem->setBackground(Qt::transparent);
+        statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
+
+        QTableWidgetItem *idItem = new QTableWidgetItem(id);
+        idItem->setTextAlignment(Qt::AlignCenter);
+
+        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+        QTableWidgetItem *valueItem = new QTableWidgetItem(QString::number(value));
+        valueItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        QTableWidgetItem *worstItem = new QTableWidgetItem(QString::number(worst));
+        worstItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        QTableWidgetItem *threshItem = new QTableWidgetItem(QString::number(thresh));
+        threshItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        QTableWidgetItem *rawItem = new QTableWidgetItem(raw);
+        rawItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        tableWidget->setItem(row, 0, statusItem);
+        tableWidget->setItem(row, 1, idItem);
+        tableWidget->setItem(row, 2, nameItem);
+        tableWidget->setItem(row, 3, valueItem);
+        tableWidget->setItem(row, 4, worstItem);
+        tableWidget->setItem(row, 5, threshItem);
+        tableWidget->setItem(row, 6, rawItem);
+
+        ++row;
+    }
+
+    tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    for (int i = 0; i < tableWidget->columnCount(); ++i) {
+        if (i != 2) {
+            tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
+        }
+    }
+
+    tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
+{
+    QProcess process;
+    QString command;
+    QStringList commandArgs;
+    if(root) {
+        command = "pkexec";
+        commandArgs = {"smartctl"};
+    } else {
+        command = "smartctl";
+        commandArgs = {};
+    }
+
+    commandArgs.append(arguments);
+    process.start(command, commandArgs);
+    process.waitForFinished();
+    return process.readAllStandardOutput();
+}
+
