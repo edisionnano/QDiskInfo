@@ -163,7 +163,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString rotationRate;
     if (rotationRateInt > 0) {
         rotationRate = QString::number(rotationRateInt);
-    } else if (rotationRateInt == 0) {
+    } else if (rotationRateInt == 0 || isNvme) {
         rotationRate = "---- (SSD)";
     } else {
         rotationRate = "----";
