@@ -81,18 +81,16 @@ void MainWindow::scanDevices()
             isNvme = true;
         }
 
-        for (const QJsonValue &attr : attributes) { // Need different logic for NVMe
+        int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
+        if (temperatureInt > 0) {
+            temperature = QString::number(temperatureInt) + " °C";
+        }
+
+        for (const QJsonValue &attr : attributes) {
             QJsonObject attrObj = attr.toObject();
-            if (attrObj["id"] == 194 && !isNvme) {
-                QString raw = attrObj["raw"].toObject()["string"].toString();
-                int spaceIndex = raw.indexOf(' ');
-                if (spaceIndex != -1) {
-                    raw = raw.left(spaceIndex);
-                }
-                int tempInt = raw.toInt();
-                temperature = QString::number(tempInt) + " °C";
-            } else if (!isNvme && (attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && (attrObj["raw"].toObject()["value"].toInt() != 0)) {
+            if (!isNvme && (attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && (attrObj["raw"].toObject()["value"].toInt() != 0)) {
                 caution = true;
+                break;
             }
         }
 
@@ -137,6 +135,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
     float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+    int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
     QString userCapacityString = QString::number(static_cast<int>(userCapacityGB)) + "." + QString::number(static_cast<int>((userCapacityGB - static_cast<int>(userCapacityGB)) * 10)) + " GB";
     QString totalReads = "----";
     QString totalWrites = "----";
@@ -145,7 +144,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString protocol = deviceObj["protocol"].toString();
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
-    int tempInt = 0;
 
     bool isNvme = false;
     if (protocol == "NVMe") {
@@ -200,13 +198,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
         } else if (attrObj["id"] == 242 && !isNvme) {
             totalReads = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
-        } else if (attrObj["id"] == 194 && !isNvme) {
-            QString raw = attrObj["raw"].toObject()["string"].toString();
-            int spaceIndex = raw.indexOf(' ');
-            if (spaceIndex != -1) {
-                raw = raw.left(spaceIndex);
-            }
-            tempInt = raw.toInt();
         }
     }
 
@@ -216,11 +207,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     totalWritesLineEdit->setText(totalWrites);
     totalWritesLineEdit->setAlignment(Qt::AlignRight);
 
-    if (tempInt > 55) {
+    if (temperatureInt > 55) {
         temperatureValue->setStyleSheet("background-color: " + QColor(Qt::red).name() + ";");
-    } else if ((tempInt < 55) && (tempInt > 50)){
+    } else if ((temperatureInt < 55) && (temperatureInt > 50)){
         temperatureValue->setStyleSheet("background-color: " + QColor(Qt::yellow).name() + ";");
-    } else if (tempInt == 0) {
+    } else if (temperatureInt == 0) {
         temperatureValue->setStyleSheet("background-color: " + QColor(Qt::gray).name() + ";");
     } else {
         temperatureValue->setStyleSheet("background-color: " + QColor(Qt::green).name() + ";");
@@ -228,8 +219,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     QString labelStyle = "font-size:12pt; font-weight:700; color:black";
 
-    if (tempInt > 0) {
-        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(tempInt) + " °C</span></p></body></html>");
+    if (temperatureInt > 0) {
+        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
     } else {
         temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>N/A</span></p></body></html>");
     }
