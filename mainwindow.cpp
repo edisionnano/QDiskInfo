@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     serialNumberLineEdit->setEchoMode(QLineEdit::Password);
 
     QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
-    connect(toggleEchoModeAction, &QAction::triggered, [=]() {
+    connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
         if (serialNumberLineEdit->echoMode() == QLineEdit::Password) {
             serialNumberLineEdit->setEchoMode(QLineEdit::Normal);
             toggleEchoModeAction->setIcon(QIcon::fromTheme(QStringLiteral("hint")));
@@ -279,7 +279,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         QColor statusColor;
         if ((thresh != 0) && (value < thresh)) {
             statusColor = Qt::red;
-        } else if ((id == "05" || id == "C5" || id == "C6") && (raw != "0")) {
+        } else if ((id == "05" || id == "C5" || id == "C6") && (raw != "000000000000")) {
             statusColor = Qt::yellow;
         } else {
             statusColor = Qt::green;
@@ -345,4 +345,3 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     process.waitForFinished();
     return process.readAllStandardOutput();
 }
-
