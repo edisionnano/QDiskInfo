@@ -4,7 +4,7 @@ void StatusDot::paint(QPainter *painter, const QStyleOptionViewItem &option, con
 {
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index);
-    int dotSize = qMin(opt.rect.width(), opt.rect.height()) * 0.5;
+    int dotSize = 15;
 
     painter->save();
     painter->setRenderHint(QPainter::Antialiasing, true);
