@@ -69,6 +69,7 @@ void MainWindow::scanDevices()
         QJsonObject localObj = localDoc.object();
 
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+        QJsonArray nvmeLog = localObj["nvme_smart_health_information_log"].toArray();
         QString temperature = "N/A";
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
@@ -86,11 +87,13 @@ void MainWindow::scanDevices()
             temperature = QString::number(temperatureInt) + " °C";
         }
 
-        for (const QJsonValue &attr : attributes) {
-            QJsonObject attrObj = attr.toObject();
-            if (!isNvme && (attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && (attrObj["raw"].toObject()["value"].toInt() != 0)) {
-                caution = true;
-                break;
+        if (!isNvme) {
+            for (const QJsonValue &attr : attributes) {
+                QJsonObject attrObj = attr.toObject();
+                if (!isNvme && (attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && (attrObj["raw"].toObject()["value"].toInt() != 0)) {
+                    caution = true;
+                    break;
+                }
             }
         }
 
@@ -121,9 +124,8 @@ void MainWindow::scanDevices()
             globalObj = localObj;
             globalHealth = health;
             button->setChecked(true);
+            firstTime = false;
         }
-
-        firstTime = false;
     }
     horizontalLayout->addStretch();
     populateWindow(globalObj, globalHealth);
@@ -132,6 +134,7 @@ void MainWindow::scanDevices()
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health)
 {
     QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+    QJsonArray nvmeLog = localObj["nvme_smart_health_information_log"].toArray();
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
     float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
@@ -195,9 +198,19 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     for (const QJsonValue &attr : attributes) { //Need different logic for NVMe
         QJsonObject attrObj = attr.toObject();
         if (attrObj["id"] == 241 && !isNvme) {
-            totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+            if (attrObj["name"] == "Host_Writes_32MiB") {
+                totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+            } else if (attrObj["name"] == "Host_Writes_32MiB") {
+                double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
+                totalWrites = QString::number(static_cast<int>(gibibytes)) + " GB";
+            }
         } else if (attrObj["id"] == 242 && !isNvme) {
-            totalReads = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+            if (attrObj["name"] == "Total_Reads_GB") {
+                totalReads = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+            } else if (attrObj["name"] == "Host_Reads_32MiB") {
+                double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
+                totalReads = QString::number(static_cast<int>(gibibytes)) + " GB";
+            }
         }
     }
 
@@ -323,7 +336,7 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     QProcess process;
     QString command;
     QStringList commandArgs;
-    if(root) {
+    if (root) {
         command = "pkexec";
         commandArgs = {"smartctl"};
     } else {
