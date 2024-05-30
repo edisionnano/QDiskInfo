@@ -203,6 +203,12 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (attrObj["name"] == "Host_Writes_32MiB") {
                 double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                 totalWrites = QString::number(static_cast<int>(gibibytes)) + " GB";
+            } else if (attrObj["name"] == "Total_LBAs_Written") {
+                unsigned int logicalBlockSize = localObj["serial_number"].toInt();
+                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toInt();
+                unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
+                unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
+                totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
             }
         } else if (attrObj["id"] == 242 && !isNvme) {
             if (attrObj["name"] == "Total_Reads_GB") {
@@ -210,6 +216,20 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (attrObj["name"] == "Host_Reads_32MiB") {
                 double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                 totalReads = QString::number(static_cast<int>(gibibytes)) + " GB";
+            } else if (attrObj["name"] == "Total_LBAs_Read") {
+                unsigned int logicalBlockSize = localObj["serial_number"].toInt();
+                unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toInt();
+                unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
+                unsigned long long totalGbWriten = (lbaRead * logicalBlockSize) / oneGB;
+                totalReads = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+            }
+        } else if (attrObj["id"] == 246 && !isNvme) { // MX500
+            if (attrObj["name"] == "Total_LBAs_Written") {
+                unsigned int logicalBlockSize = localObj["serial_number"].toInt();
+                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toInt();
+                unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
+                unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
+                totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
             }
         }
     }
