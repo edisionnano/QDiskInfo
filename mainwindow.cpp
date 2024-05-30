@@ -198,7 +198,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     for (const QJsonValue &attr : attributes) { //Need different logic for NVMe
         QJsonObject attrObj = attr.toObject();
         if (attrObj["id"] == 241 && !isNvme) {
-            if (attrObj["name"] == "Host_Writes_32MiB") {
+            if (attrObj["name"] == "Total_Writes_GB") {
                 totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
             } else if (attrObj["name"] == "Host_Writes_32MiB") {
                 double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
