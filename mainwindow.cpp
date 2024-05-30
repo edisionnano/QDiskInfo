@@ -204,7 +204,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                 totalWrites = QString::number(static_cast<int>(gibibytes)) + " GB";
             } else if (attrObj["name"] == "Total_LBAs_Written") {
-                unsigned int logicalBlockSize = localObj["serial_number"].toInt();
+                unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
                 unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toInt();
                 unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                 unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
@@ -217,7 +217,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                 totalReads = QString::number(static_cast<int>(gibibytes)) + " GB";
             } else if (attrObj["name"] == "Total_LBAs_Read") {
-                unsigned int logicalBlockSize = localObj["serial_number"].toInt();
+                unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
                 unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toInt();
                 unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                 unsigned long long totalGbWriten = (lbaRead * logicalBlockSize) / oneGB;
@@ -225,7 +225,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             }
         } else if (attrObj["id"] == 246 && !isNvme) { // MX500
             if (attrObj["name"] == "Total_LBAs_Written") {
-                unsigned int logicalBlockSize = localObj["serial_number"].toInt();
+                unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
                 unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toInt();
                 unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                 unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
