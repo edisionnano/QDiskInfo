@@ -69,7 +69,7 @@ void MainWindow::scanDevices()
         QJsonObject localObj = localDoc.object();
 
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-        QJsonArray nvmeLog = localObj["nvme_smart_health_information_log"].toArray();
+        QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
         QString temperature = "N/A";
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
@@ -134,7 +134,7 @@ void MainWindow::scanDevices()
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health)
 {
     QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-    QJsonArray nvmeLog = localObj["nvme_smart_health_information_log"].toArray();
+    QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
     float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
@@ -275,8 +275,51 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
+    } else {
+        addNvmeLogTable(nvmeLog);
     }
 }
+
+void MainWindow::addNvmeLogTable(const QJsonObject &nvmeLog)
+{
+    tableWidget->setColumnCount(4);
+    tableWidget->setHorizontalHeaderLabels({"", "ID", "Attribute Name", "Raw Values"});
+    tableWidget->verticalHeader()->setVisible(false);
+    tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
+    tableWidget->setRowCount(nvmeLog.size());
+
+    int row = 0;
+    for (auto smartItem = nvmeLog.constBegin(); smartItem != nvmeLog.constEnd(); ++smartItem) {
+        QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
+        QString name = smartItem.key().replace("_", " ");
+        QString raw = QString::number(smartItem.value().toInt());
+        raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
+
+        QColor statusColor;
+        statusColor = Qt::green; // For now leave it all green
+
+        QTableWidgetItem *statusItem = new QTableWidgetItem();
+        statusItem->setBackground(Qt::transparent);
+        statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
+
+        QTableWidgetItem *idItem = new QTableWidgetItem(id);
+        idItem->setTextAlignment(Qt::AlignCenter);
+
+        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+
+        QTableWidgetItem *rawItem = new QTableWidgetItem(raw);
+        rawItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        tableWidget->setItem(row, 0, statusItem);
+        tableWidget->setItem(row, 1, idItem);
+        tableWidget->setItem(row, 2, nameItem);
+        tableWidget->setItem(row, 3, rawItem);
+
+        ++row;
+    }
+
+}
+
 
 void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 {
@@ -330,6 +373,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         idItem->setTextAlignment(Qt::AlignCenter);
 
         QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+
         QTableWidgetItem *valueItem = new QTableWidgetItem(QString::number(value));
         valueItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 

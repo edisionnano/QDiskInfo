@@ -40,6 +40,7 @@ private:
 
     void scanDevices();
     void populateWindow(const QJsonObject &tempObj, const QString &health);
+    void addNvmeLogTable(const QJsonObject &nvmeLog);
     void addSmartAttributesTable(const QJsonArray &attributes);
     QString getSmartctlOutput(const QStringList &arguments, bool root);
 };
