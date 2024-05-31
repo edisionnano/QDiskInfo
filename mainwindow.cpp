@@ -288,6 +288,17 @@ void MainWindow::addNvmeLogTable(const QJsonObject &nvmeLog)
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
     tableWidget->setRowCount(nvmeLog.size());
 
+    for (int i = 0; i < tableWidget->columnCount(); ++i) {
+        QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
+        if (headerItem) {
+            if (i == 2) {
+                headerItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+            } else if (i == 3) {
+                headerItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
+        }
+    }
+
     int row = 0;
     for (auto smartItem = nvmeLog.constBegin(); smartItem != nvmeLog.constEnd(); ++smartItem) {
         QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
@@ -317,7 +328,6 @@ void MainWindow::addNvmeLogTable(const QJsonObject &nvmeLog)
 
         ++row;
     }
-
 }
 
 
