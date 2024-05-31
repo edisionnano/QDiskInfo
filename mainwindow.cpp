@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -205,7 +206,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 totalWrites = QString::number(static_cast<int>(gibibytes)) + " GB";
             } else if (attrObj["name"] == "Total_LBAs_Written") {
                 unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toInt();
+                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
                 unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                 unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
                 totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
@@ -218,7 +219,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 totalReads = QString::number(static_cast<int>(gibibytes)) + " GB";
             } else if (attrObj["name"] == "Total_LBAs_Read") {
                 unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toInt();
+                unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
                 unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                 unsigned long long totalGbWriten = (lbaRead * logicalBlockSize) / oneGB;
                 totalReads = QString::number(static_cast<int>(totalGbWriten)) + " GB";
@@ -226,7 +227,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         } else if (attrObj["id"] == 246 && !isNvme) { // MX500
             if (attrObj["name"] == "Total_LBAs_Written") {
                 unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toInt();
+                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
                 unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                 unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
                 totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
