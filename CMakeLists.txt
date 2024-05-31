@@ -23,9 +23,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(KDiskInfo
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        mainwindow.ui
-        statusdot.h statusdot.cpp
-        custombutton.h custombutton.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET KDiskInfo APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -41,6 +38,9 @@ else()
     else()
         add_executable(KDiskInfo
             ${PROJECT_SOURCES}
+            custombutton.h custombutton.cpp
+            statusdot.h statusdot.cpp
+
         )
     endif()
 endif()

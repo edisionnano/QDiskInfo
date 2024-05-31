@@ -63,7 +63,7 @@ void MainWindow::scanDevices()
         QJsonObject device = value.toObject();
         QString deviceName = device["name"].toString();
 
-        QString allOutput = getSmartctlOutput({"--all", "--json", deviceName}, true);
+        QString allOutput = getSmartctlOutput({"smartctl", "--all", "--json", deviceName}, true);
 
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
         QJsonObject localObj = localDoc.object();
@@ -358,10 +358,10 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     QStringList commandArgs;
     if (root) {
         command = "pkexec";
-        commandArgs = {"smartctl"};
+        commandArgs = QStringList();
     } else {
         command = "smartctl";
-        commandArgs = {};
+        commandArgs = QStringList();
     }
 
     commandArgs.append(arguments);

@@ -8,6 +8,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QButtonGroup>
+#include <QAction>
+#include <cmath>
 
 #include "statusdot.h"
 #include "custombutton.h"
