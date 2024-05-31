@@ -195,41 +195,43 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     powerOnHoursLineEdit->setText(powerOnTime);
     powerOnHoursLineEdit->setAlignment(Qt::AlignRight);
 
-    for (const QJsonValue &attr : attributes) { //Need different logic for NVMe
-        QJsonObject attrObj = attr.toObject();
-        if (attrObj["id"] == 241 && !isNvme) {
-            if (attrObj["name"] == "Total_Writes_GB") {
-                totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
-            } else if (attrObj["name"] == "Host_Writes_32MiB") {
-                double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
-                totalWrites = QString::number(static_cast<int>(gibibytes)) + " GB";
-            } else if (attrObj["name"] == "Total_LBAs_Written") {
-                unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
-                totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
-            }
-        } else if (attrObj["id"] == 242 && !isNvme) {
-            if (attrObj["name"] == "Total_Reads_GB") {
-                totalReads = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
-            } else if (attrObj["name"] == "Host_Reads_32MiB") {
-                double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
-                totalReads = QString::number(static_cast<int>(gibibytes)) + " GB";
-            } else if (attrObj["name"] == "Total_LBAs_Read") {
-                unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                unsigned long long totalGbWriten = (lbaRead * logicalBlockSize) / oneGB;
-                totalReads = QString::number(static_cast<int>(totalGbWriten)) + " GB";
-            }
-        } else if (attrObj["id"] == 246 && !isNvme) { // MX500
-            if (attrObj["name"] == "Total_LBAs_Written") {
-                unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
-                totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+    if (!isNvme) {
+        for (const QJsonValue &attr : attributes) { //Need different logic for NVMe
+            QJsonObject attrObj = attr.toObject();
+            if (attrObj["id"] == 241) {
+                if (attrObj["name"] == "Total_Writes_GB") {
+                    totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+                } else if (attrObj["name"] == "Host_Writes_32MiB") {
+                    double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
+                    totalWrites = QString::number(static_cast<int>(gibibytes)) + " GB";
+                } else if (attrObj["name"] == "Total_LBAs_Written") {
+                    unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
+                    unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
+                    unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
+                    unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
+                    totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+                }
+            } else if (attrObj["id"] == 242) {
+                if (attrObj["name"] == "Total_Reads_GB") {
+                    totalReads = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+                } else if (attrObj["name"] == "Host_Reads_32MiB") {
+                    double gibibytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
+                    totalReads = QString::number(static_cast<int>(gibibytes)) + " GB";
+                } else if (attrObj["name"] == "Total_LBAs_Read") {
+                    unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
+                    unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
+                    unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
+                    unsigned long long totalGbWriten = (lbaRead * logicalBlockSize) / oneGB;
+                    totalReads = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+                }
+            } else if (attrObj["id"] == 246) { // MX500
+                if (attrObj["name"] == "Total_LBAs_Written") {
+                    unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
+                    unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
+                    unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
+                    unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
+                    totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+                }
             }
         }
     }
