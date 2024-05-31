@@ -302,9 +302,13 @@ void MainWindow::addNvmeLogTable(const QJsonObject &nvmeLog)
     int row = 0;
     for (auto smartItem = nvmeLog.constBegin(); smartItem != nvmeLog.constEnd(); ++smartItem) {
         QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
+
         QString name = smartItem.key().replace("_", " ");
+        name = toTitleCase(name);
+
         QString raw = QString::number(smartItem.value().toInt());
         raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
+
 
         QColor statusColor;
         statusColor = Qt::green; // For now leave it all green
@@ -435,4 +439,28 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     process.start(command, commandArgs);
     process.waitForFinished();
     return process.readAllStandardOutput();
+}
+
+
+QString MainWindow::toTitleCase(const QString& sentence) {
+    QString result;
+    bool capitalizeNext = true;
+
+    for (const QChar& c : sentence) {
+        if (c.isLetter()) {
+            if (capitalizeNext) {
+                result += c.toUpper();
+                capitalizeNext = false;
+            } else {
+                result += c.toLower();
+            }
+        } else {
+            result += c;
+            if (c == ' ') {
+                capitalizeNext = true;
+            }
+        }
+    }
+
+    return result;
 }
