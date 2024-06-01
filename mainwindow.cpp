@@ -208,8 +208,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
                     unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                    unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
-                    totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+                    unsigned long long totalGbWritten = (lbaWritten * logicalBlockSize) / oneGB;
+                    totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
                 }
             } else if (attrObj["id"] == 242) {
                 if (attrObj["name"] == "Total_Reads_GB") {
@@ -221,17 +221,31 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
                     unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                    unsigned long long totalGbWriten = (lbaRead * logicalBlockSize) / oneGB;
-                    totalReads = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+                    unsigned long long totalGbRead = (lbaRead * logicalBlockSize) / oneGB;
+                    totalReads = QString::number(static_cast<int>(totalGbRead)) + " GB";
                 }
             } else if (attrObj["id"] == 246) { // MX500
                 if (attrObj["name"] == "Total_LBAs_Written") {
                     unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
                     unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                    unsigned long long totalGbWriten = (lbaWritten * logicalBlockSize) / oneGB;
-                    totalWrites = QString::number(static_cast<int>(totalGbWriten)) + " GB";
+                    unsigned long long totalGbWritten = (lbaWritten * logicalBlockSize) / oneGB;
+                    totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
                 }
+            }
+        }
+    } else {
+        for (auto smartItem = nvmeLog.begin(); smartItem != nvmeLog.end(); ++smartItem) {
+            QString key = smartItem.key();
+            QJsonValue value = smartItem.value();
+            if (key == "data_units_written") {
+                double dataUnitsWritten = value.toDouble();
+                double totalGbWritten = (dataUnitsWritten * 512) / 1'000'000;
+                totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
+            } else if (key == "data_units_read") {
+                double dataUnitsRead = value.toDouble();
+                double totalGbRead = (dataUnitsRead * 512) / 1'000'000;
+                totalReads = QString::number(static_cast<int>(totalGbRead)) + " GB";
             }
         }
     }
