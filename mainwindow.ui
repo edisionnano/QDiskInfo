@@ -41,7 +41,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="QIcon::ThemeIcon::GoPrevious"/>
+           <iconset theme="go-previous"/>
           </property>
          </widget>
         </item>
@@ -84,7 +84,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="QIcon::ThemeIcon::GoNext"/>
+           <iconset theme="go-next"/>
           </property>
          </widget>
         </item>
