@@ -13,6 +13,7 @@
 
 #include "statusdot.h"
 #include "custombutton.h"
+#include "jsonparser.h"
 #include "./ui_mainwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -39,8 +40,8 @@ private:
     QTableWidget *tableWidget;
 
     void scanDevices();
-    void populateWindow(const QJsonObject &tempObj, const QString &health);
-    void addNvmeLogTable(const QJsonObject &nvmeLog);
+    void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
+    void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);
     QString getSmartctlOutput(const QStringList &arguments, bool root);
     QString toTitleCase(const QString& sentence);

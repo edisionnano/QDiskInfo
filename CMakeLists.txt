@@ -40,6 +40,7 @@ else()
             ${PROJECT_SOURCES}
             custombutton.h custombutton.cpp
             statusdot.h statusdot.cpp
+            jsonparser.h jsonparser.cpp
 
         )
     endif()

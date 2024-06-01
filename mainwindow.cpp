@@ -57,7 +57,10 @@ void MainWindow::scanDevices()
     QJsonArray devices = jsonObj["devices"].toArray();
     QJsonObject globalObj;
     QString globalHealth;
+    QVector<QPair<QString, int>> globalNvmeSmartOrdered;
     bool firstTime = true;
+    bool globalIsNvme = false;
+
 
     for (const QJsonValue &value : devices) {
         QJsonObject device = value.toObject();
@@ -87,6 +90,7 @@ void MainWindow::scanDevices()
             temperature = QString::number(temperatureInt) + " °C";
         }
 
+        QVector<QPair<QString, int>> nvmeSmartOrdered;
         if (!isNvme) {
             for (const QJsonValue &attr : attributes) {
                 QJsonObject attrObj = attr.toObject();
@@ -95,6 +99,9 @@ void MainWindow::scanDevices()
                     break;
                 }
             }
+        } else {
+            JsonParser parser;
+            nvmeSmartOrdered = parser.parse(allOutput);
         }
 
         if (healthPassed && !caution) {
@@ -117,7 +124,11 @@ void MainWindow::scanDevices()
         button->setAutoExclusive(true);
 
         connect(button, &QPushButton::clicked, this, [=]() {
-            populateWindow(localObj, health);
+            if (isNvme) {
+                populateWindow(localObj, health, nvmeSmartOrdered);
+            } else {
+                populateWindow(localObj, health);
+            }
         });
 
         if (firstTime) {
@@ -125,13 +136,22 @@ void MainWindow::scanDevices()
             globalHealth = health;
             button->setChecked(true);
             firstTime = false;
+            globalIsNvme = isNvme;
+            if (isNvme) {
+                globalNvmeSmartOrdered = nvmeSmartOrdered;
+            }
         }
     }
     horizontalLayout->addStretch();
-    populateWindow(globalObj, globalHealth);
+
+    if (globalIsNvme) {
+        populateWindow(globalObj, globalHealth, globalNvmeSmartOrdered);
+    } else {
+        populateWindow(globalObj, globalHealth);
+    }
 }
 
-void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health)
+void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
     QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
     QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
@@ -290,17 +310,17 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
     } else {
-        addNvmeLogTable(nvmeLog);
+        addNvmeLogTable(nvmeLogOrdered);
     }
 }
 
-void MainWindow::addNvmeLogTable(const QJsonObject &nvmeLog)
+void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
     tableWidget->setColumnCount(4);
     tableWidget->setHorizontalHeaderLabels({"", "ID", "Attribute Name", "Raw Values"});
     tableWidget->verticalHeader()->setVisible(false);
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
-    tableWidget->setRowCount(nvmeLog.size());
+    tableWidget->setRowCount(nvmeLogOrdered.size());
 
     for (int i = 0; i < tableWidget->columnCount(); ++i) {
         QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
@@ -314,15 +334,15 @@ void MainWindow::addNvmeLogTable(const QJsonObject &nvmeLog)
     }
 
     int row = 0;
-    for (auto smartItem = nvmeLog.constBegin(); smartItem != nvmeLog.constEnd(); ++smartItem) {
-        QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
+    for (const QPair<QString, int> &pair : nvmeLogOrdered) {
+        QString id = QString("%1").arg(row + 1, 2, 16, QChar('0')).toUpper();
 
-        QString name = smartItem.key().replace("_", " ");
+        QString key = pair.first;
+        QString name = key.replace("_", " ");
         name = toTitleCase(name);
 
-        QString raw = QString::number(smartItem.value().toInt());
+        QString raw = QString::number(pair.second);
         raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
-
 
         QColor statusColor;
         statusColor = Qt::green; // For now leave it all green
