@@ -27,8 +27,17 @@ MainWindow::MainWindow(QWidget *parent)
     powerOnCountLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("powerOnCountLineEdit"));
     powerOnHoursLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("powerOnHoursLineEdit"));
 
-    tableWidget = qobject_cast<QTableWidget *>(ui->centralwidget->findChild<QTableWidget*>("dataTable"));;
+    tableWidget = qobject_cast<QTableWidget *>(ui->centralwidget->findChild<QTableWidget*>("dataTable"));
     serialNumberLineEdit->setEchoMode(QLineEdit::Password);
+
+    nextButton = ui->centralwidget->findChild<QPushButton*>("nextButton");
+    prevButton = ui->centralwidget->findChild<QPushButton*>("previousButton");
+
+    connect(nextButton, &QPushButton::clicked, this, &MainWindow::onNextButtonClicked);
+    connect(prevButton, &QPushButton::clicked, this, &MainWindow::onPrevButtonClicked);
+
+    nextButton->setFocusPolicy(Qt::NoFocus);
+    prevButton->setFocusPolicy(Qt::NoFocus);
 
     QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
     connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
@@ -42,11 +51,35 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     scanDevices();
+
+    this->setFocus();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onNextButtonClicked()
+{
+    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    int nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
+    buttonGroup->buttons().at(nextIndex)->click();
+    updateNavigationButtons(nextIndex);
+}
+
+void MainWindow::onPrevButtonClicked()
+{
+    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    int prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
+    buttonGroup->buttons().at(prevIndex)->click();
+    updateNavigationButtons(prevIndex);
+}
+
+void MainWindow::updateNavigationButtons(int currentIndex)
+{
+    prevButton->setVisible(currentIndex > 0);
+    nextButton->setVisible(currentIndex < buttonGroup->buttons().size() - 1);
 }
 
 void MainWindow::scanDevices()
@@ -60,7 +93,6 @@ void MainWindow::scanDevices()
     QVector<QPair<QString, int>> globalNvmeSmartOrdered;
     bool firstTime = true;
     bool globalIsNvme = false;
-
 
     for (const QJsonValue &value : devices) {
         QJsonObject device = value.toObject();
@@ -155,6 +187,7 @@ void MainWindow::scanDevices()
             } else {
                 populateWindow(localObj, health);
             }
+            updateNavigationButtons(buttonGroup->buttons().indexOf(button));
         });
 
         if (firstTime) {
@@ -175,6 +208,8 @@ void MainWindow::scanDevices()
     } else {
         populateWindow(globalObj, globalHealth);
     }
+
+    updateNavigationButtons(buttonGroup->buttons().indexOf(buttonGroup->checkedButton()));
 }
 
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)

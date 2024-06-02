@@ -38,7 +38,11 @@ private:
     QLineEdit *firmwareLineEdit, *serialNumberLineEdit, *typeLineEdit, *protocolLineEdit, *deviceNodeLineEdit;
     QLineEdit *totalReadsLineEdit, *totalWritesLineEdit, *rotationRateLineEdit, *powerOnCountLineEdit, *powerOnHoursLineEdit;
     QTableWidget *tableWidget;
+    QPushButton *prevButton, *nextButton;
 
+    void onNextButtonClicked();
+    void onPrevButtonClicked();
+    void updateNavigationButtons(int currentIndex);
     void scanDevices();
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
