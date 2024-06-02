@@ -25,13 +25,14 @@ void CustomButton::paintEvent(QPaintEvent *event) {
 
     for (int i = 0; i < 3; ++i) {
         QFont font = painter.font();
-        int fontSize = 1;
+        int fontSize = 20;
+        font.setPointSize(fontSize);
         painter.setFont(font);
 
         QFontMetrics fm(font);
         QRect textRect = fm.boundingRect(rect, Qt::AlignLeft, lines[i]);
 
-        while (textRect.width() > rect.width() || textRect.height() > lineHeight) {
+        while ((textRect.width() > rect.width() || textRect.height() > lineHeight) && fontSize > 1) {
             fontSize--;
             font.setPointSize(fontSize);
             painter.setFont(font);
@@ -39,7 +40,7 @@ void CustomButton::paintEvent(QPaintEvent *event) {
             textRect = fm.boundingRect(rect, Qt::AlignLeft, lines[i]);
         }
 
-        int yOffset = lineHeight * i + (lineHeight - textRect.height()) / 3;
+        int yOffset = lineHeight * i + (lineHeight - textRect.height()) / 2;
         painter.drawText(QRect(rect.left(), yOffset, rect.width(), textRect.height()), Qt::AlignLeft, lines[i]);
     }
 }
