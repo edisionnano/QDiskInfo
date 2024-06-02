@@ -231,7 +231,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long totalGbWritten = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
                 } else if (attrObj["name"] == "Host_Writes_GiB") { // WD uses GiB
-                    double gibibytes = (attrObj["raw"].toObject()["value"].toDouble()
+                    double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
                     double bytesPerGiB = static_cast<double>(1ULL << 30);
                     double bytesPerGB = 1e9;
                     double conversionFactor = bytesPerGiB / bytesPerGB;
@@ -251,7 +251,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long totalGbRead = (lbaRead * logicalBlockSize) / oneGB;
                     totalReads = QString::number(static_cast<int>(totalGbRead)) + " GB";
                 } else if (attrObj["name"] == "Host_Reads_GiB") {
-                    double gibibytes = (attrObj["raw"].toObject()["value"].toDouble()
+                    double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
                     double bytesPerGiB = static_cast<double>(1ULL << 30);
                     double bytesPerGB = 1e9;
                     double conversionFactor = bytesPerGiB / bytesPerGB;
