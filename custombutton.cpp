@@ -58,7 +58,7 @@ void CustomButton::setText2(const QString &newText2) {
     if (text2 != newText2) {
         text2 = newText2;
         adjustWidthToFitText();
-        update();  // Repaint the button
+        update();
     }
 }
 

@@ -310,6 +310,14 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     }
 
+    if (totalReads == "0 GB") {
+        totalReads = "----";
+    }
+
+    if (totalWrites == "0 GB") {
+        totalWrites = "----";
+    }
+
     totalReadsLineEdit->setText(totalReads);
     totalReadsLineEdit->setAlignment(Qt::AlignRight);
 
