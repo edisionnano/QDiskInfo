@@ -4,7 +4,26 @@
 CustomButton::CustomButton(const QString &text1, const QString &text2, const QString &text3, const QColor &lineColor, QWidget *parent)
     : QPushButton(parent), text1(text1), text2(text2), text3(text3), lineColor(lineColor) {
     setMinimumHeight(60);
-    setMinimumWidth(100);
+    adjustWidthToFitText();
+}
+
+void CustomButton::adjustWidthToFitText() {
+    QFont font = this->font();
+    QFontMetrics fm(font);
+
+    int maxWidth = 0;
+    QString lines[] = {text1, text2, text3};
+
+    for (const QString &line : lines) {
+        int lineWidth = fm.horizontalAdvance(line);
+        if (lineWidth > maxWidth) {
+            maxWidth = lineWidth;
+        }
+    }
+
+    int desiredWidth = maxWidth + 30;
+    setMinimumWidth(desiredWidth);
+    setMaximumWidth(desiredWidth);
 }
 
 void CustomButton::paintEvent(QPaintEvent *event) {
@@ -19,28 +38,34 @@ void CustomButton::paintEvent(QPaintEvent *event) {
 
     QRect rect(20, 0, width() - 25, height());
     painter.setPen(textColor);
+    painter.drawText(rect, Qt::AlignVCenter | Qt::AlignLeft, text1 + "\n" + text2 + "\n" + text3);
+}
 
-    QString lines[] = {text1, text2, text3};
-    int lineHeight = height() / 3;
+void CustomButton::resizeEvent(QResizeEvent *event) {
+    QPushButton::resizeEvent(event);
+    adjustWidthToFitText();
+}
 
-    for (int i = 0; i < 3; ++i) {
-        QFont font = painter.font();
-        int fontSize = 20;
-        font.setPointSize(fontSize);
-        painter.setFont(font);
+void CustomButton::setText1(const QString &newText1) {
+    if (text1 != newText1) {
+        text1 = newText1;
+        adjustWidthToFitText();
+        update();
+    }
+}
 
-        QFontMetrics fm(font);
-        QRect textRect = fm.boundingRect(rect, Qt::AlignLeft, lines[i]);
+void CustomButton::setText2(const QString &newText2) {
+    if (text2 != newText2) {
+        text2 = newText2;
+        adjustWidthToFitText();
+        update();  // Repaint the button
+    }
+}
 
-        while ((textRect.width() > rect.width() || textRect.height() > lineHeight) && fontSize > 1) {
-            fontSize--;
-            font.setPointSize(fontSize);
-            painter.setFont(font);
-            fm = QFontMetrics(font);
-            textRect = fm.boundingRect(rect, Qt::AlignLeft, lines[i]);
-        }
-
-        int yOffset = lineHeight * i + (lineHeight - textRect.height()) / 2;
-        painter.drawText(QRect(rect.left(), yOffset, rect.width(), textRect.height()), Qt::AlignLeft, lines[i]);
+void CustomButton::setText3(const QString &newText3) {
+    if (text3 != newText3) {
+        text3 = newText3;
+        adjustWidthToFitText();
+        update();
     }
 }

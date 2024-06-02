@@ -12,6 +12,12 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
+    void setText1(const QString &newText1);
+    void setText2(const QString &newText2);
+    void setText3(const QString &newText3);
+    void adjustWidthToFitText();
+
 
 private:
     QString text1;
