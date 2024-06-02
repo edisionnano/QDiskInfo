@@ -381,11 +381,32 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
         QString name = key.replace("_", " ");
         name = toTitleCase(name);
 
-        QString raw = QString::number(pair.second);
+        int rawInt = pair.second;
+        QString raw = QString::number(rawInt);
         raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
 
         QColor statusColor;
-        statusColor = Qt::green; // For now leave it all green
+
+        if (id == "01" && rawInt) {
+            statusColor = Qt::red;
+        } else if (id == "03") {
+            int availableSpareThreshold = nvmeLogOrdered.at(3).second;
+            if (availableSpareThreshold > 100) { // Thx to crystaldiskinfo for these workarounds
+                statusColor = Qt::green;
+            } else if (rawInt == 0 && availableSpareThreshold == 0) {
+                statusColor = Qt::green;
+            } else if (rawInt < availableSpareThreshold) {
+                statusColor = Qt::red;
+            } else if (availableSpareThreshold != 100 && (rawInt == availableSpareThreshold)) {
+                statusColor = Qt::yellow;
+            } else {
+                statusColor = Qt::green;
+            }
+        } else if (id == "05" && rawInt >= 90) { // Make this configurable, currently hardcoded to 10%
+            statusColor = Qt::yellow;
+        } else {
+            statusColor = Qt::green;
+        }
 
         QTableWidgetItem *statusItem = new QTableWidgetItem();
         statusItem->setBackground(Qt::transparent);
