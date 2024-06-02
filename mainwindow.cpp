@@ -223,6 +223,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString userCapacityString = QString::number(static_cast<int>(userCapacityGB)) + "." + QString::number(static_cast<int>((userCapacityGB - static_cast<int>(userCapacityGB)) * 10)) + " GB";
     QString totalReads = "----";
     QString totalWrites = "----";
+    QString percentage = "";
     QString serialNumber = localObj["serial_number"].toString();
     QJsonObject deviceObj = localObj["device"].toObject();
     QString protocol = deviceObj["protocol"].toString();
@@ -341,6 +342,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 double dataUnitsRead = value.toDouble();
                 double totalGbRead = (dataUnitsRead * 512) / 1'000'000;
                 totalReads = QString::number(static_cast<int>(totalGbRead)) + " GB";
+            } else if (key == "percentage_used") {
+                int percentageUsed = 100 - value.toInt();
+                percentage = QString::number(percentageUsed) + " %";
             }
         }
     }
@@ -387,7 +391,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::green).name() + ";");
     }
 
-    healthStatusValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + health + "</span></p></body></html>");
+    QString percentageText = "";
+    if (!percentage.isEmpty()) {
+        percentageText = "<br/>" + percentage;
+    }
+    healthStatusValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + health + percentageText + "</span></p></body></html>");
     healthStatusValue->setAlignment(Qt::AlignCenter);
 
     if (protocol != "NVMe") {
