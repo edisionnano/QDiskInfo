@@ -76,6 +76,7 @@ void MainWindow::scanDevices()
         QString temperature = "N/A";
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
+        bool bad = false;
         QString health;
         QColor healthColor;
 
@@ -94,9 +95,11 @@ void MainWindow::scanDevices()
         if (!isNvme) {
             for (const QJsonValue &attr : attributes) {
                 QJsonObject attrObj = attr.toObject();
-                if (!isNvme && (attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && (attrObj["raw"].toObject()["value"].toInt() != 0)) {
+                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && attrObj["raw"].toObject()["value"].toInt() != 0) {
                     caution = true;
-                    break;
+                }
+                if ((attrObj["thresh"].toInt() != 0) && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
+                    bad = true;
                 }
             }
         } else {
@@ -104,10 +107,10 @@ void MainWindow::scanDevices()
             nvmeSmartOrdered = parser.parse(allOutput);
         }
 
-        if (healthPassed && !caution) {
+        if (healthPassed && !caution && !bad) {
             health = "Good";
             healthColor = Qt::green;
-        } else if (healthPassed && caution) {
+        } else if (healthPassed && caution && !bad) {
             health = "Caution";
             healthColor = Qt::yellow;
         } else {
