@@ -95,16 +95,39 @@ void MainWindow::scanDevices()
         if (!isNvme) {
             for (const QJsonValue &attr : attributes) {
                 QJsonObject attrObj = attr.toObject();
-                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && attrObj["raw"].toObject()["value"].toInt() != 0) {
+                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && attrObj["raw"].toObject()["value"].toInt()) {
                     caution = true;
                 }
-                if ((attrObj["thresh"].toInt() != 0) && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
+                if (attrObj["thresh"].toInt() && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
                     bad = true;
                 }
             }
         } else {
             JsonParser parser;
             nvmeSmartOrdered = parser.parse(allOutput);
+            int row = 1;
+            for (const QPair<QString, int> &pair : qAsConst(nvmeSmartOrdered)) {
+                QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
+                int raw = pair.second;
+                if (id == "01" && raw) {
+                    bad = true;
+                } else if (id == "03") {
+                    int availableSpareThreshold = nvmeSmartOrdered.at(3).second;
+                    if (availableSpareThreshold > 100) { // Thx to crystaldiskinfo for these workarounds
+                        ;
+                    } else if (raw == 0 && availableSpareThreshold == 0) {
+                        ;
+                    } else if (raw < availableSpareThreshold) {
+                        bad = true;
+                    } else if (availableSpareThreshold != 100 && (raw == availableSpareThreshold)) {
+                        caution = true;
+                    }
+                } else if (id == "05" && raw >= 90) { // Make this configurable, currently hardcoded to 10%
+                    caution = true;
+                }
+
+                ++row;
+            }
         }
 
         if (healthPassed && !caution && !bad) {
@@ -351,7 +374,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     }
 
     int row = 0;
-    for (const QPair<QString, int> &pair : nvmeLogOrdered) {
+    for (const QPair<QString, int> &pair : qAsConst(nvmeLogOrdered)) {
         QString id = QString("%1").arg(row + 1, 2, 16, QChar('0')).toUpper();
 
         QString key = pair.first;
@@ -422,7 +445,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         raw = QString("%1").arg(raw.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
 
         QColor statusColor;
-        if ((thresh != 0) && (value < thresh)) {
+        if (thresh && (value < thresh)) {
             statusColor = Qt::red;
         } else if ((id == "05" || id == "C5" || id == "C6") && (raw != "000000000000")) {
             statusColor = Qt::yellow;
