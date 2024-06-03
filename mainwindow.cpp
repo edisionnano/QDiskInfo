@@ -216,6 +216,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 {
     QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
     QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
+    QString modelFamily = localObj["model_family"].toString();
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
     float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
@@ -292,7 +293,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                     unsigned long long totalGbWritten = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
-                } else if (attrObj["name"] == "Host_Writes_GiB") { // WD uses GiB
+                } else if (attrObj["name"] == "Host_Writes_GiB" || attrObj["name"] == "Lifetime_Writes_GiB") {
                     double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
                     double bytesPerGiB = static_cast<double>(1ULL << 30);
                     double bytesPerGB = 1e9;
@@ -312,7 +313,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                     unsigned long long totalGbRead = (lbaRead * logicalBlockSize) / oneGB;
                     totalReads = QString::number(static_cast<int>(totalGbRead)) + " GB";
-                } else if (attrObj["name"] == "Host_Reads_GiB") {
+                } else if (attrObj["name"] == "Host_Reads_GiB" || attrObj["name"] == "Lifetime_Reads_GiB") {
                     double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
                     double bytesPerGiB = static_cast<double>(1ULL << 30);
                     double bytesPerGB = 1e9;
