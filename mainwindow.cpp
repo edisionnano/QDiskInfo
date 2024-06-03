@@ -337,6 +337,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (attrObj["name"] == "Media_Wearout_Indicator") {
                 int percentageUsed = attrObj["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
+            } else if (attrObj["name"] == "Wear_Leveling_Count") {
+                int percentageUsed = attrObj["value"].toInt();
+                percentage = QString::number(percentageUsed) + " %";
             }
         }
     } else {
