@@ -334,6 +334,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long totalGbWritten = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
                 }
+            } else if (attrObj["name"] == "Media_Wearout_Indicator") {
+                int percentageUsed = attrObj["value"].toInt();
+                percentage = QString::number(percentageUsed) + " %";
             }
         }
     } else {
@@ -522,7 +525,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         }
 
         if (raw.startsWith("0x") && raw.length() == 14) {
-            raw = raw.mid(2);
+            raw = raw.mid(2).toUpper();
         } else {
             raw = QString("%1").arg(raw.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
         }
