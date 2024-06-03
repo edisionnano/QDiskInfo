@@ -281,7 +281,12 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (!isNvme) {
         for (const QJsonValue &attr : attributes) {
             QJsonObject attrObj = attr.toObject();
-            if (attrObj["id"] == 241) {
+            if (attrObj["id"] == 202) {
+                if (attrObj["name"] == "Percent_Lifetime_Remain") {
+                    int percentageUsed = 100 - attrObj["raw"].toObject()["value"].toInt();
+                    percentage = QString::number(percentageUsed) + " %";
+                }
+            } else if (attrObj["id"] == 241) {
                 if (attrObj["name"] == "Total_Writes_GB") {
                     totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
                 } else if (attrObj["name"] == "Host_Writes_32MiB") {
