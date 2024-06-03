@@ -520,7 +520,12 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         if (spaceIndex != -1) {
             raw = raw.left(spaceIndex);
         }
-        raw = QString("%1").arg(raw.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
+
+        if (raw.startsWith("0x") && raw.length() == 14) {
+            raw = raw.mid(2);
+        } else {
+            raw = QString("%1").arg(raw.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
+        }
 
         QColor statusColor;
         if (thresh && (value < thresh)) {
