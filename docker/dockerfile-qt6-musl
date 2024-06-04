@@ -1,0 +1,11 @@
+FROM alpine:3.20
+
+### Upgrade packages
+RUN apk -U upgrade
+
+### Build packages
+RUN apk add alpine-sdk cmake
+
+### Dev Libraries
+RUN apk add qt6-qtbase-dev          \
+            qt6-qtdeclarative-dev   \

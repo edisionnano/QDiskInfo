@@ -1,0 +1,10 @@
+FROM archlinux:latest
+
+### Upgrade packages
+RUN pacman --noconfirm -Syu
+
+### Build packages
+RUN pacman --noconfirm -S cmake base-devel
+
+### Dev Libraries
+RUN pacman --noconfirm -S qt5-base qt5-declarative

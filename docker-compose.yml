@@ -1,0 +1,48 @@
+services:
+  kdiskinfo-qt5-musl:
+    container_name: kdiskinfo-qt5-musl
+    image: kdiskinfo-qt5-musl
+    build:
+      context: ./docker
+      dockerfile: dockerfile-qt5-musl
+    working_dir: "/kdiskinfo"
+    command: sh ./docker/qt5-musl.sh
+    user: 1000:1000
+    volumes:
+      - ./:/kdiskinfo
+
+  kdiskinfo-qt6-musl:
+    container_name: kdiskinfo-qt6-musl
+    image: kdiskinfo-qt6-musl
+    build:
+      context: ./docker
+      dockerfile: dockerfile-qt6-musl
+    working_dir: "/kdiskinfo"
+    command: sh ./docker/qt6-musl.sh
+    user: 1000:1000
+    volumes:
+      - ./:/kdiskinfo
+
+  kdiskinfo-qt5-glibc:
+    container_name: kdiskinfo-qt5-glibc
+    image: kdiskinfo-qt5-glibc
+    build:
+      context: ./docker
+      dockerfile: dockerfile-qt5-glibc
+    working_dir: "/kdiskinfo"
+    command: sh ./docker/qt5-glibc.sh
+    user: 1000:1000
+    volumes:
+      - ./:/kdiskinfo
+
+  kdiskinfo-qt6-glibc:
+    container_name: kdiskinfo-qt6-glibc
+    image: kdiskinfo-qt6-glibc
+    build:
+      context: ./docker
+      dockerfile: dockerfile-qt6-glibc
+    working_dir: "/kdiskinfo"
+    command: sh ./docker/qt6-glibc.sh
+    user: 1000:1000
+    volumes:
+      - ./:/kdiskinfo
