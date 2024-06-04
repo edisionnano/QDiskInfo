@@ -339,9 +339,16 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (attrObj["name"] == "Media_Wearout_Indicator") {
                 int percentageUsed = attrObj["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
-            } else if (attrObj["name"] == "Wear_Leveling_Count") {
-                int percentageUsed = attrObj["value"].toInt();
-                percentage = QString::number(percentageUsed) + " %";
+            }
+        }
+        if (percentage.isEmpty() && rotationRate == "---- (SSD)") { // Workaround for some drives which have this and another attribute
+            for (const QJsonValue &attr : attributes) {
+                QJsonObject attrObj = attr.toObject();
+                if (attrObj["name"] == "Wear_Leveling_Count") {
+                    int percentageUsed = attrObj["value"].toInt();
+                    percentage = QString::number(percentageUsed) + " %";
+                    break;
+                }
             }
         }
     } else {
