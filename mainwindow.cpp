@@ -111,7 +111,7 @@ void MainWindow::scanDevices()
         QString modelName = localObj["model_name"].toString();
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
         QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
-        QString temperature = "N/A";
+        QString temperature = "-- °C";
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
         bool bad = false;
@@ -178,7 +178,7 @@ void MainWindow::scanDevices()
             health = "Bad";
             healthColor = badColor;
         } else {
-            health = "N/A";
+            health = "Unknown";
             healthColor = naColor;
         }
 
@@ -408,7 +408,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (temperatureInt > 0) {
         temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
     } else {
-        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>N/A</span></p></body></html>");
+        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + temperature + "</span></p></body></html>");
     }
 
     temperatureValue->setAlignment(Qt::AlignCenter);
