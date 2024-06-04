@@ -408,7 +408,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (temperatureInt > 0) {
         temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
     } else {
-        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + temperature + "</span></p></body></html>");
+        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + "-- °C" + "</span></p></body></html>");
     }
 
     temperatureValue->setAlignment(Qt::AlignCenter);
