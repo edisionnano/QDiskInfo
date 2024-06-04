@@ -334,7 +334,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
                 }
             } else if (attrObj["name"] == "Remaining_Lifetime_Perc") {
-                int percentageUsed = attrObj["value"].toInt();
+                int percentageUsed = attrObj["raw"].toObject()["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
             } else if (attrObj["name"] == "Media_Wearout_Indicator") {
                 int percentageUsed = attrObj["value"].toInt();
