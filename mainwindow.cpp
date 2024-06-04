@@ -39,6 +39,11 @@ MainWindow::MainWindow(QWidget *parent)
     nextButton->setFocusPolicy(Qt::NoFocus);
     prevButton->setFocusPolicy(Qt::NoFocus);
 
+    goodColor = QColor(Qt::green);
+    cautionColor = QColor(Qt::yellow);
+    badColor = QColor(Qt::red);
+    naColor = QColor(Qt::gray);
+
     QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
     connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
         if (serialNumberLineEdit->echoMode() == QLineEdit::Password) {
@@ -103,6 +108,7 @@ void MainWindow::scanDevices()
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
         QJsonObject localObj = localDoc.object();
 
+        QString modelName = localObj["model_name"].toString();
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
         QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
         QString temperature = "N/A";
@@ -164,13 +170,16 @@ void MainWindow::scanDevices()
 
         if (healthPassed && !caution && !bad) {
             health = "Good";
-            healthColor = Qt::green;
+            healthColor = goodColor;
         } else if (healthPassed && caution && !bad) {
             health = "Caution";
-            healthColor = Qt::yellow;
-        } else {
+            healthColor = cautionColor;
+        } else if ((bad || !healthPassed) && !modelName.isEmpty()){
             health = "Bad";
-            healthColor = Qt::red;
+            healthColor = badColor;
+        } else {
+            health = "N/A";
+            healthColor = naColor;
         }
 
         CustomButton *button = new CustomButton(health, deviceName, temperature, healthColor, this);
@@ -385,13 +394,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     totalWritesLineEdit->setAlignment(Qt::AlignRight);
 
     if (temperatureInt > 55) {
-        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::red).name() + ";");
+        temperatureValue->setStyleSheet("background-color: " + badColor.name() + ";");
     } else if ((temperatureInt < 55) && (temperatureInt > 50)){
-        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::yellow).name() + ";");
+        temperatureValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
     } else if (temperatureInt == 0) {
-        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::gray).name() + ";");
+        temperatureValue->setStyleSheet("background-color: " + naColor.name() + ";");
     } else {
-        temperatureValue->setStyleSheet("background-color: " + QColor(Qt::green).name() + ";");
+        temperatureValue->setStyleSheet("background-color: " + goodColor.name() + ";");
     }
 
     QString labelStyle = "font-size:12pt; font-weight:700; color:black";
@@ -405,11 +414,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     temperatureValue->setAlignment(Qt::AlignCenter);
 
     if (health == "Bad") {
-        healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::red).name() + ";");
+        healthStatusValue->setStyleSheet("background-color: " + badColor.name() + ";");
     } else if (health == "Caution"){
-        healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::yellow).name() + ";");
+        healthStatusValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
+    } else if (health == "Good") {
+        healthStatusValue->setStyleSheet("background-color: " + goodColor.name() + ";");
     } else {
-        healthStatusValue->setStyleSheet("background-color: " + QColor(Qt::green).name() + ";");
+        healthStatusValue->setStyleSheet("background-color: " + naColor.name() + ";");
     }
 
     QString percentageText = "";
@@ -460,28 +471,27 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
         QColor statusColor;
 
         if (id == "01" && rawInt) {
-            statusColor = Qt::red;
+            statusColor = badColor;
         } else if (id == "03") {
             int availableSpareThreshold = nvmeLogOrdered.at(3).second;
             if (availableSpareThreshold > 100) { // Thx to crystaldiskinfo for these workarounds
-                statusColor = Qt::green;
+                statusColor = goodColor;
             } else if (rawInt == 0 && availableSpareThreshold == 0) {
-                statusColor = Qt::green;
+                statusColor = goodColor;
             } else if (rawInt < availableSpareThreshold) {
-                statusColor = Qt::red;
+                statusColor = badColor;
             } else if (availableSpareThreshold != 100 && (rawInt == availableSpareThreshold)) {
-                statusColor = Qt::yellow;
+                statusColor = cautionColor;
             } else {
-                statusColor = Qt::green;
+                statusColor = goodColor;
             }
         } else if (id == "05" && rawInt >= 90) { // Make this configurable, currently hardcoded to 10%
-            statusColor = Qt::yellow;
+            statusColor = cautionColor;
         } else {
-            statusColor = Qt::green;
+            statusColor = goodColor;
         }
 
         QTableWidgetItem *statusItem = new QTableWidgetItem();
-        statusItem->setBackground(Qt::transparent);
         statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
 
         QTableWidgetItem *idItem = new QTableWidgetItem(id);
@@ -544,15 +554,14 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 
         QColor statusColor;
         if (thresh && (value < thresh)) {
-            statusColor = Qt::red;
+            statusColor = badColor;
         } else if ((id == "05" || id == "C5" || id == "C6") && (raw != "000000000000")) {
-            statusColor = Qt::yellow;
+            statusColor = cautionColor;
         } else {
-            statusColor = Qt::green;
+            statusColor = goodColor;
         }
 
         QTableWidgetItem *statusItem = new QTableWidgetItem();
-        statusItem->setBackground(Qt::transparent);
         statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
 
         QTableWidgetItem *idItem = new QTableWidgetItem(id);

@@ -39,6 +39,7 @@ private:
     QLineEdit *totalReadsLineEdit, *totalWritesLineEdit, *rotationRateLineEdit, *powerOnCountLineEdit, *powerOnHoursLineEdit;
     QTableWidget *tableWidget;
     QPushButton *prevButton, *nextButton;
+    QColor goodColor, cautionColor, badColor, naColor;
 
     void onNextButtonClicked();
     void onPrevButtonClicked();
