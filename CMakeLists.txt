@@ -21,8 +21,10 @@ set(PROJECT_SOURCES
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(KDiskInfo
-        MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        custombutton.h custombutton.cpp
+        statusdot.h statusdot.cpp
+        jsonparser.h jsonparser.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET KDiskInfo APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
