@@ -297,10 +297,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                     unsigned long long totalGbWritten = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWrites = QString::number(static_cast<int>(totalGbWritten)) + " GB";
-                    if (totalWrites == "0 GB") {
-                        double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
-                        totalWrites = QString::number(static_cast<int>(gigabytes)) + " GB";
-                    }
                 } else if (attrObj["name"] == "Host_Writes_GiB" || attrObj["name"] == "Lifetime_Writes_GiB") {
                     double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
                     double bytesPerGiB = static_cast<double>(1ULL << 30);
@@ -321,10 +317,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
                     unsigned long long totalGbRead = (lbaRead * logicalBlockSize) / oneGB;
                     totalReads = QString::number(static_cast<int>(totalGbRead)) + " GB";
-                    if (totalReads == "0 GB") {
-                        double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
-                        totalReads = QString::number(static_cast<int>(gigabytes)) + " GB";
-                    }
                 } else if (attrObj["name"] == "Host_Reads_GiB" || attrObj["name"] == "Lifetime_Reads_GiB") {
                     double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
                     double bytesPerGiB = static_cast<double>(1ULL << 30);
