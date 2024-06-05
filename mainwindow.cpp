@@ -83,8 +83,8 @@ void MainWindow::onPrevButtonClicked()
 
 void MainWindow::updateNavigationButtons(int currentIndex)
 {
-    prevButton->setVisible(currentIndex > 0);
-    nextButton->setVisible(currentIndex < buttonGroup->buttons().size() - 1);
+    prevButton->setEnabled(currentIndex > 0); // We can use setVisible if we want to mimic CrystalDiskInfo
+    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1);
 }
 
 void MainWindow::scanDevices()
@@ -667,3 +667,9 @@ QString MainWindow::toTitleCase(const QString& sentence) {
 
     return result;
 }
+
+void MainWindow::on_actionExit_triggered()
+{
+    qApp->quit();
+}
+
