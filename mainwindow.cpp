@@ -93,17 +93,47 @@ void MainWindow::scanDevices()
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
     QJsonArray devices = jsonObj["devices"].toArray();
+    QStringList commandList;
+
+    for (const QJsonValue &value : devices) {
+        QJsonObject device = value.toObject();
+        QString deviceName = device["name"].toString();
+        commandList.append(QString("smartctl --all --json %1").arg(deviceName));
+    }
+    QString command = commandList.join(" ; ");
+
+    QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true);
+
+    QStringList deviceOutputs;
+    int startIndex = 0;
+    int endIndex = 0;
+
+    while ((endIndex = allDevicesOutput.indexOf(QRegExp("\\}\\n\\{"), startIndex)) != -1) {
+        ++endIndex;
+        QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
+        deviceOutputs.append(jsonFragment);
+        startIndex = endIndex;
+    }
+
+    if (startIndex < allDevicesOutput.size()) {
+        QString jsonFragment = allDevicesOutput.mid(startIndex);
+        deviceOutputs.append(jsonFragment);
+    }
+
     QJsonObject globalObj;
     QString globalHealth;
     QVector<QPair<QString, int>> globalNvmeSmartOrdered;
     bool firstTime = true;
     bool globalIsNvme = false;
 
-    for (const QJsonValue &value : devices) {
-        QJsonObject device = value.toObject();
+    for (int i = 0; i < devices.size(); ++i) {
+        QJsonObject device = devices[i].toObject();
         QString deviceName = device["name"].toString();
 
-        QString allOutput = getSmartctlOutput({"smartctl", "--all", "--json", deviceName}, true);
+        QString allOutput;
+        if (i >= 0 && i < deviceOutputs.size()) {
+            allOutput = deviceOutputs[i];
+        }
 
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
         QJsonObject localObj = localDoc.object();
@@ -118,11 +148,8 @@ void MainWindow::scanDevices()
         QString health;
         QColor healthColor;
 
-        bool isNvme = false;
         QString protocol = localObj["device"].toObject()["protocol"].toString();
-        if (protocol == "NVMe") {
-            isNvme = true;
-        }
+        bool isNvme = (protocol == "NVMe");
 
         int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
@@ -239,10 +266,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
 
-    bool isNvme = false;
-    if (protocol == "NVMe") {
-        isNvme = true;
-    }
+    bool isNvme = (protocol == "NVMe");
 
     diskName->setText("<html><head/><body><p><span style='font-size:14pt; font-weight:bold;'>" + modelName + " " + userCapacityString + "</span></p></body></html>");
     firmwareLineEdit->setText(firmwareVersion);
