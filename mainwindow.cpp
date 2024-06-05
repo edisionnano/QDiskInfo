@@ -725,3 +725,13 @@ void MainWindow::on_actionRescan_Refresh_triggered()
     scanDevices();
 }
 
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QString message = "An ATA and NVMe S.M.A.R.T. data viewer for Linux\n\n";
+    message += "Licensed under the GNU G.P.L. Version 3\n\n";
+    message += "Made by Samantas5855";
+
+    QMessageBox::about(this, "About KDiskInfo", message);
+}
+

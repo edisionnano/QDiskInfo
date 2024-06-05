@@ -392,6 +392,9 @@
    </property>
   </action>
   <action name="actionGitHub">
+   <property name="icon">
+    <iconset theme="applications-internet"/>
+   </property>
    <property name="text">
     <string>&amp;GitHub</string>
    </property>
@@ -420,7 +423,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Decimal Raw Values</string>
+    <string>&amp;Decimal Raw Values</string>
    </property>
   </action>
   <action name="actionUse_Fahrenheit">
@@ -428,7 +431,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Use Fahrenheit</string>
+    <string>&amp;Use Fahrenheit</string>
    </property>
   </action>
  </widget>

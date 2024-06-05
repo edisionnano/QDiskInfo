@@ -41,6 +41,7 @@ else()
             custombutton.h custombutton.cpp
             statusdot.h statusdot.cpp
             jsonparser.h jsonparser.cpp
+            resources.qrc
 
         )
     endif()
