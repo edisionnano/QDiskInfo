@@ -136,22 +136,22 @@ void MainWindow::scanDevices()
         }
 
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
-        deviceJson = localDoc.object();
+        QJsonObject localObj = localDoc.object();
 
-        QString modelName = deviceJson["model_name"].toString();
-        QJsonArray attributes = deviceJson["ata_smart_attributes"].toObject()["table"].toArray();
-        QJsonObject nvmeLog = deviceJson["nvme_smart_health_information_log"].toObject();
+        QString modelName = localObj["model_name"].toString();
+        QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+        QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
         QString temperature = "-- °C";
-        bool healthPassed = deviceJson["smart_status"].toObject()["passed"].toBool();
+        bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
         bool bad = false;
         QString health;
         QColor healthColor;
 
-        QString protocol = deviceJson["device"].toObject()["protocol"].toString();
+        QString protocol = localObj["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
 
-        int temperatureInt = deviceJson["temperature"].toObject()["current"].toInt();
+        int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
             temperature = QString::number(temperatureInt) + " °C";
         }
@@ -219,15 +219,15 @@ void MainWindow::scanDevices()
 
         connect(button, &QPushButton::clicked, this, [=]() {
             if (isNvme) {
-                populateWindow(deviceJson, health, nvmeSmartOrdered);
+                populateWindow(localObj, health, nvmeSmartOrdered);
             } else {
-                populateWindow(deviceJson, health);
+                populateWindow(localObj, health);
             }
             updateNavigationButtons(buttonGroup->buttons().indexOf(button));
         });
 
         if (firstTime) {
-            globalObj = deviceJson;
+            globalObj = localObj;
             globalHealth = health;
             button->setChecked(true);
             firstTime = false;
@@ -267,6 +267,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString name = deviceObj["name"].toString();
 
     bool isNvme = (protocol == "NVMe");
+
+    deviceJson = localObj;
 
     diskName->setText("<html><head/><body><p><span style='font-size:14pt; font-weight:bold;'>" + modelName + " " + userCapacityString + "</span></p></body></html>");
     firmwareLineEdit->setText(firmwareVersion);
