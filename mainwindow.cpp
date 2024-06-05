@@ -136,22 +136,22 @@ void MainWindow::scanDevices()
         }
 
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
-        QJsonObject localObj = localDoc.object();
+        deviceJson = localDoc.object();
 
-        QString modelName = localObj["model_name"].toString();
-        QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-        QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
+        QString modelName = deviceJson["model_name"].toString();
+        QJsonArray attributes = deviceJson["ata_smart_attributes"].toObject()["table"].toArray();
+        QJsonObject nvmeLog = deviceJson["nvme_smart_health_information_log"].toObject();
         QString temperature = "-- °C";
-        bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
+        bool healthPassed = deviceJson["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
         bool bad = false;
         QString health;
         QColor healthColor;
 
-        QString protocol = localObj["device"].toObject()["protocol"].toString();
+        QString protocol = deviceJson["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
 
-        int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
+        int temperatureInt = deviceJson["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
             temperature = QString::number(temperatureInt) + " °C";
         }
@@ -219,15 +219,15 @@ void MainWindow::scanDevices()
 
         connect(button, &QPushButton::clicked, this, [=]() {
             if (isNvme) {
-                populateWindow(localObj, health, nvmeSmartOrdered);
+                populateWindow(deviceJson, health, nvmeSmartOrdered);
             } else {
-                populateWindow(localObj, health);
+                populateWindow(deviceJson, health);
             }
             updateNavigationButtons(buttonGroup->buttons().indexOf(button));
         });
 
         if (firstTime) {
-            globalObj = localObj;
+            globalObj = deviceJson;
             globalHealth = health;
             button->setChecked(true);
             firstTime = false;
@@ -671,5 +671,40 @@ QString MainWindow::toTitleCase(const QString& sentence) {
 void MainWindow::on_actionExit_triggered()
 {
     qApp->quit();
+}
+
+void MainWindow::on_actionSave_JSON_triggered()
+{
+    if (deviceJson.isEmpty()) {
+        QMessageBox::information(this, tr("Empty JSON"),
+                                 tr("The JSON is empty"));
+        return;
+    }
+
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                                    tr("Save JSON"), "",
+                                                    tr("JSON (*.json);;All Files (*)"));
+    if (fileName.isEmpty())
+        return;
+    else {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::information(this, tr("Unable to open file for writing"),
+                                     file.errorString());
+            return;
+        }
+
+        QJsonDocument doc(deviceJson);
+        QByteArray jsonData = doc.toJson();
+
+        file.write(jsonData);
+        file.close();
+    }
+}
+
+
+void MainWindow::on_actionGitHub_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/KDiskInfo"));
 }
 
