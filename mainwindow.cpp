@@ -535,7 +535,6 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     }
 }
 
-
 void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 {
     tableWidget->setColumnCount(7);
@@ -645,7 +644,6 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     process.waitForFinished();
     return process.readAllStandardOutput();
 }
-
 
 QString MainWindow::toTitleCase(const QString& sentence) {
     QString result;
