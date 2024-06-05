@@ -41,6 +41,8 @@ private slots:
 
     void on_actionGitHub_triggered();
 
+    void on_actionRescan_Refresh_triggered();
+
 private:
     Ui::MainWindow *ui;
     QButtonGroup *buttonGroup;
@@ -53,6 +55,7 @@ private:
     QColor goodColor, cautionColor, badColor, naColor;
 
     QJsonObject deviceJson;
+    QSpacerItem *buttonStretch;
 
     void onNextButtonClicked();
     void onPrevButtonClicked();

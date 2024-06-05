@@ -237,7 +237,9 @@ void MainWindow::scanDevices()
             }
         }
     }
-    horizontalLayout->addStretch();
+
+    buttonStretch = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    horizontalLayout->addSpacerItem(buttonStretch);
 
     if (globalIsNvme) {
         populateWindow(globalObj, globalHealth, globalNvmeSmartOrdered);
@@ -708,5 +710,18 @@ void MainWindow::on_actionSave_JSON_triggered()
 void MainWindow::on_actionGitHub_triggered()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/KDiskInfo"));
+}
+
+
+void MainWindow::on_actionRescan_Refresh_triggered()
+{
+    QList<QAbstractButton*> buttons = buttonGroup->buttons();
+    for (QAbstractButton* button : buttons) {
+        buttonGroup->removeButton(button);
+        delete button;
+    }
+    horizontalLayout->removeItem(buttonStretch);
+    delete buttonStretch;
+    scanDevices();
 }
 
