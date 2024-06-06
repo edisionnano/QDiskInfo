@@ -83,8 +83,8 @@ void MainWindow::onPrevButtonClicked()
 
 void MainWindow::updateNavigationButtons(int currentIndex)
 {
-    prevButton->setVisible(currentIndex > 0);
-    nextButton->setVisible(currentIndex < buttonGroup->buttons().size() - 1);
+    prevButton->setEnabled(currentIndex > 0); // We can use setVisible if we want to mimic CrystalDiskInfo
+    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1);
 }
 
 void MainWindow::scanDevices()
@@ -93,17 +93,47 @@ void MainWindow::scanDevices()
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
     QJsonArray devices = jsonObj["devices"].toArray();
+    QStringList commandList;
+
+    for (const QJsonValue &value : devices) {
+        QJsonObject device = value.toObject();
+        QString deviceName = device["name"].toString();
+        commandList.append(QString("smartctl --all --json %1").arg(deviceName));
+    }
+    QString command = commandList.join(" ; ");
+
+    QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true);
+
+    QStringList deviceOutputs;
+    int startIndex = 0;
+    int endIndex = 0;
+
+    while ((endIndex = allDevicesOutput.indexOf(QRegExp("\\}\\n\\{"), startIndex)) != -1) {
+        ++endIndex;
+        QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
+        deviceOutputs.append(jsonFragment);
+        startIndex = endIndex;
+    }
+
+    if (startIndex < allDevicesOutput.size()) {
+        QString jsonFragment = allDevicesOutput.mid(startIndex);
+        deviceOutputs.append(jsonFragment);
+    }
+
     QJsonObject globalObj;
     QString globalHealth;
     QVector<QPair<QString, int>> globalNvmeSmartOrdered;
     bool firstTime = true;
     bool globalIsNvme = false;
 
-    for (const QJsonValue &value : devices) {
-        QJsonObject device = value.toObject();
+    for (int i = 0; i < devices.size(); ++i) {
+        QJsonObject device = devices[i].toObject();
         QString deviceName = device["name"].toString();
 
-        QString allOutput = getSmartctlOutput({"smartctl", "--all", "--json", deviceName}, true);
+        QString allOutput;
+        if (i >= 0 && i < deviceOutputs.size()) {
+            allOutput = deviceOutputs[i];
+        }
 
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
         QJsonObject localObj = localDoc.object();
@@ -118,11 +148,8 @@ void MainWindow::scanDevices()
         QString health;
         QColor healthColor;
 
-        bool isNvme = false;
         QString protocol = localObj["device"].toObject()["protocol"].toString();
-        if (protocol == "NVMe") {
-            isNvme = true;
-        }
+        bool isNvme = (protocol == "NVMe");
 
         int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
@@ -210,7 +237,9 @@ void MainWindow::scanDevices()
             }
         }
     }
-    horizontalLayout->addStretch();
+
+    buttonStretch = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    horizontalLayout->addSpacerItem(buttonStretch);
 
     if (globalIsNvme) {
         populateWindow(globalObj, globalHealth, globalNvmeSmartOrdered);
@@ -239,10 +268,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
 
-    bool isNvme = false;
-    if (protocol == "NVMe") {
-        isNvme = true;
-    }
+    bool isNvme = (protocol == "NVMe");
+
+    deviceJson = localObj;
 
     diskName->setText("<html><head/><body><p><span style='font-size:14pt; font-weight:bold;'>" + modelName + " " + userCapacityString + "</span></p></body></html>");
     firmwareLineEdit->setText(firmwareVersion);
@@ -511,7 +539,6 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     }
 }
 
-
 void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 {
     tableWidget->setColumnCount(7);
@@ -622,7 +649,6 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     return process.readAllStandardOutput();
 }
 
-
 QString MainWindow::toTitleCase(const QString& sentence) {
     QString result;
     bool capitalizeNext = true;
@@ -645,3 +671,67 @@ QString MainWindow::toTitleCase(const QString& sentence) {
 
     return result;
 }
+
+void MainWindow::on_actionExit_triggered()
+{
+    qApp->quit();
+}
+
+void MainWindow::on_actionSave_JSON_triggered()
+{
+    if (deviceJson.isEmpty()) {
+        QMessageBox::information(this, tr("Empty JSON"),
+                                 tr("The JSON is empty"));
+        return;
+    }
+
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                                    tr("Save JSON"), "",
+                                                    tr("JSON (*.json);;All Files (*)"));
+    if (fileName.isEmpty())
+        return;
+    else {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::information(this, tr("Unable to open file for writing"),
+                                     file.errorString());
+            return;
+        }
+
+        QJsonDocument doc(deviceJson);
+        QByteArray jsonData = doc.toJson();
+
+        file.write(jsonData);
+        file.close();
+    }
+}
+
+
+void MainWindow::on_actionGitHub_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/KDiskInfo"));
+}
+
+
+void MainWindow::on_actionRescan_Refresh_triggered()
+{
+    QList<QAbstractButton*> buttons = buttonGroup->buttons();
+    for (QAbstractButton* button : buttons) {
+        buttonGroup->removeButton(button);
+        delete button;
+    }
+    horizontalLayout->removeItem(buttonStretch);
+    delete buttonStretch;
+    scanDevices();
+}
+
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QString message = "An ATA and NVMe S.M.A.R.T. data viewer for Linux\n\n";
+    message += "Licensed under the GNU G.P.L. Version 3\n\n";
+    message += "Made by Samantas5855";
+
+    QMessageBox::about(this, "About KDiskInfo", message);
+}
+

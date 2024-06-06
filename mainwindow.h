@@ -9,6 +9,10 @@
 #include <QJsonArray>
 #include <QButtonGroup>
 #include <QAction>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 #include <cmath>
 
 #include "statusdot.h"
@@ -30,6 +34,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_actionExit_triggered();
+
+    void on_actionSave_JSON_triggered();
+
+    void on_actionGitHub_triggered();
+
+    void on_actionRescan_Refresh_triggered();
+
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
     QButtonGroup *buttonGroup;
@@ -40,6 +55,9 @@ private:
     QTableWidget *tableWidget;
     QPushButton *prevButton, *nextButton;
     QColor goodColor, cautionColor, badColor, naColor;
+
+    QJsonObject deviceJson;
+    QSpacerItem *buttonStretch;
 
     void onNextButtonClicked();
     void onPrevButtonClicked();
