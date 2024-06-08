@@ -630,11 +630,24 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
+bool commandExists(const QString &command) {
+    QStringList paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
+    for (const QString &path : paths) {
+        QString absolutePath = QDir(path).absoluteFilePath(command);
+        if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
 {
     QProcess process;
     QString command;
     QStringList commandArgs;
+
     if (root) {
         command = "pkexec";
         commandArgs = QStringList();
@@ -643,9 +656,20 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
         commandArgs = QStringList();
     }
 
-    commandArgs.append(arguments);
-    process.start(command, commandArgs);
-    process.waitForFinished();
+    if (!commandExists("smartctl")) {
+        QMessageBox::critical(nullptr, tr("KDiskInfo Error"), tr("smartctl was not found, please install it!"));
+        QTimer::singleShot(0, qApp, &QApplication::quit);
+    } else {
+        commandArgs.append(arguments);
+        process.start(command, commandArgs);
+        process.waitForFinished(-1);
+    }
+
+    if (process.exitCode() == 127) {
+        QMessageBox::critical(nullptr, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
+        QTimer::singleShot(0, qApp, &QApplication::quit);
+    }
+
     return process.readAllStandardOutput();
 }
 

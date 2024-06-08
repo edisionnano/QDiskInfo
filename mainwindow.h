@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QTimer>
 #include <cmath>
 
 #include "statusdot.h"
