@@ -171,7 +171,7 @@ void MainWindow::scanDevices()
             JsonParser parser;
             nvmeSmartOrdered = parser.parse(allOutput);
             int row = 1;
-            for (const QPair<QString, int> &pair : qAsConst(nvmeSmartOrdered)) {
+            for (const QPair<QString, int> &pair : std::as_const(nvmeSmartOrdered)) {
                 QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
                 int raw = pair.second;
                 if (id == "01" && raw) {
@@ -485,7 +485,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     }
 
     int row = 0;
-    for (const QPair<QString, int> &pair : qAsConst(nvmeLogOrdered)) {
+    for (const QPair<QString, int> &pair : std::as_const(nvmeLogOrdered)) {
         QString id = QString("%1").arg(row + 1, 2, 16, QChar('0')).toUpper();
 
         QString key = pair.first;
