@@ -467,6 +467,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
 void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
+    QString warningMessage = "";
+
     tableWidget->setColumnCount(4);
     tableWidget->setHorizontalHeaderLabels({"", "ID", "Attribute Name", "Raw Values"});
     tableWidget->verticalHeader()->setVisible(false);
@@ -500,6 +502,19 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 
         if (id == "01" && rawInt) {
             statusColor = badColor;
+            if (rawInt == 1) { // Still need to figure out if this is DEC or HEX in JSON
+                warningMessage = tr("Available spare capacity has fallen below the threshold"); // THX to CrystalDiskInfo for the messages
+            } else if (rawInt == 2) {
+                warningMessage = tr("Temperature error (Overheat or Overcool)");
+            } else if (rawInt == 4) {
+                warningMessage = tr("NVM subsystem reliability has been degraded");
+            } else if (rawInt == 8) {
+                warningMessage = tr("Media has been placed in Read Only Mode");
+            } else if (rawInt == 10) {
+                warningMessage = tr("Volatile memory backup device has Failed");
+            } else if (rawInt == 20) {
+                warningMessage = tr("Persistent memory region has become Read-Only");
+            }
         } else if (id == "03") {
             int availableSpareThreshold = nvmeLogOrdered.at(3).second;
             if (availableSpareThreshold > 100) { // Thx to crystaldiskinfo for these workarounds
@@ -536,6 +551,10 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
         tableWidget->setItem(row, 3, rawItem);
 
         ++row;
+    }
+
+    if(!warningMessage.isEmpty()) {
+        QMessageBox::warning(nullptr, tr("Critical Warning"), warningMessage);
     }
 }
 
@@ -657,7 +676,7 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     }
 
     if (!commandExists("smartctl")) {
-        QMessageBox::critical(nullptr, tr("KDiskInfo Error"), tr("smartctl was not found, please install it!"));
+        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("smartctl was not found, please install it!"));
         QTimer::singleShot(0, qApp, &QApplication::quit);
     } else {
         commandArgs.append(arguments);
@@ -666,7 +685,7 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     }
 
     if (process.exitCode() == 127) {
-        QMessageBox::critical(nullptr, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
+        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
         QTimer::singleShot(0, qApp, &QApplication::quit);
     }
 
