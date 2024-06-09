@@ -14,6 +14,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QTimer>
+#include <QSettings>
 #include <cmath>
 
 #include "statusdot.h"
@@ -46,6 +47,12 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled);
+
+    void on_actionHEX_toggled(bool enabled);
+
+    void on_actionUse_Fahrenheit_toggled(bool enabled);
+
 private:
     Ui::MainWindow *ui;
     QButtonGroup *buttonGroup;
@@ -56,9 +63,9 @@ private:
     QTableWidget *tableWidget;
     QPushButton *prevButton, *nextButton;
     QColor goodColor, cautionColor, badColor, naColor;
-
     QJsonObject deviceJson;
     QSpacerItem *buttonStretch;
+    QSettings settings;
 
     void onNextButtonClicked();
     void onPrevButtonClicked();

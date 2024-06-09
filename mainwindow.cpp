@@ -3,6 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , settings("KDiskInfo", "KDiskInfo")
 {
     ui->setupUi(this);
 
@@ -43,6 +44,10 @@ MainWindow::MainWindow(QWidget *parent)
     cautionColor = QColor(Qt::yellow);
     badColor = QColor(Qt::red);
     naColor = QColor(Qt::gray);
+
+    ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("actionIgnore_C4_Reallocation_Event_Count", true).toBool());
+    ui->actionHEX->setChecked(settings.value("actionHEX", true).toBool());
+    ui->actionUse_Fahrenheit->setChecked(settings.value("actionUse_Fahrenheit", false).toBool());
 
     QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
     connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
@@ -776,5 +781,22 @@ void MainWindow::on_actionAbout_triggered()
     message += "Made by Samantas5855";
 
     QMessageBox::about(this, "About KDiskInfo", message);
+}
+
+void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)
+{
+    settings.setValue("actionIgnore_C4_Reallocation_Event_Count", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
+}
+
+
+void MainWindow::on_actionHEX_toggled(bool enabled)
+{
+    settings.setValue("actionHEX", ui->actionHEX->isChecked());
+}
+
+
+void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
+{
+    settings.setValue("actionUse_Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
 }
 

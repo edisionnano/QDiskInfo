@@ -343,7 +343,7 @@
     <addaction name="actionRescan_Refresh"/>
     <addaction name="separator"/>
     <addaction name="actionIgnore_C4_Reallocation_Event_Count"/>
-    <addaction name="actionDon"/>
+    <addaction name="actionHEX"/>
     <addaction name="actionUse_Fahrenheit"/>
    </widget>
    <widget class="QMenu" name="menuFunction">
@@ -418,12 +418,12 @@
     <string>&amp;Ignore C4 (Reallocated Event Count)</string>
    </property>
   </action>
-  <action name="actionDon">
+  <action name="actionHEX">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Decimal Raw Values</string>
+    <string>&amp;Convert Raw values to HEX</string>
    </property>
   </action>
   <action name="actionUse_Fahrenheit">
