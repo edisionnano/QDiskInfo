@@ -113,7 +113,9 @@ void MainWindow::scanDevices()
     int startIndex = 0;
     int endIndex = 0;
 
-    while ((endIndex = allDevicesOutput.indexOf(QRegularExpression("\\}\\n\\{"), startIndex)) != -1) {
+    static const QRegularExpression re("\\}\\n\\{");
+
+    while ((endIndex = allDevicesOutput.indexOf(re, startIndex)) != -1) {
         ++endIndex;
         QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
         deviceOutputs.append(jsonFragment);
