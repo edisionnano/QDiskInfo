@@ -814,6 +814,10 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)
 {
     settings.setValue("actionIgnore_C4_Reallocation_Event_Count", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
+    if (!initializing) {
+        clearButtonGroup();
+        updateUI();
+    }
 }
 
 
