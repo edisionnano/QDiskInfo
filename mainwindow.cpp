@@ -158,15 +158,21 @@ void MainWindow::scanDevices()
 
         int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
-            temperature = QString::number(temperatureInt) + " °C";
+            if (ui->actionUse_Fahrenheit->isChecked()) {
+                int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
+                temperature = QString::number(fahrenheit) + " °F";
+            } else {
+                temperature = QString::number(temperatureInt) + " °C";
+            }
         }
 
         QVector<QPair<QString, int>> nvmeSmartOrdered;
         if (!isNvme) {
             for (const QJsonValue &attr : attributes) {
                 QJsonObject attrObj = attr.toObject();
-                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198) && attrObj["raw"].toObject()["value"].toInt()) {
+                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198 || (attrObj["id"] == 196 && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && attrObj["raw"].toObject()["value"].toDouble()) {
                     caution = true;
+                    qDebug() << "here";
                 }
                 if (attrObj["thresh"].toInt() && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
                     bad = true;
@@ -439,7 +445,12 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString labelStyle = "font-size:12pt; font-weight:700; color:black";
 
     if (temperatureInt > 0) {
-        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
+        if (ui->actionUse_Fahrenheit->isChecked()) {
+            int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
+            temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(fahrenheit) + " °F</span></p></body></html>");
+        } else {
+            temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
+        }
     } else {
         temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + "-- °C" + "</span></p></body></html>");
     }
@@ -606,7 +617,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         QColor statusColor;
         if (thresh && (value < thresh)) {
             statusColor = badColor;
-        } else if ((id == "05" || id == "C5" || id == "C6") && (raw != "000000000000")) {
+        } else if ((id == "05" || id == "C5" || id == "C6" || (id == "C4" && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && (raw != "000000000000")) {
             statusColor = cautionColor;
         } else {
             statusColor = goodColor;
