@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , settings("KDiskInfo", "KDiskInfo")
+    , settings("kdiskinfo", "kdiskinfo")
     , initializing(true)
 {
     ui->setupUi(this);
