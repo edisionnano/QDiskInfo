@@ -4,6 +4,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , settings("KDiskInfo", "KDiskInfo")
+    , initializing(true)
 {
     ui->setupUi(this);
 
@@ -61,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     scanDevices();
-
     this->setFocus();
+    initializing = false;
 }
 
 MainWindow::~MainWindow()
@@ -97,10 +98,10 @@ void MainWindow::scanDevices()
     QString output = getSmartctlOutput({"--scan", "--json"}, false);
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
-    QJsonArray devices = jsonObj["devices"].toArray();
+    devices = jsonObj["devices"].toArray();
     QStringList commandList;
 
-    for (const QJsonValue &value : devices) {
+    for (const QJsonValue &value : qAsConst(devices)) {
         QJsonObject device = value.toObject();
         QString deviceName = device["name"].toString();
         commandList.append(QString("smartctl --all --json %1").arg(deviceName));
@@ -109,7 +110,6 @@ void MainWindow::scanDevices()
 
     QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true);
 
-    QStringList deviceOutputs;
     int startIndex = 0;
     int endIndex = 0;
 
@@ -127,11 +127,13 @@ void MainWindow::scanDevices()
         deviceOutputs.append(jsonFragment);
     }
 
-    QJsonObject globalObj;
-    QString globalHealth;
-    QVector<QPair<QString, int>> globalNvmeSmartOrdered;
+    updateUI();
+}
+
+void MainWindow::updateUI()
+{
     bool firstTime = true;
-    bool globalIsNvme = false;
+    globalIsNvme = false;
 
     for (int i = 0; i < devices.size(); ++i) {
         QJsonObject device = devices[i].toObject();
@@ -741,6 +743,17 @@ QString MainWindow::toTitleCase(const QString& sentence) {
     return result;
 }
 
+void MainWindow::clearButtonGroup()
+{
+    QList<QAbstractButton*> buttons = buttonGroup->buttons();
+    for (QAbstractButton* button : buttons) {
+        buttonGroup->removeButton(button);
+        delete button;
+    }
+    horizontalLayout->removeItem(buttonStretch);
+    delete buttonStretch;
+}
+
 void MainWindow::on_actionExit_triggered()
 {
     qApp->quit();
@@ -784,13 +797,7 @@ void MainWindow::on_actionGitHub_triggered()
 
 void MainWindow::on_actionRescan_Refresh_triggered()
 {
-    QList<QAbstractButton*> buttons = buttonGroup->buttons();
-    for (QAbstractButton* button : buttons) {
-        buttonGroup->removeButton(button);
-        delete button;
-    }
-    horizontalLayout->removeItem(buttonStretch);
-    delete buttonStretch;
+    clearButtonGroup();
     scanDevices();
 }
 
@@ -813,11 +820,19 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
 void MainWindow::on_actionHEX_toggled(bool enabled)
 {
     settings.setValue("actionHEX", ui->actionHEX->isChecked());
+    if (!initializing) {
+        clearButtonGroup();
+        updateUI();
+    }
 }
 
 
 void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
     settings.setValue("actionUse_Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
+    if (!initializing) {
+        clearButtonGroup();
+        updateUI();
+    }
 }
 

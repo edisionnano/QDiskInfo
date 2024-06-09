@@ -31,6 +31,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    bool initializing;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -67,14 +68,23 @@ private:
     QSpacerItem *buttonStretch;
     QSettings settings;
 
+    QJsonArray devices;
+    QStringList deviceOutputs;
+    QJsonObject globalObj;
+    QString globalHealth;
+    bool globalIsNvme;
+    QVector<QPair<QString, int>> globalNvmeSmartOrdered;
+
     void onNextButtonClicked();
     void onPrevButtonClicked();
     void updateNavigationButtons(int currentIndex);
     void scanDevices();
+    void updateUI();
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);
     QString getSmartctlOutput(const QStringList &arguments, bool root);
     QString toTitleCase(const QString& sentence);
+    void clearButtonGroup();
 };
 #endif
