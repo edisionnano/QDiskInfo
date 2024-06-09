@@ -512,7 +512,9 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 
         int rawInt = pair.second;
         QString raw = QString::number(rawInt);
-        raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
+        if ((ui->actionHEX->isChecked())) {
+            raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
+        }
 
         QColor statusColor;
 
@@ -601,23 +603,24 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         int value = attrObj["value"].toInt();
         int worst = attrObj["worst"].toInt();
         int thresh = attrObj["thresh"].toInt();
-        QString raw = attrObj["raw"].toObject()["string"].toString();
+        QString rawString = attrObj["raw"].toObject()["string"].toString();
+        QString rawHEX = rawString;
 
-        int spaceIndex = raw.indexOf(' ');
+        int spaceIndex = rawHEX.indexOf(' ');
         if (spaceIndex != -1) {
-            raw = raw.left(spaceIndex);
+            rawHEX = rawHEX.left(spaceIndex);
         }
 
-        if (raw.startsWith("0x") && raw.length() == 14) {
-            raw = raw.mid(2).toUpper();
+        if (rawHEX.startsWith("0x") && rawHEX.length() == 14) {
+            rawHEX = rawHEX.mid(2).toUpper();
         } else {
-            raw = QString("%1").arg(raw.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
+            rawHEX = QString("%1").arg(rawHEX.toUInt(nullptr), 12, 16, QChar('0')).toUpper();
         }
 
         QColor statusColor;
         if (thresh && (value < thresh)) {
             statusColor = badColor;
-        } else if ((id == "05" || id == "C5" || id == "C6" || (id == "C4" && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && (raw != "000000000000")) {
+        } else if ((id == "05" || id == "C5" || id == "C6" || (id == "C4" && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && (rawHEX != "000000000000")) {
             statusColor = cautionColor;
         } else {
             statusColor = goodColor;
@@ -640,7 +643,12 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         QTableWidgetItem *threshItem = new QTableWidgetItem(QString::number(thresh));
         threshItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-        QTableWidgetItem *rawItem = new QTableWidgetItem(raw);
+        QTableWidgetItem *rawItem;
+        if (ui->actionHEX->isChecked()) {
+            rawItem = new QTableWidgetItem(rawHEX);
+        } else {
+            rawItem = new QTableWidgetItem(rawString);
+        }
         rawItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         tableWidget->setItem(row, 0, statusItem);
