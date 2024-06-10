@@ -461,11 +461,6 @@
     <string>&amp;Use Fahrenheit</string>
    </property>
   </action>
-  <action name="actionSelf_Test">
-   <property name="text">
-    <string>&amp;Self Test</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections/>
