@@ -26,70 +26,6 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <layout class="QHBoxLayout" name="disks">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout"/>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <layout class="QHBoxLayout" name="navigation">
-        <item>
-         <widget class="QPushButton" name="previousButton">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset theme="go-previous"/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="diskName">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="nextButton">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset theme="go-next"/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
       <item row="2" column="0">
        <layout class="QHBoxLayout" name="info">
         <item>
@@ -300,6 +236,70 @@
         </item>
        </layout>
       </item>
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="disks">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout"/>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="navigation">
+        <item>
+         <widget class="QPushButton" name="previousButton">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="go-previous"/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="diskName">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="nextButton">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="go-next"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item row="3" column="0">
        <widget class="QTableWidget" name="dataTable">
         <property name="autoFillBackground">
@@ -315,6 +315,33 @@
          <bool>true</bool>
         </property>
        </widget>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QToolButton" name="selfTestButton">
+          <property name="text">
+           <string>Start Self-test</string>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -432,6 +459,11 @@
    </property>
    <property name="text">
     <string>&amp;Use Fahrenheit</string>
+   </property>
+  </action>
+  <action name="actionSelf_Test">
+   <property name="text">
+    <string>&amp;Self Test</string>
    </property>
   </action>
  </widget>

@@ -67,6 +67,8 @@ private:
     QJsonObject deviceJson;
     QSpacerItem *buttonStretch;
     QSettings settings;
+    QToolButton *selfTestButton;
+    QMenu *toolMenu;
 
     QJsonArray devices;
     QStringList deviceOutputs;

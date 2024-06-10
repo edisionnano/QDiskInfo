@@ -41,6 +41,11 @@ MainWindow::MainWindow(QWidget *parent)
     nextButton->setFocusPolicy(Qt::NoFocus);
     prevButton->setFocusPolicy(Qt::NoFocus);
 
+    selfTestButton = ui->centralwidget->findChild<QToolButton*>("selfTestButton");
+    toolMenu = new QMenu(selfTestButton);
+    selfTestButton->setMenu(toolMenu);
+    toolMenu->setToolTipsVisible(true);
+
     goodColor = QColor(Qt::green);
     cautionColor = QColor(Qt::yellow);
     badColor = QColor(Qt::red);
@@ -268,6 +273,7 @@ void MainWindow::updateUI()
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
     QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+    QJsonObject pollingMinutes = localObj["ata_smart_data"].toObject()["self_test"].toObject()["polling_minutes"].toObject();
     QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
@@ -293,6 +299,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     typeLineEdit->setText(type);
     protocolLineEdit->setText(protocol);
     deviceNodeLineEdit->setText(name);
+
+    QStringList keys = pollingMinutes.keys();
+    std::sort(keys.begin(), keys.end(), [&pollingMinutes](const QString& key1, const QString& key2) {
+        return pollingMinutes[key1].toInt() < pollingMinutes[key2].toInt();
+    });
 
     int rotationRateInt = localObj["rotation_rate"].toInt(-1);
     QString rotationRate;
@@ -480,8 +491,21 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
+        selfTestButton->setEnabled(true);
+        toolMenu->clear();
+
+        int i = 0;
+        for (const QString& key : keys) {
+            QString minutes = QString::number(static_cast<int>(pollingMinutes[key].toInt()));
+            QString actionLabel = key + " (" + minutes + tr(" Min.)");
+            actionLabel[0] = actionLabel[0].toUpper();
+            QAction *action = new QAction(actionLabel, this);
+            toolMenu->addAction(action);
+            i++;
+        }
     } else {
         addNvmeLogTable(nvmeLogOrdered);
+        selfTestButton->setDisabled(true);
     }
 }
 
@@ -575,7 +599,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
         ++row;
     }
 
-    if(!warningMessage.isEmpty()) {
+    if (!warningMessage.isEmpty()) {
         QMessageBox::warning(nullptr, tr("Critical Warning"), warningMessage);
     }
 }
