@@ -41,9 +41,9 @@ MainWindow::MainWindow(QWidget *parent)
     nextButton->setFocusPolicy(Qt::NoFocus);
     prevButton->setFocusPolicy(Qt::NoFocus);
 
-    selfTestButton = ui->centralwidget->findChild<QToolButton*>("selfTestButton");
-    toolMenu = new QMenu(selfTestButton);
-    selfTestButton->setMenu(toolMenu);
+    menuDisk = ui->menuDisk;
+    toolMenu = new QMenu("Self Test", this);
+    menuDisk->addMenu(toolMenu);
     toolMenu->setToolTipsVisible(true);
 
     goodColor = QColor(Qt::green);
@@ -491,7 +491,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
-        selfTestButton->show();
+        toolMenu->setEnabled(true);
         toolMenu->clear();
 
         int i = 0;
@@ -501,11 +501,14 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             actionLabel[0] = actionLabel[0].toUpper();
             QAction *action = new QAction(actionLabel, this);
             toolMenu->addAction(action);
+            connect(action, &QAction::triggered, this, [this]() {
+                QMessageBox::warning(this, "Warning", "This is a warning message.");
+            });
             i++;
         }
     } else {
         addNvmeLogTable(nvmeLogOrdered);
-        selfTestButton->hide();
+        toolMenu->setDisabled(true);
     }
 }
 
