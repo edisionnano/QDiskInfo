@@ -746,6 +746,10 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
         }
     }
 
+    if (root && !initializing) {
+        clearButtonGroup();
+    }
+
     return process.readAllStandardOutput();
 }
 
@@ -826,7 +830,6 @@ void MainWindow::on_actionGitHub_triggered()
 
 void MainWindow::on_actionRescan_Refresh_triggered()
 {
-    clearButtonGroup();
     scanDevices();
 }
 

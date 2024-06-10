@@ -394,7 +394,7 @@
     <iconset theme="view-refresh"/>
    </property>
    <property name="text">
-    <string>&amp;Rescan and Refresh</string>
+    <string>Refresh Devices</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
