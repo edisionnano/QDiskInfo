@@ -491,7 +491,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
-        selfTestButton->setEnabled(true);
+        selfTestButton->show();
         toolMenu->clear();
 
         int i = 0;
@@ -505,7 +505,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     } else {
         addNvmeLogTable(nvmeLogOrdered);
-        selfTestButton->setDisabled(true);
+        selfTestButton->hide();
     }
 }
 
