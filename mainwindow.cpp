@@ -738,7 +738,9 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
 
     if (process.exitCode() == 127) {
         QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
-        QTimer::singleShot(0, qApp, &QApplication::quit);
+        if (initializing) {
+            QTimer::singleShot(0, qApp, &QApplication::quit);
+        }
     }
 
     return process.readAllStandardOutput();
