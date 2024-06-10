@@ -508,7 +508,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 mode = key;
             }
 
-            connect(action, &QAction::triggered, this, [this, mode, name]() {
+            connect(action, &QAction::triggered, this, [this, mode, name, minutes]() {
                 QString output = initiateSelfTest(mode, name);
                 if (output.isEmpty()) {
                     QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to request a self-test!"));
@@ -521,7 +521,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     if (exitStatus == 4) {
                         QMessageBox::warning(this, tr("Test Already Running"), tr("A self-test is already being performed"));
                     } else if (exitStatus == 0) {
-                        QMessageBox::information(this, tr("Test Requested"), tr("Self-test requested successfully"));
+                        QMessageBox::information(this, tr("Test Requested"), tr("A self-test has been requested successfully\nIt will be completed after ") + minutes + tr(" minutes"));
                     }
                 }
             });
