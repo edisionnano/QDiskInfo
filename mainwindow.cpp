@@ -181,7 +181,6 @@ void MainWindow::updateUI()
                 QJsonObject attrObj = attr.toObject();
                 if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198 || (attrObj["id"] == 196 && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && attrObj["raw"].toObject()["value"].toDouble()) {
                     caution = true;
-                    qDebug() << "here";
                 }
                 if (attrObj["thresh"].toInt() && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
                     bad = true;
@@ -501,8 +500,30 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             actionLabel[0] = actionLabel[0].toUpper();
             QAction *action = new QAction(actionLabel, this);
             toolMenu->addAction(action);
-            connect(action, &QAction::triggered, this, [this]() {
-                QMessageBox::warning(this, "Warning", "This is a warning message.");
+
+            QString mode;
+            if (key == "extended") {
+                mode = "long";
+            } else {
+                mode = key;
+            }
+
+            connect(action, &QAction::triggered, this, [this, mode, name]() {
+                QString output = initiateSelfTest(mode, name);
+                if (output.isEmpty()) {
+                    QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to request a self-test!"));
+                } else {
+                    QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
+                    QJsonObject testObj = testDoc.object();
+                    QJsonObject smartctlObj = testObj.value("smartctl").toObject();
+                    int exitStatus = smartctlObj.value("exit_status").toInt();
+
+                    if (exitStatus == 4) {
+                        QMessageBox::warning(this, tr("Test Already Running"), tr("A self-test is already being performed"));
+                    } else if (exitStatus == 0) {
+                        QMessageBox::information(this, tr("Test Requested"), tr("Self-test requested successfully"));
+                    }
+                }
             });
             i++;
         }
@@ -872,3 +893,18 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
     }
 }
 
+QString MainWindow::initiateSelfTest(const QString &testType, const QString &deviceNode)
+{
+    QProcess process;
+    QString command = "pkexec";
+    QStringList arguments;
+    arguments << "smartctl" << "--json" << "-t" << testType << deviceNode;
+
+    process.start(command, arguments);
+    process.waitForFinished(-1);
+
+    QString output = process.readAllStandardOutput();
+    QString errorOutput = process.readAllStandardError();
+
+    return output;
+}

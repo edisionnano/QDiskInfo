@@ -354,7 +354,7 @@
    </widget>
    <widget class="QMenu" name="menuDisk">
     <property name="title">
-     <string>Disk</string>
+     <string>De&amp;vice</string>
     </property>
     <addaction name="actionRescan_Refresh"/>
     <addaction name="separator"/>

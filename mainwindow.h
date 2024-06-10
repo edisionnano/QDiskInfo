@@ -89,5 +89,6 @@ private:
     QString getSmartctlOutput(const QStringList &arguments, bool root);
     QString toTitleCase(const QString& sentence);
     void clearButtonGroup();
+    QString initiateSelfTest(const QString &testType, const QString &deviceNode);
 };
 #endif
