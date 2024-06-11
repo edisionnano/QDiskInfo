@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
 project(KDiskInfo VERSION 0.1 LANGUAGES CXX)
 
@@ -9,7 +9,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
@@ -17,6 +16,13 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        custombutton.h
+        custombutton.cpp
+        statusdot.h
+        statusdot.cpp
+        jsonparser.h
+        jsonparser.cpp
+        resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,11 +44,6 @@ else()
     else()
         add_executable(KDiskInfo
             ${PROJECT_SOURCES}
-            custombutton.h custombutton.cpp
-            statusdot.h statusdot.cpp
-            jsonparser.h jsonparser.cpp
-            resources.qrc
-
         )
     endif()
 endif()
@@ -52,9 +53,7 @@ target_link_libraries(KDiskInfo PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.KDiskInfo)
-endif()
+
 set_target_properties(KDiskInfo PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -73,3 +72,5 @@ install(TARGETS KDiskInfo
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(KDiskInfo)
 endif()
+include(FeatureSummary)
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

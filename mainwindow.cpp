@@ -106,7 +106,7 @@ void MainWindow::scanDevices()
     devices = jsonObj["devices"].toArray();
     QStringList commandList;
 
-    for (const QJsonValue &value : qAsConst(devices)) {
+    for (const QJsonValue &value : std::as_const(devices)) {
         QJsonObject device = value.toObject();
         QString deviceName = device["name"].toString();
         commandList.append(QString("smartctl --all --json %1").arg(deviceName));
