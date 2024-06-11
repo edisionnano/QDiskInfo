@@ -98,20 +98,42 @@ void MainWindow::updateNavigationButtons(int currentIndex)
     nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1);
 }
 
+QString getSmartctlPath() {
+    QStringList paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
+
+    paths << "/usr/sbin" << "/usr/local/sbin";
+
+    for (const QString &path : paths) {
+        QString absolutePath = QDir(path).absoluteFilePath("smartctl");
+        if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
+            return absolutePath;
+            qDebug() << absolutePath;
+        }
+    }
+
+    return QString();
+}
+
 void MainWindow::scanDevices()
 {
     QString output = getSmartctlOutput({"--scan", "--json"}, false);
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
     devices = jsonObj["devices"].toArray();
+    QString smartctlPath = getSmartctlPath();
     QStringList commandList;
 
     for (const QJsonValue &value : std::as_const(devices)) {
         QJsonObject device = value.toObject();
         QString deviceName = device["name"].toString();
-        commandList.append(QString("smartctl --all --json %1").arg(deviceName));
+        commandList.append(QString(smartctlPath + " --all --json %1").arg(deviceName));
     }
     QString command = commandList.join(" ; ");
+
+    if (smartctlPath.isEmpty()) {
+        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("smartctl was not found, please install it!"));
+        QTimer::singleShot(0, qApp, &QApplication::quit);
+    }
 
     QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true);
 
@@ -725,38 +747,19 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-bool commandExists(const QString &command) {
-    QStringList paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
-    for (const QString &path : paths) {
-        QString absolutePath = QDir(path).absoluteFilePath(command);
-        if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
 {
     QProcess process;
     QString command;
-    QStringList commandArgs;
 
     if (root) {
         command = "pkexec";
-        commandArgs = QStringList();
     } else {
-        command = "smartctl";
-        commandArgs = QStringList();
+        command = getSmartctlPath();
     }
 
-    if (!commandExists("smartctl")) {
-        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("smartctl was not found, please install it!"));
-        QTimer::singleShot(0, qApp, &QApplication::quit);
-    } else {
-        commandArgs.append(arguments);
-        process.start(command, commandArgs);
+    if (!getSmartctlPath().isEmpty()) {
+        process.start(command, arguments);
         process.waitForFinished(-1);
     }
 
@@ -765,13 +768,18 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
         if (initializing) {
             QTimer::singleShot(0, qApp, &QApplication::quit);
         }
+        return QString();
     }
 
     if (root && !initializing) {
         clearButtonGroup();
     }
 
-    return process.readAllStandardOutput();
+    if (process.isOpen()) {
+        return process.readAllStandardOutput();
+    } else {
+        return QString();
+    }
 }
 
 QString MainWindow::toTitleCase(const QString& sentence) {
@@ -896,15 +904,16 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 QString MainWindow::initiateSelfTest(const QString &testType, const QString &deviceNode)
 {
     QProcess process;
-    QString command = "pkexec";
+    QString command = getSmartctlPath();
     QStringList arguments;
-    arguments << "smartctl" << "--json" << "-t" << testType << deviceNode;
+    arguments << command << "--json" << "-t" << testType << deviceNode;
 
-    process.start(command, arguments);
+    process.start("pkexec", arguments);
     process.waitForFinished(-1);
 
-    QString output = process.readAllStandardOutput();
-    QString errorOutput = process.readAllStandardError();
-
-    return output;
+    if (process.isOpen()) {
+        return process.readAllStandardOutput();
+    } else {
+        return QString();
+    }
 }
