@@ -28,11 +28,11 @@ jobs:
     - name: Install dependencies for glibc
       run: |
         sudo apt update
-        sudo apt install -y qt6-base-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6
+        sudo apt install -y qt6-base-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
       if: ${{ matrix.clib == 'glibc' }}
     - name: Install dependencies for musl
       run: |
-        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qtbase-x11 
+        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qtbase-x11 smartmontools
         git config --global --add safe.directory '*'
       if: ${{ matrix.clib == 'musl' }}
       
@@ -50,10 +50,12 @@ jobs:
          
         mkdir -p AppDir/usr/bin
         cp build/KDiskInfo AppDir/usr/bin/
+        cp /usr/sbin/smartctl AppDir/usr/bin/
         cp .github/scripts/KDiskInfo.desktop AppDir/
         cp icon.svg AppDir/KDiskInfo.svg
         
         APPIMAGE_EXTRACT_AND_RUN=1 NO_STRIP=1 QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./linuxdeploy-static-x86_64.AppImage --appdir=AppDir/ -d AppDir/KDiskInfo.desktop -i AppDir/KDiskInfo.svg -e AppDir/usr/bin/KDiskInfo --plugin qt
+        echo 'export PATH="$this_dir"/usr/bin:"$PATH"' >> AppDir/apprun-hooks/linuxdeploy-plugin-qt-hook.sh
         APPIMAGE_EXTRACT_AND_RUN=1 VERSION=${{ matrix.clib }} QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./appimagetool-static.AppImage AppDir/
 
     - name: Upload AppImage
