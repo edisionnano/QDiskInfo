@@ -334,7 +334,7 @@
      <string>File</string>
     </property>
     <addaction name="actionSave_JSON"/>
-    <addaction name="actionExit"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -371,19 +371,13 @@
    <property name="text">
     <string>&amp;Save JSON</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
   </action>
-  <action name="actionExit">
+  <action name="actionQuit">
    <property name="icon">
     <iconset theme="application-exit"/>
    </property>
    <property name="text">
-    <string>&amp;Exit</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+F4</string>
+    <string>&amp;Quit</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::QuitRole</enum>
@@ -394,10 +388,7 @@
     <iconset theme="view-refresh"/>
    </property>
    <property name="text">
-    <string>Refresh Devices</string>
-   </property>
-   <property name="shortcut">
-    <string>F5</string>
+    <string>&amp;Refresh Devices</string>
    </property>
   </action>
   <action name="actionGitHub">

@@ -43,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent)
     nextButton->setFocusPolicy(Qt::NoFocus);
     prevButton->setFocusPolicy(Qt::NoFocus);
 
+    ui->actionSave_JSON->setShortcut(QKeySequence::Save);
+    ui->actionQuit->setShortcut(QKeySequence::Quit);
+    ui->actionRescan_Refresh->setShortcut(QKeySequence::Refresh);
+
     menuDisk = ui->menuDisk;
     toolMenu = new QMenu("Self Test", this);
     menuDisk->addMenu(toolMenu);
@@ -867,7 +871,7 @@ void MainWindow::clearButtonGroup()
     delete buttonStretch;
 }
 
-void MainWindow::on_actionExit_triggered()
+void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
 }

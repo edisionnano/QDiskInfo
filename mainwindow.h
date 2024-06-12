@@ -39,7 +39,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionExit_triggered();
+    void on_actionQuit_triggered();
 
     void on_actionSave_JSON_triggered();
 
