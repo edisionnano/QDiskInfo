@@ -15,6 +15,7 @@
 #include <QUrl>
 #include <QTimer>
 #include <QSettings>
+#include <QMouseEvent>
 #include <cmath>
 
 #include "statusdot.h"
@@ -92,5 +93,6 @@ private:
     void clearButtonGroup();
     QString initiateSelfTest(const QString &testType, const QString &deviceNode);
     void cancelSelfTest(const QString &deviceNode);
+    void mousePressEvent(QMouseEvent*);
 };
 #endif

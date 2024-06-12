@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     nextButton = ui->centralwidget->findChild<QPushButton*>("nextButton");
     prevButton = ui->centralwidget->findChild<QPushButton*>("previousButton");
+    nextButton->setShortcut(QKeySequence::Forward);
+    prevButton->setShortcut(QKeySequence::Back);
 
     connect(nextButton, &QPushButton::clicked, this, &MainWindow::onNextButtonClicked);
     connect(prevButton, &QPushButton::clicked, this, &MainWindow::onPrevButtonClicked);
@@ -92,7 +94,7 @@ void MainWindow::onPrevButtonClicked()
     updateNavigationButtons(prevIndex);
 }
 
-void MainWindow::updateNavigationButtons(int currentIndex)
+void MainWindow::updateNavigationButtons(int currentIndex) // WIP: Add option to roll back instead of disabling them
 {
     prevButton->setEnabled(currentIndex > 0); // We can use setVisible if we want to mimic CrystalDiskInfo
     nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1);
@@ -983,5 +985,14 @@ void MainWindow::cancelSelfTest(const QString &deviceNode)
         QMessageBox::information(this, tr("Test Requested"), tr("The self-test has been aborted"));
     } else {
         QMessageBox::critical(this, tr("KDiskInfo Error"), tr("Error: Something went wrong"));
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::ForwardButton && nextButton->isEnabled()) {
+        onNextButtonClicked();
+    } else if (event->button() == Qt::BackButton && prevButton->isEnabled()) {
+        onPrevButtonClicked();
     }
 }
