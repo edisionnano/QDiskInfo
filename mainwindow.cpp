@@ -140,9 +140,9 @@ void MainWindow::scanDevices()
     int startIndex = 0;
     int endIndex = 0;
 
-    static const QRegularExpression re("\\}\\n\\{");
+    static const QRegularExpression regex("\\}\\n\\{");
 
-    while ((endIndex = allDevicesOutput.indexOf(re, startIndex)) != -1) {
+    while ((endIndex = allDevicesOutput.indexOf(regex, startIndex)) != -1) {
         ++endIndex;
         QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
         deviceOutputs.append(jsonFragment);
@@ -289,6 +289,43 @@ void MainWindow::updateUI()
     }
 
     updateNavigationButtons(buttonGroup->buttons().indexOf(buttonGroup->checkedButton()));
+}
+
+void MainWindow::selfTestHandler(const QString &mode, const QString &name, const QString &minutes) {
+    QString output = initiateSelfTest(mode, name);
+    if (output.isEmpty()) {
+        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to request a self-test!"));
+    } else {
+        QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
+        QJsonObject testObj = testDoc.object();
+        QJsonObject smartctlObj = testObj.value("smartctl").toObject();
+        int exitStatus = smartctlObj.value("exit_status").toInt();
+
+        QJsonArray outputArray = smartctlObj["output"].toArray();
+
+        static const QRegularExpression regex("\\((\\d+%)\\s*(\\w+)\\)");
+
+        QString percentage;
+        for (const QJsonValue &value : outputArray) {
+            QString line = value.toString();
+            QRegularExpressionMatch match = regex.match(line);
+            if (match.hasMatch()) {
+                percentage = match.captured(0);
+                break;
+            }
+        }
+
+
+        if (exitStatus == 4) {
+            QMessageBox::warning(this, tr("Test Already Running"), tr("A self-test is already being performed ") + percentage);
+        } else if (exitStatus == 0) {
+            QString infoMessage = tr("A self-test has been requested successfully");
+            if (minutes != "0") {
+                infoMessage = infoMessage + tr("\nIt will be completed after ") + minutes + tr(" minutes");
+            }
+            QMessageBox::information(this, tr("Test Requested"), infoMessage);
+        }
+    }
 }
 
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
@@ -512,7 +549,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
-        toolMenu->setEnabled(true);
         toolMenu->clear();
 
         int i = 0;
@@ -531,27 +567,26 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             }
 
             connect(action, &QAction::triggered, this, [this, mode, name, minutes]() {
-                QString output = initiateSelfTest(mode, name);
-                if (output.isEmpty()) {
-                    QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to request a self-test!"));
-                } else {
-                    QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
-                    QJsonObject testObj = testDoc.object();
-                    QJsonObject smartctlObj = testObj.value("smartctl").toObject();
-                    int exitStatus = smartctlObj.value("exit_status").toInt();
-
-                    if (exitStatus == 4) {
-                        QMessageBox::warning(this, tr("Test Already Running"), tr("A self-test is already being performed"));
-                    } else if (exitStatus == 0) {
-                        QMessageBox::information(this, tr("Test Requested"), tr("A self-test has been requested successfully\nIt will be completed after ") + minutes + tr(" minutes"));
-                    }
-                }
+                selfTestHandler(mode, name, minutes);
             });
+
             i++;
         }
     } else {
         addNvmeLogTable(nvmeLogOrdered);
-        toolMenu->setDisabled(true);
+        toolMenu->clear();
+
+        QAction *actionShort = new QAction("Short", this);
+        toolMenu->addAction(actionShort);
+        connect(actionShort, &QAction::triggered, this, [this, mode = "short", name, minutes = "0"]() {
+            selfTestHandler(mode, name, minutes);
+        });
+        QAction *actionLong = new QAction("Extended", this);
+        toolMenu->addAction(actionLong);
+        connect(actionLong , &QAction::triggered, this, [this, mode = "long", name, minutes = "0"]() {
+            selfTestHandler(mode, name, minutes);
+        });
+
     }
 }
 
@@ -906,7 +941,7 @@ QString MainWindow::initiateSelfTest(const QString &testType, const QString &dev
     QProcess process;
     QString command = getSmartctlPath();
     QStringList arguments;
-    arguments << command << "--json" << "-t" << testType << deviceNode;
+    arguments << command << "--json=o" << "-t" << testType << deviceNode;
 
     process.start("pkexec", arguments);
     process.waitForFinished(-1);

@@ -83,6 +83,7 @@ private:
     void updateNavigationButtons(int currentIndex);
     void scanDevices();
     void updateUI();
+    void selfTestHandler(const QString &mode, const QString &name, const QString &minutes);
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);
