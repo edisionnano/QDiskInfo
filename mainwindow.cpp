@@ -319,14 +319,15 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
         if (exitStatus == 4) {
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("Test Already Running"));
-            msgBox.setText(tr("A self-test is already being performed ") + percentage + tr("\nYou can press the Cancel button in order to abort the test that is currently running"));
+            msgBox.setText(tr("A self-test is already being performed ") + percentage + tr("\nYou can press the Ok button in order to abort the test that is currently running"));
             msgBox.setIcon(QMessageBox::Warning);
-            QPushButton *cancelButton = msgBox.addButton(tr("Cancel"), QMessageBox::ActionRole);
-            cancelButton->setIcon(qApp->style()->standardIcon(QStyle::SP_DialogCancelButton));
-            msgBox.addButton(QMessageBox::Ok);
+
+            msgBox.addButton(QMessageBox::Cancel);
+            QPushButton *abortButton = msgBox.addButton(QMessageBox::Ok);
+
             msgBox.exec();
 
-            if (msgBox.clickedButton() == cancelButton) {
+            if (msgBox.clickedButton() == abortButton) {
                 cancelSelfTest(name);
             }
         } else if (exitStatus == 0) {
@@ -976,7 +977,9 @@ void MainWindow::cancelSelfTest(const QString &deviceNode)
     process.start("pkexec", arguments);
     process.waitForFinished(-1);
 
-    if (process.exitCode() == QProcess::NormalExit) {
+    if (process.exitCode() == 127) {
+        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to abort a self-test!"));
+    } else if (process.exitCode() == QProcess::NormalExit) {
         QMessageBox::information(this, tr("Test Requested"), tr("The self-test has been aborted"));
     } else {
         QMessageBox::critical(this, tr("KDiskInfo Error"), tr("Error: Something went wrong"));
