@@ -113,7 +113,6 @@ QString getSmartctlPath() {
         QString absolutePath = QDir(path).absoluteFilePath("smartctl");
         if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
             return absolutePath;
-            qDebug() << absolutePath;
         }
     }
 
