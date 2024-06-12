@@ -699,6 +699,17 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
         ++row;
     }
 
+    tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    for (int i = 0; i < tableWidget->columnCount(); ++i) {
+        if (i != 2) {
+            tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
+        }
+    }
+
+    tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    tableWidget->verticalHeader()->setDefaultSectionSize(31);
+    tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     if (!warningMessage.isEmpty()) {
         QMessageBox::warning(nullptr, tr("Critical Warning"), warningMessage);
     }
@@ -797,7 +808,8 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         }
     }
 
-    tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    tableWidget->verticalHeader()->setDefaultSectionSize(31);
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
