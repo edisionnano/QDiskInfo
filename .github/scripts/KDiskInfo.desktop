@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=KDiskInfo
+Icon=KDiskInfo
+Exec=KDiskInfo
+Terminal=false
+Categories=System;Monitor;ConsoleOnly;
+Keywords=system;process;task
