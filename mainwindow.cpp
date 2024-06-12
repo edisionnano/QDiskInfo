@@ -299,10 +299,11 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
         QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
         QJsonObject testObj = testDoc.object();
         QJsonObject smartctlObj = testObj.value("smartctl").toObject();
+        QJsonObject deviceObj = testObj.value("device").toObject();
+        QString name = deviceObj.value("name").toString();
         int exitStatus = smartctlObj.value("exit_status").toInt();
 
         QJsonArray outputArray = smartctlObj["output"].toArray();
-
         static const QRegularExpression regex("\\((\\d+%)\\s*(\\w+)\\)");
 
         QString percentage;
@@ -315,15 +316,28 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
             }
         }
 
-
         if (exitStatus == 4) {
-            QMessageBox::warning(this, tr("Test Already Running"), tr("A self-test is already being performed ") + percentage);
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("Test Already Running"));
+            msgBox.setText(tr("A self-test is already being performed ") + percentage + tr("\nYou can press the Cancel button in order to abort the test that is currently running"));
+            msgBox.setIcon(QMessageBox::Warning);
+
+            QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+            msgBox.addButton(QMessageBox::Ok);
+
+            msgBox.exec();
+
+            if (msgBox.clickedButton() == cancelButton) {
+                cancelSelfTest(name);
+            }
         } else if (exitStatus == 0) {
             QString infoMessage = tr("A self-test has been requested successfully");
             if (minutes != "0") {
                 infoMessage = infoMessage + tr("\nIt will be completed after ") + minutes + tr(" minutes");
             }
             QMessageBox::information(this, tr("Test Requested"), infoMessage);
+        } else {
+            QMessageBox::critical(this, tr("KDiskInfo Error"), tr("Error: Something went wrong"));
         }
     }
 }
@@ -950,5 +964,22 @@ QString MainWindow::initiateSelfTest(const QString &testType, const QString &dev
         return process.readAllStandardOutput();
     } else {
         return QString();
+    }
+}
+
+void MainWindow::cancelSelfTest(const QString &deviceNode)
+{
+    QProcess process;
+    QString command = getSmartctlPath();
+    QStringList arguments;
+    arguments << command << "-X" << deviceNode;
+
+    process.start("pkexec", arguments);
+    process.waitForFinished(-1);
+
+    if (process.exitCode() == QProcess::NormalExit) {
+        QMessageBox::information(this, tr("Test Requested"), tr("The self-test has been aborted"));
+    } else {
+        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("Error: Something went wrong"));
     }
 }

@@ -91,5 +91,6 @@ private:
     QString toTitleCase(const QString& sentence);
     void clearButtonGroup();
     QString initiateSelfTest(const QString &testType, const QString &deviceNode);
+    void cancelSelfTest(const QString &deviceNode);
 };
 #endif
