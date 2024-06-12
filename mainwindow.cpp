@@ -321,10 +321,9 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
             msgBox.setWindowTitle(tr("Test Already Running"));
             msgBox.setText(tr("A self-test is already being performed ") + percentage + tr("\nYou can press the Cancel button in order to abort the test that is currently running"));
             msgBox.setIcon(QMessageBox::Warning);
-
-            QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+            QPushButton *cancelButton = msgBox.addButton(tr("Cancel"), QMessageBox::ActionRole);
+            cancelButton->setIcon(qApp->style()->standardIcon(QStyle::SP_DialogCancelButton));
             msgBox.addButton(QMessageBox::Ok);
-
             msgBox.exec();
 
             if (msgBox.clickedButton() == cancelButton) {
