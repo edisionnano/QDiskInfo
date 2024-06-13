@@ -56,6 +56,8 @@ private slots:
 
     void on_actionUse_Fahrenheit_toggled(bool enabled);
 
+    void on_actionCyclic_Navigation_toggled(bool arg1);
+
 private:
     Ui::MainWindow *ui;
     QButtonGroup *buttonGroup;
@@ -69,6 +71,7 @@ private:
     QJsonObject deviceJson;
     QSpacerItem *buttonStretch;
     QSettings settings;
+    QAction *actionCyclic_Navigation;
 
     QMenu *menuDevice;
     QMenu *menuDisk;

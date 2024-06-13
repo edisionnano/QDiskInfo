@@ -344,6 +344,7 @@
     <addaction name="actionIgnore_C4_Reallocation_Event_Count"/>
     <addaction name="actionHEX"/>
     <addaction name="actionUse_Fahrenheit"/>
+    <addaction name="actionCyclic_Navigation"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -444,6 +445,14 @@
   <action name="actionSelf_Test">
    <property name="text">
     <string>Self Test</string>
+   </property>
+  </action>
+  <action name="actionCyclic_Navigation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cyclic Navigation</string>
    </property>
   </action>
  </widget>

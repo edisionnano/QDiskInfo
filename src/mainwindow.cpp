@@ -62,9 +62,12 @@ MainWindow::MainWindow(QWidget *parent)
     badColor = QColor(Qt::red);
     naColor = QColor(Qt::gray);
 
-    ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("actionIgnore_C4_Reallocation_Event_Count", true).toBool());
-    ui->actionHEX->setChecked(settings.value("actionHEX", true).toBool());
-    ui->actionUse_Fahrenheit->setChecked(settings.value("actionUse_Fahrenheit", false).toBool());
+    actionCyclic_Navigation = ui->actionCyclic_Navigation;
+
+    ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("IgnoreC4", true).toBool());
+    ui->actionHEX->setChecked(settings.value("HEX", true).toBool());
+    ui->actionUse_Fahrenheit->setChecked(settings.value("Fahrenheit", false).toBool());
+    actionCyclic_Navigation->setChecked(settings.value("CyclicNavigation", false).toBool());
 
     QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
     connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
@@ -103,10 +106,10 @@ void MainWindow::onPrevButtonClicked()
     updateNavigationButtons(prevIndex);
 }
 
-void MainWindow::updateNavigationButtons(int currentIndex) // WIP: Add option to roll back instead of disabling them
+void MainWindow::updateNavigationButtons(int currentIndex)
 {
-    prevButton->setEnabled(currentIndex > 0); // We can use setVisible if we want to mimic CrystalDiskInfo
-    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1);
+    prevButton->setEnabled(currentIndex > 0||actionCyclic_Navigation->isChecked()); // We can use setVisible if we want to mimic CrystalDiskInfo
+    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1||actionCyclic_Navigation->isChecked());
 }
 
 QString getSmartctlPath() {
@@ -966,7 +969,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)
 {
-    settings.setValue("actionIgnore_C4_Reallocation_Event_Count", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
+    settings.setValue("IgnoreC4", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
     if (!initializing) {
         clearButtonGroup();
         updateUI();
@@ -976,7 +979,7 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
 
 void MainWindow::on_actionHEX_toggled(bool enabled)
 {
-    settings.setValue("actionHEX", ui->actionHEX->isChecked());
+    settings.setValue("HEX", ui->actionHEX->isChecked());
     if (!initializing) {
         clearButtonGroup();
         updateUI();
@@ -986,11 +989,18 @@ void MainWindow::on_actionHEX_toggled(bool enabled)
 
 void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
-    settings.setValue("actionUse_Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
+    settings.setValue("Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
     if (!initializing) {
         clearButtonGroup();
         updateUI();
     }
+}
+
+void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
+{
+    settings.setValue("CyclicNavigation", ui->actionCyclic_Navigation->isChecked());
+    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    updateNavigationButtons(currentIndex);
 }
 
 QString MainWindow::initiateSelfTest(const QString &testType, const QString &deviceNode)
