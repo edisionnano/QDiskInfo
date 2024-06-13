@@ -267,11 +267,12 @@ void MainWindow::updateUI()
         }
 
         CustomButton *button = new CustomButton(health, deviceName, temperature, healthColor, this);
+        button->setToolTip(tr("Disk ") + QString::number(i) + " : " +  modelName + " : " + userCapacityString);
 
         buttonGroup->addButton(button);
         horizontalLayout->addWidget(button);
 
-        QAction *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + userCapacityString + " GB", this);
+        QAction *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + userCapacityString, this);
         diskAction->setCheckable(true);
         menuDisk->addAction(diskAction);
         disksGroup->addAction(diskAction);
