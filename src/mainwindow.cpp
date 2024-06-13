@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    locale = QLocale::system();
+
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(true);
 
@@ -198,7 +200,8 @@ void MainWindow::updateUI()
         QColor healthColor;
 
         float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
-        QString userCapacityString = QString::number(static_cast<int>(userCapacityGB)) + "." + QString::number(static_cast<int>((userCapacityGB - static_cast<int>(userCapacityGB)) * 10)) + " GB";
+        QString gbSymbol = QLocale().formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+        QString userCapacityString = locale.toString(userCapacityGB, 'f', 1) + " " + gbSymbol;
 
         QString protocol = localObj["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
@@ -387,7 +390,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
     int totalWritesInt = 0;
     int totalReadsInt = 0;
-    QString userCapacityString = QString::number(static_cast<int>(userCapacityGB)) + "." + QString::number(static_cast<int>((userCapacityGB - static_cast<int>(userCapacityGB)) * 10)) + " GB";
+    QString gbSymbol = QLocale().formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+    QString userCapacityString = locale.toString(userCapacityGB, 'f', 1) + " " + gbSymbol;
     QString totalReads;
     QString totalWrites;
     QString percentage = "";
@@ -458,7 +462,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 }
             } else if (attrObj["id"] == 241) {
                 if (attrObj["name"] == "Total_Writes_GB") {
-                    totalWrites = QString::number(attrObj["raw"].toObject()["value"].toInt()) + " GB";
+                    int gigabytes = attrObj["raw"].toObject()["value"].toInt();
+                    totalWritesInt = gigabytes;
                 } else if (attrObj["name"] == "Host_Writes_32MiB") {
                     double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                     totalWritesInt = static_cast<int>(gigabytes);
@@ -479,7 +484,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (attrObj["id"] == 242) {
                 if (attrObj["name"] == "Total_Reads_GB") {
                     int gigabytes = attrObj["raw"].toObject()["value"].toInt();
-                    totalReadsInt = static_cast<int>(gigabytes);
+                    totalReadsInt = gigabytes;
                 } else if (attrObj["name"] == "Host_Reads_32MiB") {
                     double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                     totalReadsInt = static_cast<int>(gigabytes);
@@ -543,13 +548,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     }
 
     if (totalReadsInt) {
-        totalReads = QString::number(static_cast<int>(totalReadsInt)) + " GB";
+        totalReads = QString::number(static_cast<int>(totalReadsInt)) + " " + gbSymbol;
     } else {
         totalReads = "----";
     }
 
     if (totalWritesInt) {
-        totalWrites = QString::number(static_cast<int>(totalWritesInt)) + " GB";
+        totalWrites = QString::number(static_cast<int>(totalWritesInt)) + " " + gbSymbol;
     } else {
         totalWrites = "----";
     }

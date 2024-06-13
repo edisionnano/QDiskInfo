@@ -60,6 +60,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QLocale locale;
     QButtonGroup *buttonGroup;
     QHBoxLayout *horizontalLayout;
     QLabel *diskName, *temperatureValue, *healthStatusValue;
