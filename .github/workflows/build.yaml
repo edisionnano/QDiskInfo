@@ -28,11 +28,11 @@ jobs:
     - name: Install dependencies for glibc
       run: |
         sudo apt update
-        sudo apt install -y qt6-base-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
+        sudo apt install -y qt6-base-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
       if: ${{ matrix.clib == 'glibc' }}
     - name: Install dependencies for musl
       run: |
-        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qtbase-x11 smartmontools
+        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qtbase-x11 qt6-qtsvg breeze smartmontools
         git config --global --add safe.directory '*'
       if: ${{ matrix.clib == 'musl' }}
       
@@ -50,7 +50,7 @@ jobs:
          
         mkdir -p AppDir/usr/bin
         cp build/KDiskInfo AppDir/usr/bin/
-        cp /usr/sbin/smartctl AppDir/usr/bin/
+        cp .github/scripts/smartctl AppDir/usr/bin/
         cp .github/scripts/KDiskInfo.desktop AppDir/
         cp icon.svg AppDir/KDiskInfo.svg
         
