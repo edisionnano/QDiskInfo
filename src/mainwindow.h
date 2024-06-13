@@ -16,6 +16,7 @@
 #include <QTimer>
 #include <QSettings>
 #include <QMouseEvent>
+#include <QActionGroup>
 #include <cmath>
 
 #include "statusdot.h"
@@ -69,8 +70,10 @@ private:
     QSpacerItem *buttonStretch;
     QSettings settings;
 
+    QMenu *menuDevice;
     QMenu *menuDisk;
     QMenu *toolMenu;
+    QActionGroup *disksGroup;
 
     QJsonArray devices;
     QStringList deviceOutputs;

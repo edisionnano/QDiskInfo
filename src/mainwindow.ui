@@ -353,16 +353,22 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuDisk">
+   <widget class="QMenu" name="menuDevice">
     <property name="title">
      <string>De&amp;vice</string>
     </property>
     <addaction name="actionRescan_Refresh"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menuDisk">
+    <property name="title">
+     <string>Disk</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuDisk"/>
+   <addaction name="menuDevice"/>
    <addaction name="menuSettings"/>
+   <addaction name="menuDisk"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionSave_JSON">

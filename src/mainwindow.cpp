@@ -47,10 +47,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionQuit->setShortcut(QKeySequence::Quit);
     ui->actionRescan_Refresh->setShortcut(QKeySequence::Refresh);
 
+    menuDevice = ui->menuDevice;
     menuDisk = ui->menuDisk;
+
     toolMenu = new QMenu("Self Test", this);
-    menuDisk->addMenu(toolMenu);
+    menuDevice->addMenu(toolMenu);
     toolMenu->setToolTipsVisible(true);
+
+    disksGroup = new QActionGroup(this);
+    disksGroup->setExclusive(true);
 
     goodColor = QColor(Qt::green);
     cautionColor = QColor(Qt::yellow);
@@ -189,6 +194,9 @@ void MainWindow::updateUI()
         QString health;
         QColor healthColor;
 
+        float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+        QString userCapacityString = QString::number(static_cast<int>(userCapacityGB)) + "." + QString::number(static_cast<int>((userCapacityGB - static_cast<int>(userCapacityGB)) * 10)) + " GB";
+
         QString protocol = localObj["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
 
@@ -260,6 +268,11 @@ void MainWindow::updateUI()
         buttonGroup->addButton(button);
         horizontalLayout->addWidget(button);
 
+        QAction *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + userCapacityString + " GB", this);
+        diskAction->setCheckable(true);
+        menuDisk->addAction(diskAction);
+        disksGroup->addAction(diskAction);
+
         button->setCheckable(true);
         button->setAutoExclusive(true);
 
@@ -270,12 +283,14 @@ void MainWindow::updateUI()
                 populateWindow(localObj, health);
             }
             updateNavigationButtons(buttonGroup->buttons().indexOf(button));
+            disksGroup->actions()[buttonGroup->buttons().indexOf(button)]->setChecked(true);
         });
 
         if (firstTime) {
             globalObj = localObj;
             globalHealth = health;
             button->setChecked(true);
+            diskAction->setChecked(true);
             firstTime = false;
             globalIsNvme = isNvme;
             if (isNvme) {
@@ -880,6 +895,7 @@ void MainWindow::clearButtonGroup()
     }
     horizontalLayout->removeItem(buttonStretch);
     delete buttonStretch;
+    menuDisk->clear();
 }
 
 void MainWindow::on_actionQuit_triggered()
