@@ -3,7 +3,7 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
-   <enum>Qt::WindowModality::NonModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -22,6 +22,10 @@
   <property name="windowTitle">
    <string>KDiskInfo</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
@@ -37,9 +41,6 @@
        <widget class="QTableWidget" name="dataTable">
         <property name="autoFillBackground">
          <bool>false</bool>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <property name="showGrid">
          <bool>true</bool>
@@ -57,15 +58,13 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="go-previous"/>
+           <iconset theme="go-previous">
+            <normaloff>.</normaloff>.</iconset>
           </property>
          </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
@@ -83,9 +82,6 @@
         </item>
         <item>
          <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
@@ -100,7 +96,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="go-next"/>
+           <iconset theme="go-next">
+            <normaloff>.</normaloff>.</iconset>
           </property>
          </widget>
         </item>
@@ -326,7 +323,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -366,7 +363,8 @@
   </widget>
   <action name="actionSave_JSON">
    <property name="icon">
-    <iconset theme="document-save"/>
+    <iconset theme="document-save">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;Save JSON</string>
@@ -374,18 +372,20 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit"/>
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::QuitRole</enum>
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionRescan_Refresh">
    <property name="icon">
-    <iconset theme="view-refresh"/>
+    <iconset theme="view-refresh">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;Refresh Devices</string>
@@ -393,7 +393,8 @@
   </action>
   <action name="actionGitHub">
    <property name="icon">
-    <iconset theme="applications-internet"/>
+    <iconset theme="applications-internet">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;GitHub</string>
@@ -401,13 +402,14 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset theme="help-about">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;About</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::AboutRole</enum>
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionIgnore_C4_Reallocation_Event_Count">
@@ -440,6 +442,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
