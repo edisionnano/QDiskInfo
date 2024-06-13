@@ -3,7 +3,7 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
-   <enum>Qt::NonModal</enum>
+   <enum>Qt::WindowModality::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -58,13 +58,15 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="go-previous">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="go-previous"/>
           </property>
          </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
@@ -82,6 +84,9 @@
         </item>
         <item>
          <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
@@ -96,8 +101,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="go-next">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="go-next"/>
           </property>
          </widget>
         </item>
@@ -323,7 +327,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -363,8 +367,7 @@
   </widget>
   <action name="actionSave_JSON">
    <property name="icon">
-    <iconset theme="document-save">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="document-save"/>
    </property>
    <property name="text">
     <string>&amp;Save JSON</string>
@@ -372,20 +375,18 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="application-exit"/>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
   <action name="actionRescan_Refresh">
    <property name="icon">
-    <iconset theme="view-refresh">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="view-refresh"/>
    </property>
    <property name="text">
     <string>&amp;Refresh Devices</string>
@@ -393,8 +394,7 @@
   </action>
   <action name="actionGitHub">
    <property name="icon">
-    <iconset theme="applications-internet">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="applications-internet"/>
    </property>
    <property name="text">
     <string>&amp;GitHub</string>
@@ -402,14 +402,13 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help-about">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="help-about"/>
    </property>
    <property name="text">
     <string>&amp;About</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
   <action name="actionIgnore_C4_Reallocation_Event_Count">
