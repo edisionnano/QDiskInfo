@@ -47,6 +47,7 @@ jobs:
         curl -sSfLO "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-static-x86_64.AppImage"
         curl -sSfL "https://github.com/probonopd/go-appimage/releases/download/832/appimagetool-823-x86_64.AppImage" -o appimagetool-static.AppImage
         chmod a+x *.AppImage
+        chmod a+x .github/scripts/smartctl
          
         mkdir -p AppDir/usr/bin
         cp build/KDiskInfo AppDir/usr/bin/
