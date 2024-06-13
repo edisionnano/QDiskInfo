@@ -15,7 +15,7 @@ jobs:
         clib: [glibc, musl]
         include:
           - clib: glibc
-            os: ubuntu-22.04
+            os: ubuntu-latest
           - clib: musl
             os: ubuntu-latest
             container: alpine:latest
