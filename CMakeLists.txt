@@ -14,17 +14,17 @@ set(QT_VERSION_MAJOR 6)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        custombutton.h
-        custombutton.cpp
-        statusdot.h
-        statusdot.cpp
-        jsonparser.h
-        jsonparser.cpp
-        resources.qrc
+        src/main.cpp
+        src/mainwindow.cpp
+        src/mainwindow.h
+        src/mainwindow.ui
+        src/custombutton.h
+        src/custombutton.cpp
+        src/statusdot.h
+        src/statusdot.cpp
+        src/jsonparser.h
+        src/jsonparser.cpp
+        src/resources.qrc
 )
 
 qt_add_executable(KDiskInfo
