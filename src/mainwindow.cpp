@@ -276,18 +276,20 @@ void MainWindow::updateUI()
         button->setCheckable(true);
         button->setAutoExclusive(true);
 
+        int buttonIndex = buttonGroup->buttons().indexOf(button);
+
         auto populateAndNavigate = [=]() {
             if (isNvme) {
                 populateWindow(localObj, health, nvmeSmartOrdered);
             } else {
                 populateWindow(localObj, health);
             }
-            updateNavigationButtons(buttonGroup->buttons().indexOf(button));
+            updateNavigationButtons(buttonIndex);
         };
 
         connect(button, &QPushButton::clicked, this, [=]() {
             populateAndNavigate();
-            disksGroup->actions()[buttonGroup->buttons().indexOf(button)]->setChecked(true);
+            disksGroup->actions().at(buttonIndex)->setChecked(true);
         });
 
         connect(diskAction, &QAction::triggered, this, [=]() {
