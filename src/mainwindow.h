@@ -76,7 +76,8 @@ private:
 
     QMenu *menuDevice;
     QMenu *menuDisk;
-    QMenu *toolMenu;
+    QMenu *selfTestMenu;
+    QAction *selfTestLogAction;
     QActionGroup *disksGroup;
 
     QJsonArray devices;

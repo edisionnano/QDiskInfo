@@ -52,9 +52,12 @@ MainWindow::MainWindow(QWidget *parent)
     menuDevice = ui->menuDevice;
     menuDisk = ui->menuDisk;
 
-    toolMenu = new QMenu("Self Test", this);
-    menuDevice->addMenu(toolMenu);
-    toolMenu->setToolTipsVisible(true);
+    selfTestMenu = new QMenu("Start Self Test", this);
+    menuDevice->addMenu(selfTestMenu);
+    selfTestMenu->setToolTipsVisible(true);
+
+    selfTestLogAction = new QAction("Self Test Log", this);
+    menuDevice->addAction(selfTestLogAction);
 
     disksGroup = new QActionGroup(this);
     disksGroup->setExclusive(true);
@@ -401,7 +404,52 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
 
+    QJsonArray nvmeSelfTestsTable = localObj["nvme_self_test_log"].toObject()["table"].toArray();
+    QJsonArray ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
+
     bool isNvme = (protocol == "NVMe");
+
+    auto createTablePopup = [=](QJsonArray selfTestsTable) {
+        QWidget *popup = new QWidget();
+        QTableWidget *tableWidget = new QTableWidget();
+
+        tableWidget->setRowCount(selfTestsTable.size());
+        tableWidget->setColumnCount(3);
+        tableWidget->verticalHeader()->setVisible(false);
+        tableWidget->setHorizontalHeaderLabels({tr("Type"), tr("Status"), tr("Power On Hours")});
+
+        for (int i = 0; i < selfTestsTable.size(); ++i) {
+            QJsonObject entry = selfTestsTable[i].toObject();
+            if (isNvme) {
+                tableWidget->setItem(i, 0, new QTableWidgetItem(entry["self_test_code"].toObject()["string"].toString()));
+                tableWidget->setItem(i, 1, new QTableWidgetItem(entry["self_test_result"].toObject()["string"].toString()));
+                tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(entry["power_on_hours"].toInt())));
+            } else {
+                tableWidget->setItem(i, 0, new QTableWidgetItem(entry["type"].toObject()["string"].toString()));
+                tableWidget->setItem(i, 1, new QTableWidgetItem(entry["status"].toObject()["string"].toString()));
+                tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(entry["lifetime_hours"].toInt())));
+            }
+        }
+
+        tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+        for (int i = 0; i < tableWidget->columnCount(); ++i) {
+            if (i != 2) {
+                tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
+            }
+        }
+
+        tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+        tableWidget->verticalHeader()->setDefaultSectionSize(31);
+        tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+        QVBoxLayout *layout = new QVBoxLayout;
+        layout->addWidget(tableWidget);
+        popup->setLayout(layout);
+
+        popup->setWindowTitle(tr("Self Test Log"));
+        popup->resize(500, 400);
+        popup->show();
+    };
 
     deviceJson = localObj;
 
@@ -609,7 +657,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
-        toolMenu->clear();
+        selfTestMenu->clear();
+
+        if (keys.isEmpty()) {
+            selfTestMenu->setDisabled(true);
+        } else {
+            selfTestMenu->setEnabled(true);
+        }
 
         int i = 0;
         for (const QString& key : keys) {
@@ -617,7 +671,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             QString actionLabel = key + " (" + minutes + tr(" Min.)");
             actionLabel[0] = actionLabel[0].toUpper();
             QAction *action = new QAction(actionLabel, this);
-            toolMenu->addAction(action);
+            selfTestMenu->addAction(action);
 
             QString mode;
             if (key == "extended") {
@@ -632,21 +686,42 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
             i++;
         }
+
+        if (ataSelfTestsTable.isEmpty()) {
+            selfTestLogAction->setDisabled(true);
+        } else {
+            selfTestLogAction->setEnabled(true);
+            selfTestLogAction->disconnect();
+            connect(selfTestLogAction, &QAction::triggered, this, [=]() {
+                createTablePopup(ataSelfTestsTable);
+            });
+        }
     } else {
         addNvmeLogTable(nvmeLogOrdered);
-        toolMenu->clear();
+        selfTestMenu->clear();
+        selfTestMenu->setEnabled(true);
 
         QAction *actionShort = new QAction("Short", this);
-        toolMenu->addAction(actionShort);
+        selfTestMenu->addAction(actionShort);
         connect(actionShort, &QAction::triggered, this, [this, mode = "short", name, minutes = "0"]() {
             selfTestHandler(mode, name, minutes);
         });
+
         QAction *actionLong = new QAction("Extended", this);
-        toolMenu->addAction(actionLong);
+        selfTestMenu->addAction(actionLong);
         connect(actionLong , &QAction::triggered, this, [this, mode = "long", name, minutes = "0"]() {
             selfTestHandler(mode, name, minutes);
         });
 
+        if (nvmeSelfTestsTable.isEmpty()) {
+            selfTestLogAction->setDisabled(true);
+        } else {
+            selfTestLogAction->setEnabled(true);
+            selfTestLogAction->disconnect();
+            connect(selfTestLogAction, &QAction::triggered, this, [=]() {
+                createTablePopup(nvmeSelfTestsTable);
+            });
+        }
     }
 }
 
