@@ -376,17 +376,17 @@ It will be completed after </source>
     <message>
         <location filename="../src/mainwindow.cpp" line="774"/>
         <source>Media has been placed in Read Only Mode</source>
-        <translation type="unfinished">Το μέσο έχει τεθεί σε λειτουργία ανάγνωσης</translation>
+        <translation type="unfinished">Το μέσο έχει τεθεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Volatile memory backup device has Failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Η δημιουργία αρχείου επαναφοράς της μη διατηρήσιμης μνήμης απέτυχε</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Persistent memory region has become Read-Only</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Η διατηρήσιμη μνήμη έχει μεταβεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="830"/>
