@@ -22,7 +22,7 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="422"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="422"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Κατάσταση Υγείας&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Κατάσταση Υγείας&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="127"/>
@@ -36,7 +36,7 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="424"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="424"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Θερμοκρασία&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Θερμοκρασία&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="150"/>
@@ -50,28 +50,28 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="426"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="426"/>
         <source>Firmware</source>
-        <translation type="unfinished">Λογισμικό</translation>
+        <translation>Λογισμικό</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="177"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="427"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="427"/>
         <source>Serial Number</source>
-        <translation type="unfinished">Σειριακός Αριθμός</translation>
+        <translation>Σειριακός Αριθμός</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="191"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="428"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="428"/>
         <source>Protocol</source>
-        <translation type="unfinished">Πρωτόκολλο</translation>
+        <translation>Πρωτόκολλο</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="205"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="429"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="429"/>
         <source>Device Node</source>
-        <translation type="unfinished">Διαδρομή</translation>
+        <translation>Διαδρομή</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="225"/>
@@ -79,35 +79,35 @@
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="431"/>
         <location filename="../src/mainwindow.cpp" line="419"/>
         <source>Type</source>
-        <translation type="unfinished">Τύπος</translation>
+        <translation>Τύπος</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="247"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="432"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="432"/>
         <source>Total Host Reads</source>
-        <translation type="unfinished">Συνολικές Αναγνώσεις</translation>
+        <translation>Συνολικές Αναγνώσεις</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="261"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="433"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="433"/>
         <source>Total Host Writes</source>
-        <translation type="unfinished">Συνολικές Εγγραφές</translation>
+        <translation>Συνολικές Εγγραφές</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="275"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="434"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="434"/>
         <source>Rotation Rate</source>
-        <translation type="unfinished">Ρυθμός Περιστροφής</translation>
+        <translation>Ρυθμός Περιστροφής</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="289"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="435"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="435"/>
         <source>Power On Count</source>
-        <translation type="unfinished">Μετρητής Λειτουργίας</translation>
+        <translation>Μετρητής Λειτουργίας</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="303"/>
@@ -115,56 +115,56 @@
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="436"/>
         <location filename="../src/mainwindow.cpp" line="419"/>
         <source>Power On Hours</source>
-        <translation type="unfinished">Ώρες Λειτουργίας</translation>
+        <translation>Ώρες Λειτουργίας</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="335"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="437"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="437"/>
         <source>File</source>
-        <translation type="unfinished">Αρχείο</translation>
+        <translation>Αρχείο</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="342"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="438"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="438"/>
         <source>Settings</source>
-        <translation type="unfinished">Ρυθμίσεις</translation>
+        <translation>Ρυθμίσεις</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="388"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="410"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="410"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished">Έξοδος</translation>
+        <translation>Έξοδος</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="399"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="411"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="411"/>
         <source>&amp;Refresh Devices</source>
-        <translation type="unfinished">Ανανέωση Συσκευών</translation>
+        <translation>Ανανέωση Συσκευών</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="434"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="415"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="415"/>
         <source>&amp;Convert Raw values to HEX</source>
-        <translation type="unfinished">Μετατροπή των τιμών σε δεκαεξαδικές</translation>
+        <translation>Μετατροπή των τιμών σε δεκαεξαδικές</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="447"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="417"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="417"/>
         <source>Self Test</source>
-        <translation type="unfinished">Αυτοδιάγνωση</translation>
+        <translation>Αυτοδιάγνωση</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="455"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="418"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="418"/>
         <source>Cyclic Navigation</source>
-        <translation type="unfinished">Κυκλική Πλοήγηση</translation>
+        <translation>Κυκλική Πλοήγηση</translation>
     </message>
     <message>
         <source>Function</source>
@@ -175,14 +175,14 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="439"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="439"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">Βοήθεια</translation>
+        <translation>Βοήθεια</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="359"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="440"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="440"/>
         <source>De&amp;vice</source>
-        <translation type="unfinished">Συσκευή</translation>
+        <translation>Συσκευή</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="366"/>
@@ -196,7 +196,7 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="409"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="409"/>
         <source>&amp;Save JSON</source>
-        <translation type="unfinished">Αποθήκευση JSON</translation>
+        <translation>Αποθήκευση JSON</translation>
     </message>
     <message>
         <source>&amp;Exit</source>
@@ -218,14 +218,14 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="413"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="413"/>
         <source>&amp;About</source>
-        <translation type="unfinished">Σχετικά</translation>
+        <translation>Σχετικά</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="426"/>
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="414"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="414"/>
         <source>&amp;Ignore C4 (Reallocated Event Count)</source>
-        <translation type="unfinished">Αγνόησε το C4 (Reallocated Event Count)</translation>
+        <translation>Αγνόησε το C4 (Reallocated Event Count)</translation>
     </message>
     <message>
         <source>&amp;Decimal Raw Values</source>
@@ -236,7 +236,7 @@
         <location filename="../build/KDiskInfo_autogen/include/ui_mainwindow.h" line="416"/>
         <location filename="../build/Unnamed-MinSizeRel/KDiskInfo_autogen/include/ui_mainwindow.h" line="416"/>
         <source>&amp;Use Fahrenheit</source>
-        <translation type="unfinished">Χρήση Fahrenheit</translation>
+        <translation>Χρήση Fahrenheit</translation>
     </message>
     <message>
         <source>Good</source>
@@ -282,156 +282,156 @@
         <location filename="../src/mainwindow.cpp" line="1122"/>
         <location filename="../src/mainwindow.cpp" line="1126"/>
         <source>KDiskInfo Error</source>
-        <translation type="unfinished">Σφάλμα KDiskInfo</translation>
+        <translation>Σφάλμα KDiskInfo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="152"/>
         <source>smartctl was not found, please install it!</source>
-        <translation type="unfinished">Το smartctl δε βρέθηκε, παρακαλείσθε να το εγκαταστήσετε</translation>
+        <translation>Το smartctl δε βρέθηκε, παρακαλείσθε να το εγκαταστήσετε</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="276"/>
         <source>Disk </source>
-        <translation type="unfinished">Δίσκος</translation>
+        <translation>Δίσκος</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="337"/>
         <source>KDiskInfo needs root access in order to request a self-test!</source>
-        <translation type="unfinished">Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να εκτελέσει την αυτοδιάγνωση!</translation>
+        <translation>Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να εκτελέσει την αυτοδιάγνωση!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="361"/>
         <source>Test Already Running</source>
-        <translation type="unfinished">Μία αυτοδιάγνωση είναι ήδη σε εκτέλεση</translation>
+        <translation>Μία αυτοδιάγνωση είναι ήδη σε εκτέλεση</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="362"/>
         <source>A self-test is already being performed </source>
-        <translation type="unfinished">Μία αυτοδιάγνωση εκτελείτε αυτή τη στιγμή</translation>
+        <translation>Μία αυτοδιάγνωση εκτελείτε αυτή τη στιγμή</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="362"/>
         <source>
 You can press the Ok button in order to abort the test that is currently running</source>
-        <translation type="unfinished">Μπορείτε να πατήσετε το κουμπί Εντάξει για να ακυρώσετε την τρέχουσα αυτοδιάγνωση</translation>
+        <translation>Μπορείτε να πατήσετε το κουμπί Εντάξει για να ακυρώσετε την τρέχουσα αυτοδιάγνωση</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="374"/>
         <source>A self-test has been requested successfully</source>
-        <translation type="unfinished">Η αυτοδιάγνωση ξεκίνησε επιτυχώς</translation>
+        <translation>Η αυτοδιάγνωση ξεκίνησε επιτυχώς</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="376"/>
         <source>
 It will be completed after </source>
-        <translation type="unfinished">Θα τελειώσει μετά από</translation>
+        <translation>Θα τελειώσει μετά από</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="376"/>
         <source> minutes</source>
-        <translation type="unfinished">λεπτά</translation>
+        <translation>λεπτά</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="378"/>
         <location filename="../src/mainwindow.cpp" line="1124"/>
         <source>Test Requested</source>
-        <translation type="unfinished">Η αυτοδιάγνωση ξεκίνησε</translation>
+        <translation>Η αυτοδιάγνωση ξεκίνησε</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="380"/>
         <location filename="../src/mainwindow.cpp" line="1126"/>
         <source>Error: Something went wrong</source>
-        <translation type="unfinished">Σφάλμα: Κάτι πήγε στραβά</translation>
+        <translation>Σφάλμα: Κάτι πήγε στραβά</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="419"/>
         <source>Status</source>
-        <translation type="unfinished">Κατάσταση</translation>
+        <translation>Κατάσταση</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="449"/>
         <source>Self Test Log</source>
-        <translation type="unfinished">Καταγραφολόγιο Αυτοδιάγνωσης</translation>
+        <translation>Καταγραφολόγιο Αυτοδιάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="671"/>
         <source> Min.)</source>
-        <translation type="unfinished">Λεπ.)</translation>
+        <translation>Λεπ.)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="768"/>
         <source>Available spare capacity has fallen below the threshold</source>
-        <translation type="unfinished">Η υγεία του δίσκου έχει πέσει κάτω από το όριο</translation>
+        <translation>Η υγεία του δίσκου έχει πέσει κάτω από το όριο</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="770"/>
         <source>Temperature error (Overheat or Overcool)</source>
-        <translation type="unfinished">Σφάλμα θερμοκρασίας (Υπερθέρμανση ή Υπερψύξη)</translation>
+        <translation>Σφάλμα θερμοκρασίας (Υπερθέρμανση ή Υπερψύξη)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="772"/>
         <source>NVM subsystem reliability has been degraded</source>
-        <translation type="unfinished">Η αξιοπιστία του NVMe έχει μειωθεί</translation>
+        <translation>Η αξιοπιστία του NVMe έχει μειωθεί</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="774"/>
         <source>Media has been placed in Read Only Mode</source>
-        <translation type="unfinished">Το μέσο έχει τεθεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
+        <translation>Το μέσο έχει τεθεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Volatile memory backup device has Failed</source>
-        <translation type="unfinished">Η δημιουργία αρχείου επαναφοράς της μη διατηρήσιμης μνήμης απέτυχε</translation>
+        <translation>Η δημιουργία αρχείου επαναφοράς της μη διατηρήσιμης μνήμης απέτυχε</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Persistent memory region has become Read-Only</source>
-        <translation type="unfinished">Η διατηρήσιμη μνήμη έχει μεταβεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
+        <translation>Η διατηρήσιμη μνήμη έχει μεταβεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="830"/>
         <source>Critical Warning</source>
-        <translation type="unfinished">Σημαντική Προειδοποίηση</translation>
+        <translation>Σημαντική Προειδοποίηση</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="949"/>
         <source>KDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-        <translation type="unfinished">Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να προσπελάσει τα δεδομένα S.M.A.R.T.!</translation>
+        <translation>Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να προσπελάσει τα δεδομένα S.M.A.R.T.!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1010"/>
         <source>Empty JSON</source>
-        <translation type="unfinished">Κενό JSON</translation>
+        <translation>Κενό JSON</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1011"/>
         <source>The JSON is empty</source>
-        <translation type="unfinished">Αυτό το JSON είναι κενό</translation>
+        <translation>Αυτό το JSON είναι κενό</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1016"/>
         <source>Save JSON</source>
-        <translation type="unfinished">Αποθήκευση JSON</translation>
+        <translation>Αποθήκευση JSON</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1017"/>
         <source>JSON (*.json);;All Files (*)</source>
-        <translation type="unfinished">JSON (*.json);;;Όλα τα αρχεία (*)</translation>
+        <translation>JSON (*.json);;;Όλα τα αρχεία (*)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1023"/>
         <source>Unable to open file for writing</source>
-        <translation type="unfinished">Δεν είναι δυνατό το άνοιγμα αυτού του αρχείου για εγγραφή</translation>
+        <translation>Δεν είναι δυνατό το άνοιγμα αυτού του αρχείου για εγγραφή</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1122"/>
         <source>KDiskInfo needs root access in order to abort a self-test!</source>
-        <translation type="unfinished">Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να ακυρώσει μία αυτοδιάγνωση!</translation>
+        <translation>Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να ακυρώσει μία αυτοδιάγνωση!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1124"/>
         <source>The self-test has been aborted</source>
-        <translation type="unfinished">Η τρέχουσα αυτοδιάγνωση ακυρώθηκε</translation>
+        <translation>Η τρέχουσα αυτοδιάγνωση ακυρώθηκε</translation>
     </message>
     <message>
         <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux
