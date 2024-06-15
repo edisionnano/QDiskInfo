@@ -677,8 +677,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 keyTranslated = tr("Extended");
             } else {
                 keyTranslated = key;
-                keyTranslated = keyTranslated[0].toUpper();
-                qDebug() << minutes;
+                keyTranslated[0] = keyTranslated[0].toUpper();
             }
             QString actionLabel = keyTranslated + " (" + minutes + " " + tr("Min.)");
             QAction *action = new QAction(actionLabel, this);
