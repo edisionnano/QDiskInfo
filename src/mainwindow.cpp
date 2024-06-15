@@ -273,7 +273,7 @@ void MainWindow::updateUI()
         }
 
         CustomButton *button = new CustomButton(health, deviceName, temperature, healthColor, this);
-        button->setToolTip(tr("Disk ") + QString::number(i) + " : " +  modelName + " : " + userCapacityString);
+        button->setToolTip(tr("Disk") + " " + QString::number(i) + " : " +  modelName + " : " + userCapacityString);
 
         buttonGroup->addButton(button);
         horizontalLayout->addWidget(button);
