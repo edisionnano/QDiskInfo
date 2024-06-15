@@ -52,11 +52,11 @@ MainWindow::MainWindow(QWidget *parent)
     menuDevice = ui->menuDevice;
     menuDisk = ui->menuDisk;
 
-    selfTestMenu = new QMenu("Start Self Test", this);
+    selfTestMenu = new QMenu(tr("Start Self Test"), this);
     menuDevice->addMenu(selfTestMenu);
     selfTestMenu->setToolTipsVisible(true);
 
-    selfTestLogAction = new QAction("Self Test Log", this);
+    selfTestLogAction = new QAction(tr("Self Test Log"), this);
     menuDevice->addAction(selfTestLogAction);
 
     disksGroup = new QActionGroup(this);
@@ -259,16 +259,16 @@ void MainWindow::updateUI()
         }
 
         if (healthPassed && !caution && !bad) {
-            health = "Good";
+            health = tr("Good");
             healthColor = goodColor;
         } else if (healthPassed && caution && !bad) {
-            health = "Caution";
+            health = tr("Caution");
             healthColor = cautionColor;
         } else if ((bad || !healthPassed) && !modelName.isEmpty()){
-            health = "Bad";
+            health = tr("Bad");
             healthColor = badColor;
         } else {
-            health = "Unknown";
+            health = tr("Unknown");
             healthColor = naColor;
         }
 
@@ -355,11 +355,13 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
                 break;
             }
         }
+        percentage.replace("remaining", tr("remaining"));
+        percentage.replace("completed", tr("completed"));
 
         if (exitStatus == 4) {
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("Test Already Running"));
-            msgBox.setText(tr("A self-test is already being performed ") + percentage + tr("\nYou can press the Ok button in order to abort the test that is currently running"));
+            msgBox.setText(tr("A self-test is already being performed") + " " + percentage + "\n" + tr("You can press the Ok button in order to abort the test that is currently running"));
             msgBox.setIcon(QMessageBox::Warning);
 
             msgBox.addButton(QMessageBox::Cancel);
@@ -373,7 +375,7 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
         } else if (exitStatus == 0) {
             QString infoMessage = tr("A self-test has been requested successfully");
             if (minutes != "0") {
-                infoMessage = infoMessage + tr("\nIt will be completed after ") + minutes + tr(" minutes");
+                infoMessage = infoMessage + "\n" + tr("It will be completed after") + " " + minutes + " " + tr("minutes");
             }
             QMessageBox::information(this, tr("Test Requested"), infoMessage);
         } else {
@@ -481,7 +483,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
     QString powerCycleCount;
     if (powerCycleCountInt >= 0) {
-        powerCycleCount = QString::number(powerCycleCountInt) + " count";
+        powerCycleCount = QString::number(powerCycleCountInt) + " " + tr("count");
     } else {
         powerCycleCount = "Unknown";
     }
@@ -492,7 +494,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     int powerOnTimeInt = localObj["power_on_time"].toObject().value("hours").toInt(-1);
     QString powerOnTime;
     if (powerOnTimeInt >= 0) {
-        powerOnTime = QString::number(powerOnTimeInt) + " hours";
+        powerOnTime = QString::number(powerOnTimeInt) + " " + tr("hours");
     } else {
         powerOnTime = "Unknown";
     }
@@ -638,11 +640,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     temperatureValue->setAlignment(Qt::AlignCenter);
 
-    if (health == "Bad") {
+    if (health == tr("Bad")) {
         healthStatusValue->setStyleSheet("background-color: " + badColor.name() + ";");
-    } else if (health == "Caution"){
+    } else if (health == tr("Caution")){
         healthStatusValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
-    } else if (health == "Good") {
+    } else if (health == tr("Good")) {
         healthStatusValue->setStyleSheet("background-color: " + goodColor.name() + ";");
     } else {
         healthStatusValue->setStyleSheet("background-color: " + naColor.name() + ";");
@@ -668,8 +670,17 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         int i = 0;
         for (const QString& key : keys) {
             QString minutes = QString::number(static_cast<int>(pollingMinutes[key].toInt()));
-            QString actionLabel = key + " (" + minutes + tr(" Min.)");
-            actionLabel[0] = actionLabel[0].toUpper();
+            QString keyTranslated;
+            if (key == "short") {
+                keyTranslated = tr("Short");
+            } else if (key == "extended") {
+                keyTranslated = tr("Extended");
+            } else {
+                keyTranslated = key;
+                keyTranslated = keyTranslated[0].toUpper();
+                qDebug() << minutes;
+            }
+            QString actionLabel = keyTranslated + " (" + minutes + " " + tr("Min.)");
             QAction *action = new QAction(actionLabel, this);
             selfTestMenu->addAction(action);
 
@@ -701,13 +712,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         selfTestMenu->clear();
         selfTestMenu->setEnabled(true);
 
-        QAction *actionShort = new QAction("Short", this);
+        QAction *actionShort = new QAction(tr("Short"), this);
         selfTestMenu->addAction(actionShort);
         connect(actionShort, &QAction::triggered, this, [this, mode = "short", name, minutes = "0"]() {
             selfTestHandler(mode, name, minutes);
         });
 
-        QAction *actionLong = new QAction("Extended", this);
+        QAction *actionLong = new QAction(tr("Extended"), this);
         selfTestMenu->addAction(actionLong);
         connect(actionLong , &QAction::triggered, this, [this, mode = "long", name, minutes = "0"]() {
             selfTestHandler(mode, name, minutes);
@@ -730,7 +741,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     QString warningMessage = "";
 
     tableWidget->setColumnCount(4);
-    tableWidget->setHorizontalHeaderLabels({"", "ID", "Attribute Name", "Raw Values"});
+    tableWidget->setHorizontalHeaderLabels({"", tr("ID"), tr("Attribute Name"), tr("Raw Values")});
     tableWidget->verticalHeader()->setVisible(false);
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
     tableWidget->setRowCount(nvmeLogOrdered.size());
@@ -834,7 +845,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 {
     tableWidget->setColumnCount(7);
-    tableWidget->setHorizontalHeaderLabels({"", "ID", "Attribute Name", "Current", "Worst", "Threshold", "Raw Values"});
+    tableWidget->setHorizontalHeaderLabels({"", tr("ID"), tr("Attribute Name"), tr("Current"), tr("Worst"), tr("Threshold"), tr("Raw Values")});
     tableWidget->verticalHeader()->setVisible(false);
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
     tableWidget->setRowCount(attributes.size());
@@ -1048,11 +1059,11 @@ void MainWindow::on_actionRescan_Refresh_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QString message = "An ATA and NVMe S.M.A.R.T. data viewer for Linux\n\n";
-    message += "Licensed under the GNU G.P.L. Version 3\n\n";
-    message += "Made by Samantas5855";
+    QString message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n\n";
+    message += tr("Licensed under the GNU G.P.L. Version 3") + "\n\n";
+    message += tr("Made by Samantas5855");
 
-    QMessageBox::about(this, "About KDiskInfo", message);
+    QMessageBox::about(this, tr("About KDiskInfo"), message);
 }
 
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)
