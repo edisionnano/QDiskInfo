@@ -673,6 +673,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             QString keyTranslated;
             if (key == "short") {
                 keyTranslated = tr("Short");
+            } else if (key == "conveyance") {
+                keyTranslated = tr("Conveyance");
             } else if (key == "extended") {
                 keyTranslated = tr("Extended");
             } else {
