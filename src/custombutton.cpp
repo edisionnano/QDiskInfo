@@ -21,7 +21,7 @@ void CustomButton::adjustWidthToFitText() {
         }
     }
 
-    int desiredWidth = maxWidth + 30;
+    int desiredWidth = maxWidth + 28;
     setMinimumWidth(desiredWidth);
     setMaximumWidth(desiredWidth);
 }
@@ -32,9 +32,9 @@ void CustomButton::paintEvent(QPaintEvent *event) {
     QPalette pal = palette();
     QColor textColor = pal.color(QPalette::ButtonText);
 
-    QPen pen(lineColor, 5);
+    QPen pen(lineColor, 6);
     painter.setPen(pen);
-    painter.drawLine(10, 9, 10, 50);
+    painter.drawLine(11, 10, 11, 50);
 
     QRect rect(20, 0, width() - 25, height());
     painter.setPen(textColor);

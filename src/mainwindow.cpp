@@ -144,7 +144,7 @@ void MainWindow::scanDevices()
     for (const QJsonValue &value : std::as_const(devices)) {
         QJsonObject device = value.toObject();
         QString deviceName = device["name"].toString();
-        commandList.append(QString(smartctlPath + " --all --json %1").arg(deviceName));
+        commandList.append(QString(smartctlPath + " --all --json=o %1").arg(deviceName));
     }
     QString command = commandList.join(" ; ");
 
@@ -272,7 +272,7 @@ void MainWindow::updateUI()
             healthColor = naColor;
         }
 
-        CustomButton *button = new CustomButton(health, deviceName, temperature, healthColor, this);
+        CustomButton *button = new CustomButton(health, temperature, deviceName, healthColor, this);
         button->setToolTip(tr("Disk") + " " + QString::number(i) + " : " +  modelName + " : " + userCapacityString);
 
         buttonGroup->addButton(button);
