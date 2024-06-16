@@ -67,12 +67,11 @@ MainWindow::MainWindow(QWidget *parent)
     badColor = QColor(Qt::red);
     naColor = QColor(Qt::gray);
 
-    actionCyclic_Navigation = ui->actionCyclic_Navigation;
-
     ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("IgnoreC4", true).toBool());
     ui->actionHEX->setChecked(settings.value("HEX", true).toBool());
     ui->actionUse_Fahrenheit->setChecked(settings.value("Fahrenheit", false).toBool());
-    actionCyclic_Navigation->setChecked(settings.value("CyclicNavigation", false).toBool());
+    ui->actionCyclic_Navigation->setChecked(settings.value("CyclicNavigation", false).toBool());
+    ui->actionUse_GB_instead_of_TB->setChecked(settings.value("UseGB", false).toBool());
 
     QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
     connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
@@ -113,8 +112,8 @@ void MainWindow::onPrevButtonClicked()
 
 void MainWindow::updateNavigationButtons(int currentIndex)
 {
-    prevButton->setEnabled(currentIndex > 0||actionCyclic_Navigation->isChecked()); // We can use setVisible if we want to mimic CrystalDiskInfo
-    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1||actionCyclic_Navigation->isChecked());
+    prevButton->setEnabled(currentIndex > 0||ui->actionCyclic_Navigation->isChecked()); // We can use setVisible if we want to mimic CrystalDiskInfo
+    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1||ui->actionCyclic_Navigation->isChecked());
 }
 
 QString getSmartctlPath() {
@@ -202,9 +201,17 @@ void MainWindow::updateUI()
         QString health;
         QColor healthColor;
 
-        float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
-        QString gbSymbol = QLocale().formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
-        QString userCapacityString = locale.toString(userCapacityGB, 'f', 1) + " " + gbSymbol;
+        float diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+        QString gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+        QString tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+        QString diskCapacityString;
+        int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
+        bool useGB = ui->actionUse_GB_instead_of_TB->isChecked();
+        if (diskCapacityGbInt < 1000 || useGB) {
+            diskCapacityString = locale.toString(diskCapacityGB, 'f', 1) + " " + gbSymbol;
+        } else {
+            diskCapacityString = QString::number(diskCapacityGbInt/1000) + " " + tbSymbol;
+        }
 
         QString protocol = localObj["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
@@ -273,12 +280,12 @@ void MainWindow::updateUI()
         }
 
         CustomButton *button = new CustomButton(health, temperature, deviceName, healthColor, this);
-        button->setToolTip(tr("Disk") + " " + QString::number(i) + " : " +  modelName + " : " + userCapacityString);
+        button->setToolTip(tr("Disk") + " " + QString::number(i) + " : " +  modelName + " : " + diskCapacityString);
 
         buttonGroup->addButton(button);
         horizontalLayout->addWidget(button);
 
-        QAction *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + userCapacityString, this);
+        QAction *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + diskCapacityString, this);
         diskAction->setCheckable(true);
         menuDisk->addAction(diskAction);
         disksGroup->addAction(diskAction);
@@ -288,7 +295,7 @@ void MainWindow::updateUI()
 
         int buttonIndex = buttonGroup->buttons().indexOf(button);
 
-        auto populateAndNavigate = [=]() {
+        auto updateWindow = [=]() {
             if (isNvme) {
                 populateWindow(localObj, health, nvmeSmartOrdered);
             } else {
@@ -298,12 +305,12 @@ void MainWindow::updateUI()
         };
 
         connect(button, &QPushButton::clicked, this, [=]() {
-            populateAndNavigate();
+            updateWindow();
             disksGroup->actions().at(buttonIndex)->setChecked(true);
         });
 
         connect(diskAction, &QAction::triggered, this, [=]() {
-            populateAndNavigate();
+            updateWindow();
         });
 
         if (firstTime) {
@@ -391,12 +398,22 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
-    float userCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+    float diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+    int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
     int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
     int totalWritesInt = 0;
     int totalReadsInt = 0;
-    QString gbSymbol = QLocale().formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
-    QString userCapacityString = locale.toString(userCapacityGB, 'f', 1) + " " + gbSymbol;
+    bool useGB = ui->actionUse_GB_instead_of_TB->isChecked();
+
+    QString gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+    QString tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+    QString diskCapacityString;
+    if (diskCapacityGbInt < 1000 || useGB) {
+        diskCapacityString = locale.toString(diskCapacityGB, 'f', 1) + " " + gbSymbol;
+    } else {
+        diskCapacityString = QString::number(diskCapacityGbInt/1000) + " " + tbSymbol;
+    }
+
     QString totalReads;
     QString totalWrites;
     QString percentage = "";
@@ -457,7 +474,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     deviceJson = localObj;
 
-    diskName->setText("<html><head/><body><p><span style='font-size:14pt; font-weight:bold;'>" + modelName + " " + userCapacityString + "</span></p></body></html>");
+    diskName->setText("<html><head/><body><p><span style='font-size:14pt; font-weight:bold;'>" + modelName + " " + diskCapacityString + "</span></p></body></html>");
     firmwareLineEdit->setText(firmwareVersion);
     serialNumberLineEdit->setText(serialNumber);
     typeLineEdit->setText(type);
@@ -600,13 +617,21 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     }
 
     if (totalReadsInt) {
-        totalReads = QString::number(static_cast<int>(totalReadsInt)) + " " + gbSymbol;
+        if (totalReadsInt < 1000 || useGB) {
+            totalReads = QString::number(totalReadsInt) + " " + gbSymbol;
+        } else {
+            totalReads = QString::number(totalReadsInt/1000) + " " + tbSymbol;
+        }
     } else {
         totalReads = "----";
     }
 
     if (totalWritesInt) {
-        totalWrites = QString::number(static_cast<int>(totalWritesInt)) + " " + gbSymbol;
+        if (totalWritesInt < 1000 || useGB) {
+            totalWrites = QString::number(totalWritesInt) + " " + gbSymbol;
+        } else {
+            totalWrites = QString::number(totalWritesInt/1000) + " " + tbSymbol;
+        }
     } else {
         totalWrites = "----";
     }
@@ -1188,5 +1213,14 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         onNextButtonClicked();
     } else if (event->button() == Qt::BackButton && prevButton->isEnabled()) {
         onPrevButtonClicked();
+    }
+}
+
+void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
+{
+    settings.setValue("UseGB", ui->actionUse_GB_instead_of_TB->isChecked());
+    if (!initializing) {
+        clearButtonGroup();
+        updateUI();
     }
 }

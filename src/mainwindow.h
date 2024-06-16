@@ -58,6 +58,8 @@ private slots:
 
     void on_actionCyclic_Navigation_toggled(bool arg1);
 
+    void on_actionUse_GB_instead_of_TB_toggled(bool arg1);
+
 private:
     Ui::MainWindow *ui;
     QLocale locale;

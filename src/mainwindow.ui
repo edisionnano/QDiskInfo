@@ -345,6 +345,7 @@
     <addaction name="actionHEX"/>
     <addaction name="actionUse_Fahrenheit"/>
     <addaction name="actionCyclic_Navigation"/>
+    <addaction name="actionUse_GB_instead_of_TB"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -452,7 +453,15 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Cyclic Navigation</string>
+    <string>Cyclic &amp;Navigation</string>
+   </property>
+  </action>
+  <action name="actionUse_GB_instead_of_TB">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Use GB instead of TB</string>
    </property>
   </action>
  </widget>
