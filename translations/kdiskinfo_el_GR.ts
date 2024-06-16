@@ -16,7 +16,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="117"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Υγεία&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Κατάστ. Υγειας&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="127"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="163"/>
         <source>Firmware</source>
-        <translation>Λογισμικό</translation>
+        <translation>Έκδοση Λογισμικού</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="177"/>
@@ -121,10 +121,6 @@
         <translation>Κυκλική Πλοήγηση</translation>
     </message>
     <message>
-        <source>Function</source>
-        <translation type="obsolete">Λειτουργία</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.ui" line="351"/>
         <source>&amp;Help</source>
         <translation>Βοήθεια</translation>
@@ -145,14 +141,6 @@
         <translation>Αποθήκευση JSON</translation>
     </message>
     <message>
-        <source>&amp;Exit</source>
-        <translation type="obsolete">Έξοδος</translation>
-    </message>
-    <message>
-        <source>&amp;Rescan and Refresh</source>
-        <translation type="obsolete">Σάρωση και Επαναφόρτωση</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.ui" line="407"/>
         <source>&amp;GitHub</source>
         <translation type="unfinished"></translation>
@@ -166,10 +154,6 @@
         <location filename="../src/mainwindow.ui" line="426"/>
         <source>&amp;Ignore C4 (Reallocated Event Count)</source>
         <translation>Αγνόησε το C4 (Reallocated Event Count)</translation>
-    </message>
-    <message>
-        <source>&amp;Decimal Raw Values</source>
-        <translation type="obsolete">Δεκαδικές Τιμές</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="442"/>
@@ -242,11 +226,6 @@
         <translation>Το smartctl δε βρέθηκε, παρακαλείσθε να το εγκαταστήσετε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="276"/>
-        <source>Disk </source>
-        <translation>Δίσκος</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="337"/>
         <source>KDiskInfo needs root access in order to request a self-test!</source>
         <translation>Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να εκτελέσει την αυτοδιάγνωση!</translation>
@@ -257,27 +236,9 @@
         <translation>Μία αυτοδιάγνωση είναι ήδη σε εκτέλεση</translation>
     </message>
     <message>
-        <source>A self-test is already being performed </source>
-        <translation type="vanished">Μία αυτοδιάγνωση εκτελείτε αυτή τη στιγμή</translation>
-    </message>
-    <message>
-        <source>
-You can press the Ok button in order to abort the test that is currently running</source>
-        <translation type="vanished">Μπορείτε να πατήσετε το κουμπί Εντάξει για να ακυρώσετε την τρέχουσα αυτοδιάγνωση</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="376"/>
         <source>A self-test has been requested successfully</source>
         <translation>Η αυτοδιάγνωση ξεκίνησε επιτυχώς</translation>
-    </message>
-    <message>
-        <source>
-It will be completed after </source>
-        <translation type="vanished">Θα τελειώσει μετά από</translation>
-    </message>
-    <message>
-        <source> minutes</source>
-        <translation type="vanished">λεπτά</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="380"/>
@@ -308,10 +269,6 @@ It will be completed after </source>
         <translation>Εκκίνηση Αυτοδιάγνωσης</translation>
     </message>
     <message>
-        <source> Min.)</source>
-        <translation type="vanished">Λεπ.)</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="364"/>
         <source>A self-test is already being performed</source>
         <translation>Μία αυτοδιάγνωση εκτελείτε αυτή τη στιγμή</translation>
@@ -320,11 +277,6 @@ It will be completed after </source>
         <location filename="../src/mainwindow.cpp" line="364"/>
         <source>You can press the Ok button in order to abort the test that is currently running</source>
         <translation>Μπορείτε να πατήσετε το κουμπί Εντάξει για να ακυρώσετε την τρέχουσα αυτοδιάγνωση</translation>
-    </message>
-    <message>
-        <source>
-It will be completed after</source>
-        <translation type="vanished">Θα τελειώσει μετά από</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="378"/>
@@ -360,7 +312,7 @@ It will be completed after</source>
     <message>
         <location filename="../src/mainwindow.cpp" line="486"/>
         <source>count</source>
-        <translation type="unfinished"></translation>
+        <translation>μονάδες</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="497"/>
@@ -468,18 +420,6 @@ It will be completed after</source>
         <location filename="../src/mainwindow.cpp" line="1136"/>
         <source>The self-test has been aborted</source>
         <translation>Η τρέχουσα αυτοδιάγνωση ακυρώθηκε</translation>
-    </message>
-    <message>
-        <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux
-
-</source>
-        <translation type="obsolete">Ένας αναγνώστης S.M.A.R.T. για τα Linux</translation>
-    </message>
-    <message>
-        <source>Licensed under the GNU G.P.L. Version 3
-
-</source>
-        <translation type="obsolete">Διατίθεται υπό την άδεια GNU G.P.L. Έκδοση 3</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1065"/>
