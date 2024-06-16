@@ -1,3 +1,3 @@
 # KDiskInfo
 CrystalDiskInfo alternative for Linux
-![image](https://github.com/edisionnano/KDiskInfo/assets/26039434/bad0bc79-9792-4f29-b6e4-8601055d8a5b)
+![image](https://github.com/edisionnano/KDiskInfo/assets/26039434/dcc0ad9b-13b6-4cd0-82ff-e36c62cdbf5d)
