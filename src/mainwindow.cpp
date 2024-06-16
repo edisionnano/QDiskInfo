@@ -405,6 +405,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString protocol = deviceObj["protocol"].toString();
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
+    QJsonArray outputArray = localObj.value("smartctl").toObject()["output"].toArray();
 
     QJsonArray nvmeSelfTestsTable = localObj["nvme_self_test_log"].toObject()["table"].toArray();
     QJsonArray ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
@@ -615,9 +616,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     totalWritesLineEdit->setText(totalWrites);
     totalWritesLineEdit->setAlignment(Qt::AlignRight);
 
-    if (temperatureInt > 55) {
+    if (temperatureInt > 60) { // TODO: Let the user set an alarm temp.
         temperatureValue->setStyleSheet("background-color: " + badColor.name() + ";");
-    } else if ((temperatureInt < 55) && (temperatureInt > 50)){
+    } else if ((temperatureInt < 60) && (temperatureInt > 55)){
         temperatureValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
     } else if (temperatureInt == 0) {
         temperatureValue->setStyleSheet("background-color: " + naColor.name() + ";");
@@ -710,8 +711,23 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     } else {
         addNvmeLogTable(nvmeLogOrdered);
+
+        bool hasSelfTest = false;
         selfTestMenu->clear();
-        selfTestMenu->setEnabled(true);
+
+        for (const QJsonValue &value : outputArray) {
+            if (value.toString().startsWith("Optional Admin Commands")) {
+                if (value.toString().contains("Self_Test")) {
+                    hasSelfTest = true;
+                }
+            }
+        }
+
+        if (hasSelfTest) {
+            selfTestMenu->setEnabled(true);
+        } else {
+            selfTestMenu->setDisabled(true);
+        }
 
         QAction *actionShort = new QAction(tr("Short"), this);
         selfTestMenu->addAction(actionShort);
