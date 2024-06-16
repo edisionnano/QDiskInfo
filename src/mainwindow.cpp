@@ -411,6 +411,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QJsonArray ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
 
     bool isNvme = (protocol == "NVMe");
+    bool nvmeHasSelfTest = false;
 
     auto createTablePopup = [=](QJsonArray selfTestsTable) {
         QWidget *popup = new QWidget();
@@ -616,9 +617,44 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     totalWritesLineEdit->setText(totalWrites);
     totalWritesLineEdit->setAlignment(Qt::AlignRight);
 
-    if (temperatureInt > 60) { // TODO: Let the user set an alarm temp.
+    int warningTemperature = 55;
+    int criticalTemperature = 60;
+
+    if (isNvme) {
+        QString stringValue;
+        warningTemperature = 65;
+        criticalTemperature = 70;
+        for (const QJsonValue &value : outputArray) {
+            stringValue = value.toString();
+            if (stringValue.startsWith("Optional Admin Commands")) {
+                if (stringValue.contains("Self_Test")) {
+                    nvmeHasSelfTest = true;
+                }
+            } else if (stringValue.startsWith("Warning  Comp. Temp. Threshold")) {
+                int pos = stringValue.indexOf(':');
+                if (pos != -1) {
+                    QString thresholdStr = stringValue.mid(pos + 1).trimmed();
+                    int temperature = thresholdStr.section(' ', 0, 0).toInt();
+                    if (temperature > 0) {
+                        warningTemperature = temperature;
+                    }
+                }
+            } else if (stringValue.startsWith("Critical Comp. Temp. Threshold")) {
+                int pos = stringValue.indexOf(':');
+                if (pos != -1) {
+                    QString thresholdStr = stringValue.mid(pos + 1).trimmed();
+                    int temperature = thresholdStr.section(' ', 0, 0).toInt();
+                    if (temperature > 0) {
+                        criticalTemperature = temperature;
+                    }
+                }
+            }
+        }
+    }
+
+    if (temperatureInt > warningTemperature) { // TODO: Let the user set an alarm temp.
         temperatureValue->setStyleSheet("background-color: " + badColor.name() + ";");
-    } else if ((temperatureInt < 60) && (temperatureInt > 55)){
+    } else if ((temperatureInt < criticalTemperature) && (temperatureInt > warningTemperature)){
         temperatureValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
     } else if (temperatureInt == 0) {
         temperatureValue->setStyleSheet("background-color: " + naColor.name() + ";");
@@ -712,18 +748,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     } else {
         addNvmeLogTable(nvmeLogOrdered);
 
-        bool hasSelfTest = false;
         selfTestMenu->clear();
 
-        for (const QJsonValue &value : outputArray) {
-            if (value.toString().startsWith("Optional Admin Commands")) {
-                if (value.toString().contains("Self_Test")) {
-                    hasSelfTest = true;
-                }
-            }
-        }
-
-        if (hasSelfTest) {
+        if (nvmeHasSelfTest) {
             selfTestMenu->setEnabled(true);
         } else {
             selfTestMenu->setDisabled(true);
