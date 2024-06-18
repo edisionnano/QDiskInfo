@@ -94,7 +94,6 @@ private:
     void onNextButtonClicked();
     void onPrevButtonClicked();
     void updateNavigationButtons(int currentIndex);
-    void scanDevices();
     void updateUI();
     void selfTestHandler(const QString &mode, const QString &name, const QString &minutes);
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
@@ -102,7 +101,6 @@ private:
     void addSmartAttributesTable(const QJsonArray &attributes);
     QString getSmartctlOutput(const QStringList &arguments, bool root);
     QString toTitleCase(const QString& sentence);
-    void clearButtonGroup();
     QString initiateSelfTest(const QString &testType, const QString &deviceNode);
     void cancelSelfTest(const QString &deviceNode);
     void mousePressEvent(QMouseEvent*);

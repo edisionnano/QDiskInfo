@@ -84,7 +84,12 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
-    scanDevices();
+    QPair<QStringList, QJsonArray> values = Utils.scanDevices(initializing);
+    deviceOutputs = values.first;
+    devices = values.second;
+    if (!deviceOutputs.isEmpty()) {
+        updateUI();
+    }
     this->setFocus();
     initializing = false;
 }
@@ -114,51 +119,6 @@ void MainWindow::updateNavigationButtons(int currentIndex)
 {
     prevButton->setEnabled(currentIndex > 0||(ui->actionCyclic_Navigation->isChecked() && buttonGroup->buttons().size() > 1)); // We can use setVisible if we want to mimic CrystalDiskInfo
     nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1||ui->actionCyclic_Navigation->isChecked());
-}
-
-void MainWindow::scanDevices()
-{
-    QString output = getSmartctlOutput({"--scan", "--json"}, false);
-    QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
-    QJsonObject jsonObj = doc.object();
-    devices = jsonObj["devices"].toArray();
-    QString smartctlPath = Utils.getSmartctlPath();
-    QStringList commandList;
-
-    for (const QJsonValue &value : std::as_const(devices)) {
-        QJsonObject device = value.toObject();
-        QString deviceName = device["name"].toString();
-        commandList.append(QString(smartctlPath + " --all --json=o %1").arg(deviceName));
-    }
-    QString command = commandList.join(" ; ");
-
-    if (smartctlPath.isEmpty()) {
-        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("smartctl was not found, please install it!"));
-        QTimer::singleShot(0, qApp, &QApplication::quit);
-    }
-
-    QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true);
-
-    int startIndex = 0;
-    int endIndex = 0;
-
-    static const QRegularExpression regex("\\}\\n\\{");
-
-    while ((endIndex = allDevicesOutput.indexOf(regex, startIndex)) != -1) {
-        ++endIndex;
-        QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
-        deviceOutputs.append(jsonFragment);
-        startIndex = endIndex;
-    }
-
-    if (startIndex < allDevicesOutput.size()) {
-        QString jsonFragment = allDevicesOutput.mid(startIndex);
-        deviceOutputs.append(jsonFragment);
-    }
-
-    if (!allDevicesOutput.isEmpty()) {
-        updateUI();
-    }
 }
 
 void MainWindow::updateUI()
@@ -1003,41 +963,6 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
-{
-    QProcess process;
-    QString command;
-
-    if (root) {
-        command = "pkexec";
-    } else {
-        command = Utils.getSmartctlPath();
-    }
-
-    if (!Utils.getSmartctlPath().isEmpty()) {
-        process.start(command, arguments);
-        process.waitForFinished(-1);
-    }
-
-    if (process.exitCode() == 127) {
-        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
-        if (initializing) {
-            QTimer::singleShot(0, qApp, &QApplication::quit);
-        }
-        return QString();
-    }
-
-    if (root && !initializing) {
-        clearButtonGroup();
-    }
-
-    if (process.isOpen()) {
-        return process.readAllStandardOutput();
-    } else {
-        return QString();
-    }
-}
-
 QString MainWindow::toTitleCase(const QString& sentence) {
     QString result;
     bool capitalizeNext = true;
@@ -1059,18 +984,6 @@ QString MainWindow::toTitleCase(const QString& sentence) {
     }
 
     return result;
-}
-
-void MainWindow::clearButtonGroup()
-{
-    QList<QAbstractButton*> buttons = buttonGroup->buttons();
-    for (QAbstractButton* button : buttons) {
-        buttonGroup->removeButton(button);
-        delete button;
-    }
-    horizontalLayout->removeItem(buttonStretch);
-    delete buttonStretch;
-    menuDisk->clear();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -1116,7 +1029,13 @@ void MainWindow::on_actionGitHub_triggered()
 
 void MainWindow::on_actionRescan_Refresh_triggered()
 {
-    scanDevices();
+    QPair<QStringList, QJsonArray> values = Utils.scanDevices(initializing);
+    deviceOutputs = values.first;
+    devices = values.second;
+    if (!deviceOutputs.isEmpty()) {
+        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
+        updateUI();
+    }
 }
 
 
@@ -1134,7 +1053,7 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
 {
     settings.setValue("IgnoreC4", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
     if (!initializing) {
-        clearButtonGroup();
+        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
     }
 }
@@ -1144,7 +1063,7 @@ void MainWindow::on_actionHEX_toggled(bool enabled)
 {
     settings.setValue("HEX", ui->actionHEX->isChecked());
     if (!initializing) {
-        clearButtonGroup();
+        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
     }
 }
@@ -1154,7 +1073,7 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
     settings.setValue("Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
     if (!initializing) {
-        clearButtonGroup();
+        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
     }
 }
@@ -1169,7 +1088,7 @@ void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
 QString MainWindow::initiateSelfTest(const QString &testType, const QString &deviceNode)
 {
     QProcess process;
-    QString command = Utils.getSmartctlPath();
+    QString command = Utils.getSmartctlPath(initializing);
     QStringList arguments;
     arguments << command << "--json=o" << "-t" << testType << deviceNode;
 
@@ -1186,7 +1105,7 @@ QString MainWindow::initiateSelfTest(const QString &testType, const QString &dev
 void MainWindow::cancelSelfTest(const QString &deviceNode)
 {
     QProcess process;
-    QString command = Utils.getSmartctlPath();
+    QString command = Utils.getSmartctlPath(initializing);
     QStringList arguments;
     arguments << command << "-X" << deviceNode;
 
@@ -1215,7 +1134,7 @@ void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
 {
     settings.setValue("UseGB", ui->actionUse_GB_instead_of_TB->isChecked());
     if (!initializing) {
-        clearButtonGroup();
+        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
     }
 }

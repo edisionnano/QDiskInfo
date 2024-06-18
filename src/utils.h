@@ -1,17 +1,37 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <QString>
+#include <QMainWindow>
 #include <QProcess>
-#include <QDir>
-#include <QFile>
+#include <QWidget>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QButtonGroup>
+#include <QAction>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QTimer>
+#include <QSettings>
+#include <QMouseEvent>
+#include <QActionGroup>
+#include <QHBoxLayout>
+#include <QSpacerItem>
+#include <QAbstractButton>
+#include <QMenu>
+#include <QApplication>
 
 class utils
 {
 public:
     utils();
 
-    QString getSmartctlPath();
+    void clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk);
+    QString getSmartctlPath(bool initializing);
+    QString getSmartctlOutput(const QStringList &arguments, bool root, bool initializing);
+    QPair<QStringList, QJsonArray> scanDevices(bool initializing);
 };
 
 #endif // UTILS_H
