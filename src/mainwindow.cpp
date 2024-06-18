@@ -988,7 +988,6 @@ void MainWindow::on_actionHEX_toggled(bool enabled)
     }
 }
 
-
 void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
     settings.setValue("Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
