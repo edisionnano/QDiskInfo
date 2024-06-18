@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         src/statusdot.cpp
         src/jsonparser.h
         src/jsonparser.cpp
+        src/utils.h
+        src/utils.cpp
         src/resources.qrc
 )
 

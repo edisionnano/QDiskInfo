@@ -22,6 +22,7 @@
 #include "statusdot.h"
 #include "custombutton.h"
 #include "jsonparser.h"
+#include "utils.h"
 #include "./ui_mainwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -63,6 +64,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QLocale locale;
+    utils Utils;
     QButtonGroup *buttonGroup;
     QHBoxLayout *horizontalLayout;
     QLabel *diskName, *temperatureValue, *healthStatusValue;

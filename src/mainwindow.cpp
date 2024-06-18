@@ -116,28 +116,13 @@ void MainWindow::updateNavigationButtons(int currentIndex)
     nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1||ui->actionCyclic_Navigation->isChecked());
 }
 
-QString getSmartctlPath() {
-    QStringList paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
-
-    paths << "/usr/sbin" << "/usr/local/sbin";
-
-    for (const QString &path : paths) {
-        QString absolutePath = QDir(path).absoluteFilePath("smartctl");
-        if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
-            return absolutePath;
-        }
-    }
-
-    return QString();
-}
-
 void MainWindow::scanDevices()
 {
     QString output = getSmartctlOutput({"--scan", "--json"}, false);
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
     devices = jsonObj["devices"].toArray();
-    QString smartctlPath = getSmartctlPath();
+    QString smartctlPath = Utils.getSmartctlPath();
     QStringList commandList;
 
     for (const QJsonValue &value : std::as_const(devices)) {
@@ -458,9 +443,17 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             tableWidget->setItem(i, 2, item);
         }
 
-        tableWidget->horizontalHeaderItem(0)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-        tableWidget->horizontalHeaderItem(1)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-        tableWidget->horizontalHeaderItem(2)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        for (int i = 0; i < tableWidget->columnCount(); ++i) {
+            QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
+            if (headerItem) {
+                if (i == 2) {
+                   headerItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                } else {
+                    headerItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+                }
+            }
+        }
+
 
         tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
         for (int i = 0; i < tableWidget->columnCount(); ++i) {
@@ -476,9 +469,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         QVBoxLayout *layout = new QVBoxLayout;
         layout->addWidget(tableWidget);
         popup->setLayout(layout);
-
         popup->setWindowTitle(tr("Self Test Log"));
-        popup->resize(500, 400);
+        popup->resize(400, 400);
         popup->show();
     };
 
@@ -1019,10 +1011,10 @@ QString MainWindow::getSmartctlOutput(const QStringList &arguments, bool root)
     if (root) {
         command = "pkexec";
     } else {
-        command = getSmartctlPath();
+        command = Utils.getSmartctlPath();
     }
 
-    if (!getSmartctlPath().isEmpty()) {
+    if (!Utils.getSmartctlPath().isEmpty()) {
         process.start(command, arguments);
         process.waitForFinished(-1);
     }
@@ -1177,7 +1169,7 @@ void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
 QString MainWindow::initiateSelfTest(const QString &testType, const QString &deviceNode)
 {
     QProcess process;
-    QString command = getSmartctlPath();
+    QString command = Utils.getSmartctlPath();
     QStringList arguments;
     arguments << command << "--json=o" << "-t" << testType << deviceNode;
 
@@ -1194,7 +1186,7 @@ QString MainWindow::initiateSelfTest(const QString &testType, const QString &dev
 void MainWindow::cancelSelfTest(const QString &deviceNode)
 {
     QProcess process;
-    QString command = getSmartctlPath();
+    QString command = Utils.getSmartctlPath();
     QStringList arguments;
     arguments << command << "-X" << deviceNode;
 
