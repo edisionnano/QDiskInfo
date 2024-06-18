@@ -443,20 +443,28 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
         for (int i = 0; i < selfTestsTable.size(); ++i) {
             QJsonObject entry = selfTestsTable[i].toObject();
+            QTableWidgetItem *item;
+
             if (isNvme) {
                 tableWidget->setItem(i, 0, new QTableWidgetItem(entry["self_test_code"].toObject()["string"].toString()));
                 tableWidget->setItem(i, 1, new QTableWidgetItem(entry["self_test_result"].toObject()["string"].toString()));
-                tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(entry["power_on_hours"].toInt())));
+                item = new QTableWidgetItem(QString::number(entry["power_on_hours"].toInt()));
             } else {
                 tableWidget->setItem(i, 0, new QTableWidgetItem(entry["type"].toObject()["string"].toString()));
                 tableWidget->setItem(i, 1, new QTableWidgetItem(entry["status"].toObject()["string"].toString()));
-                tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(entry["lifetime_hours"].toInt())));
+                item = new QTableWidgetItem(QString::number(entry["lifetime_hours"].toInt()));
             }
+            item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            tableWidget->setItem(i, 2, item);
         }
 
-        tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+        tableWidget->horizontalHeaderItem(0)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+        tableWidget->horizontalHeaderItem(1)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+        tableWidget->horizontalHeaderItem(2)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
         for (int i = 0; i < tableWidget->columnCount(); ++i) {
-            if (i != 2) {
+            if (i != 1) {
                 tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
             }
         }
@@ -817,16 +825,8 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
     tableWidget->setRowCount(nvmeLogOrdered.size());
 
-    for (int i = 0; i < tableWidget->columnCount(); ++i) {
-        QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
-        if (headerItem) {
-            if (i == 2) {
-                headerItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-            } else if (i == 3) {
-                headerItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-            }
-        }
-    }
+    tableWidget->horizontalHeaderItem(2)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    tableWidget->horizontalHeaderItem(3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     int row = 0;
     for (const QPair<QString, int> &pair : std::as_const(nvmeLogOrdered)) {
