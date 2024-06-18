@@ -171,7 +171,9 @@ void MainWindow::scanDevices()
         deviceOutputs.append(jsonFragment);
     }
 
-    updateUI();
+    if (!allDevicesOutput.isEmpty()) {
+        updateUI();
+    }
 }
 
 void MainWindow::updateUI()
