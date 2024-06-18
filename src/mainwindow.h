@@ -2,21 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QProcess>
-#include <QWidget>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QButtonGroup>
-#include <QAction>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QDesktopServices>
-#include <QUrl>
-#include <QTimer>
-#include <QSettings>
-#include <QMouseEvent>
-#include <QActionGroup>
 #include <cmath>
 
 #include "statusdot.h"
@@ -95,7 +80,6 @@ private:
     void onPrevButtonClicked();
     void updateNavigationButtons(int currentIndex);
     void updateUI();
-    void selfTestHandler(const QString &mode, const QString &name, const QString &minutes);
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);

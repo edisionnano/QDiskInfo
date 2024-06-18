@@ -145,6 +145,59 @@ void utils::cancelSelfTest(const QString &deviceNode)
     }
 }
 
+void utils::selfTestHandler(const QString &mode, const QString &name, const QString &minutes) {
+    QString output = initiateSelfTest(mode, name);
+    if (output.isEmpty()) {
+        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to request a self-test!"));
+    } else {
+        QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
+        QJsonObject testObj = testDoc.object();
+        QJsonObject smartctlObj = testObj.value("smartctl").toObject();
+        QJsonObject deviceObj = testObj.value("device").toObject();
+        QString name = deviceObj.value("name").toString();
+        int exitStatus = smartctlObj.value("exit_status").toInt();
+
+        QJsonArray outputArray = smartctlObj["output"].toArray();
+        static const QRegularExpression regex("\\((\\d+%)\\s*(\\w+)\\)");
+
+        QString percentage;
+        for (const QJsonValue &value : outputArray) {
+            QString line = value.toString();
+            QRegularExpressionMatch match = regex.match(line);
+            if (match.hasMatch()) {
+                percentage = match.captured(0);
+                break;
+            }
+        }
+        percentage.replace("remaining", QObject::tr("remaining"));
+        percentage.replace("completed", QObject::tr("completed"));
+
+        if (exitStatus == 4) {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(QObject::tr("Test Already Running"));
+            msgBox.setText(QObject::tr("A self-test is already being performed") + " " + percentage + "\n" + QObject::tr("You can press the Ok button in order to abort the test that is currently running"));
+            msgBox.setIcon(QMessageBox::Warning);
+
+            msgBox.addButton(QMessageBox::Cancel);
+            QPushButton *abortButton = msgBox.addButton(QMessageBox::Ok);
+
+            msgBox.exec();
+
+            if (msgBox.clickedButton() == abortButton) {
+                cancelSelfTest(name);
+            }
+        } else if (exitStatus == 0) {
+            QString infoMessage = QObject::tr("A self-test has been requested successfully");
+            if (minutes != "0") {
+                infoMessage = infoMessage + "\n" + QObject::tr("It will be completed after") + " " + minutes + " " + QObject::tr("minutes");
+            }
+            QMessageBox::information(nullptr, QObject::tr("Test Requested"), infoMessage);
+        } else {
+            QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("Error: Something went wrong"));
+        }
+    }
+}
+
 QString utils::toTitleCase(const QString& sentence) {
     QString result;
     bool capitalizeNext = true;

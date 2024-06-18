@@ -285,59 +285,6 @@ void MainWindow::updateUI()
     updateNavigationButtons(buttonGroup->buttons().indexOf(buttonGroup->checkedButton()));
 }
 
-void MainWindow::selfTestHandler(const QString &mode, const QString &name, const QString &minutes) {
-    QString output = Utils.initiateSelfTest(mode, name);
-    if (output.isEmpty()) {
-        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to request a self-test!"));
-    } else {
-        QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
-        QJsonObject testObj = testDoc.object();
-        QJsonObject smartctlObj = testObj.value("smartctl").toObject();
-        QJsonObject deviceObj = testObj.value("device").toObject();
-        QString name = deviceObj.value("name").toString();
-        int exitStatus = smartctlObj.value("exit_status").toInt();
-
-        QJsonArray outputArray = smartctlObj["output"].toArray();
-        static const QRegularExpression regex("\\((\\d+%)\\s*(\\w+)\\)");
-
-        QString percentage;
-        for (const QJsonValue &value : outputArray) {
-            QString line = value.toString();
-            QRegularExpressionMatch match = regex.match(line);
-            if (match.hasMatch()) {
-                percentage = match.captured(0);
-                break;
-            }
-        }
-        percentage.replace("remaining", tr("remaining"));
-        percentage.replace("completed", tr("completed"));
-
-        if (exitStatus == 4) {
-            QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("Test Already Running"));
-            msgBox.setText(tr("A self-test is already being performed") + " " + percentage + "\n" + tr("You can press the Ok button in order to abort the test that is currently running"));
-            msgBox.setIcon(QMessageBox::Warning);
-
-            msgBox.addButton(QMessageBox::Cancel);
-            QPushButton *abortButton = msgBox.addButton(QMessageBox::Ok);
-
-            msgBox.exec();
-
-            if (msgBox.clickedButton() == abortButton) {
-                Utils.cancelSelfTest(name);
-            }
-        } else if (exitStatus == 0) {
-            QString infoMessage = tr("A self-test has been requested successfully");
-            if (minutes != "0") {
-                infoMessage = infoMessage + "\n" + tr("It will be completed after") + " " + minutes + " " + tr("minutes");
-            }
-            QMessageBox::information(this, tr("Test Requested"), infoMessage);
-        } else {
-            QMessageBox::critical(this, tr("KDiskInfo Error"), tr("Error: Something went wrong"));
-        }
-    }
-}
-
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
     QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
@@ -717,7 +664,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             }
 
             connect(action, &QAction::triggered, this, [this, mode, name, minutes]() {
-                selfTestHandler(mode, name, minutes);
+                Utils.selfTestHandler(mode, name, minutes);
             });
 
             i++;
@@ -746,13 +693,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         QAction *actionShort = new QAction(tr("Short"), this);
         selfTestMenu->addAction(actionShort);
         connect(actionShort, &QAction::triggered, this, [this, mode = "short", name, minutes = "0"]() {
-            selfTestHandler(mode, name, minutes);
+            Utils.selfTestHandler(mode, name, minutes);
         });
 
         QAction *actionLong = new QAction(tr("Extended"), this);
         selfTestMenu->addAction(actionLong);
         connect(actionLong , &QAction::triggered, this, [this, mode = "long", name, minutes = "0"]() {
-            selfTestHandler(mode, name, minutes);
+            Utils.selfTestHandler(mode, name, minutes);
         });
 
         if (nvmeSelfTestsTable.isEmpty()) {

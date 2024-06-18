@@ -19,6 +19,7 @@
 #include <QActionGroup>
 #include <QHBoxLayout>
 #include <QSpacerItem>
+#include <QPushButton>
 #include <QAbstractButton>
 #include <QMenu>
 #include <QApplication>
@@ -34,6 +35,7 @@ public:
     QPair<QStringList, QJsonArray> scanDevices(bool initializing);
     QString initiateSelfTest(const QString &testType, const QString &deviceNode);
     void cancelSelfTest(const QString &deviceNode);
+    void selfTestHandler(const QString &mode, const QString &name, const QString &minutes);
     QString toTitleCase(const QString& sentence);
 };
 
