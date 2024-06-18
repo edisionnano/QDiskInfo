@@ -286,7 +286,7 @@ void MainWindow::updateUI()
 }
 
 void MainWindow::selfTestHandler(const QString &mode, const QString &name, const QString &minutes) {
-    QString output = initiateSelfTest(mode, name);
+    QString output = Utils.initiateSelfTest(mode, name);
     if (output.isEmpty()) {
         QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to request a self-test!"));
     } else {
@@ -324,7 +324,7 @@ void MainWindow::selfTestHandler(const QString &mode, const QString &name, const
             msgBox.exec();
 
             if (msgBox.clickedButton() == abortButton) {
-                cancelSelfTest(name);
+                Utils.cancelSelfTest(name);
             }
         } else if (exitStatus == 0) {
             QString infoMessage = tr("A self-test has been requested successfully");
@@ -786,7 +786,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 
         QString key = pair.first;
         QString name = key.replace("_", " ");
-        name = toTitleCase(name);
+        name = Utils.toTitleCase(name);
 
         int rawInt = pair.second;
         QString raw = QString::number(rawInt);
@@ -963,29 +963,6 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-QString MainWindow::toTitleCase(const QString& sentence) {
-    QString result;
-    bool capitalizeNext = true;
-
-    for (const QChar& c : sentence) {
-        if (c.isLetter()) {
-            if (capitalizeNext) {
-                result += c.toUpper();
-                capitalizeNext = false;
-            } else {
-                result += c.toLower();
-            }
-        } else {
-            result += c;
-            if (c == ' ') {
-                capitalizeNext = true;
-            }
-        }
-    }
-
-    return result;
-}
-
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
@@ -1020,12 +997,10 @@ void MainWindow::on_actionSave_JSON_triggered()
     }
 }
 
-
 void MainWindow::on_actionGitHub_triggered()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/KDiskInfo"));
 }
-
 
 void MainWindow::on_actionRescan_Refresh_triggered()
 {
@@ -1037,7 +1012,6 @@ void MainWindow::on_actionRescan_Refresh_triggered()
         updateUI();
     }
 }
-
 
 void MainWindow::on_actionAbout_triggered()
 {
@@ -1057,7 +1031,6 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
         updateUI();
     }
 }
-
 
 void MainWindow::on_actionHEX_toggled(bool enabled)
 {
@@ -1085,39 +1058,12 @@ void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
     updateNavigationButtons(currentIndex);
 }
 
-QString MainWindow::initiateSelfTest(const QString &testType, const QString &deviceNode)
+void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
 {
-    QProcess process;
-    QString command = Utils.getSmartctlPath(initializing);
-    QStringList arguments;
-    arguments << command << "--json=o" << "-t" << testType << deviceNode;
-
-    process.start("pkexec", arguments);
-    process.waitForFinished(-1);
-
-    if (process.isOpen()) {
-        return process.readAllStandardOutput();
-    } else {
-        return QString();
-    }
-}
-
-void MainWindow::cancelSelfTest(const QString &deviceNode)
-{
-    QProcess process;
-    QString command = Utils.getSmartctlPath(initializing);
-    QStringList arguments;
-    arguments << command << "-X" << deviceNode;
-
-    process.start("pkexec", arguments);
-    process.waitForFinished(-1);
-
-    if (process.exitCode() == 127) {
-        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("KDiskInfo needs root access in order to abort a self-test!"));
-    } else if (process.exitCode() == QProcess::NormalExit) {
-        QMessageBox::information(this, tr("Test Requested"), tr("The self-test has been aborted"));
-    } else {
-        QMessageBox::critical(this, tr("KDiskInfo Error"), tr("Error: Something went wrong"));
+    settings.setValue("UseGB", ui->actionUse_GB_instead_of_TB->isChecked());
+    if (!initializing) {
+        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
+        updateUI();
     }
 }
 
@@ -1127,14 +1073,5 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         onNextButtonClicked();
     } else if (event->button() == Qt::BackButton && prevButton->isEnabled()) {
         onPrevButtonClicked();
-    }
-}
-
-void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
-{
-    settings.setValue("UseGB", ui->actionUse_GB_instead_of_TB->isChecked());
-    if (!initializing) {
-        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-        updateUI();
     }
 }

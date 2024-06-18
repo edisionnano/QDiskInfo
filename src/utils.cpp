@@ -108,3 +108,62 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
         return QPair<QStringList, QJsonArray>(QStringList(), QJsonArray());
     }
 }
+
+QString utils::initiateSelfTest(const QString &testType, const QString &deviceNode)
+{
+    QProcess process;
+    QString command = getSmartctlPath(false);
+    QStringList arguments;
+    arguments << command << "--json=o" << "-t" << testType << deviceNode;
+
+    process.start("pkexec", arguments);
+    process.waitForFinished(-1);
+
+    if (process.isOpen()) {
+        return process.readAllStandardOutput();
+    } else {
+        return QString();
+    }
+}
+
+void utils::cancelSelfTest(const QString &deviceNode)
+{
+    QProcess process;
+    QString command = getSmartctlPath(false);
+    QStringList arguments;
+    arguments << command << "-X" << deviceNode;
+
+    process.start("pkexec", arguments);
+    process.waitForFinished(-1);
+
+    if (process.exitCode() == 127) {
+        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to abort a self-test!"));
+    } else if (process.exitCode() == QProcess::NormalExit) {
+        QMessageBox::information(nullptr, QObject::tr("Test Requested"), QObject::tr("The self-test has been aborted"));
+    } else {
+        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("Error: Something went wrong"));
+    }
+}
+
+QString utils::toTitleCase(const QString& sentence) {
+    QString result;
+    bool capitalizeNext = true;
+
+    for (const QChar& c : sentence) {
+        if (c.isLetter()) {
+            if (capitalizeNext) {
+                result += c.toUpper();
+                capitalizeNext = false;
+            } else {
+                result += c.toLower();
+            }
+        } else {
+            result += c;
+            if (c == ' ') {
+                capitalizeNext = true;
+            }
+        }
+    }
+
+    return result;
+}

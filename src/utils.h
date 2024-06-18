@@ -32,6 +32,9 @@ public:
     QString getSmartctlPath(bool initializing);
     QString getSmartctlOutput(const QStringList &arguments, bool root, bool initializing);
     QPair<QStringList, QJsonArray> scanDevices(bool initializing);
+    QString initiateSelfTest(const QString &testType, const QString &deviceNode);
+    void cancelSelfTest(const QString &deviceNode);
+    QString toTitleCase(const QString& sentence);
 };
 
 #endif // UTILS_H

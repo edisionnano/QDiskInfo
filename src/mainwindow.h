@@ -99,10 +99,6 @@ private:
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);
-    QString getSmartctlOutput(const QStringList &arguments, bool root);
-    QString toTitleCase(const QString& sentence);
-    QString initiateSelfTest(const QString &testType, const QString &deviceNode);
-    void cancelSelfTest(const QString &deviceNode);
     void mousePressEvent(QMouseEvent*);
 };
 #endif
