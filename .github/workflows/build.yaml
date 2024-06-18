@@ -38,7 +38,7 @@ jobs:
       
     - name: Build
       run: |
-        cmake -Bbuild
+        cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6
         cmake --build build
 
     - name: Package AppImage
@@ -62,6 +62,12 @@ jobs:
     - name: Upload AppImage
       uses: actions/upload-artifact@v4
       with:
-        name: KDiskInfo-${{ matrix.clib }}
+        name: KDiskInfo-${{ matrix.clib }}-AppImage
         path: ./KDiskInfo*.AppImage
+
+    - name: Upload Binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: KDiskInfo-Qt6-${{ matrix.clib }}-bin
+        path: ./build/KDiskInfo
         
