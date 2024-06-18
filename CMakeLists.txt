@@ -31,8 +31,7 @@ set(PROJECT_SOURCES
         src/resources.qrc
 )
 
-qt_add_executable(KDiskInfo
-    MANUAL_FINALIZATION
+add_executable(KDiskInfo
     ${PROJECT_SOURCES}
 )
 
