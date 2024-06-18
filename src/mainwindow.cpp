@@ -1128,9 +1128,10 @@ void MainWindow::on_actionRescan_Refresh_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QString message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n\n";
-    message += tr("Licensed under the GNU G.P.L. Version 3") + "\n\n";
-    message += tr("Made by Samantas5855");
+    QString message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n";
+    message += tr("Licensed under the GNU G.P.L. Version 3") + "\n";
+    message += tr("Made by Samantas5855") + "\n";
+    message += tr("Version") + " " + QString::number(PROJECT_VERSION_MAJOR) + "." + QString::number(PROJECT_VERSION_MINOR);
 
     QMessageBox::about(this, tr("About KDiskInfo"), message);
 }

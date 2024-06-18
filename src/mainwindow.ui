@@ -154,6 +154,22 @@
          </layout>
         </item>
         <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Preferred</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <layout class="QFormLayout" name="formLayout_2">
@@ -461,7 +477,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Use GB instead of TB</string>
+    <string>Use &amp;GB instead of TB</string>
    </property>
   </action>
  </widget>

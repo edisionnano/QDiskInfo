@@ -34,6 +34,11 @@ qt_add_executable(KDiskInfo
     ${PROJECT_SOURCES}
 )
 
+target_compile_definitions(KDiskInfo PRIVATE
+    PROJECT_VERSION_MAJOR=${KDiskInfo_VERSION_MAJOR}
+    PROJECT_VERSION_MINOR=${KDiskInfo_VERSION_MINOR}
+)
+
 target_link_libraries(KDiskInfo PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(KDiskInfo PROPERTIES

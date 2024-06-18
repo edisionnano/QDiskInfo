@@ -34,137 +34,137 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="163"/>
+        <location filename="../src/mainwindow.ui" line="179"/>
         <source>Firmware</source>
         <translation>Έκδοση Λογισμικού</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="177"/>
+        <location filename="../src/mainwindow.ui" line="193"/>
         <source>Serial Number</source>
         <translation>Σειριακός Αριθμός</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="191"/>
+        <location filename="../src/mainwindow.ui" line="207"/>
         <source>Protocol</source>
         <translation>Πρωτόκολλο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="205"/>
+        <location filename="../src/mainwindow.ui" line="221"/>
         <source>Device Node</source>
         <translation>Διαδρομή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="225"/>
+        <location filename="../src/mainwindow.ui" line="241"/>
         <location filename="../src/mainwindow.cpp" line="440"/>
         <source>Type</source>
         <translation>Τύπος</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="247"/>
+        <location filename="../src/mainwindow.ui" line="263"/>
         <source>Total Host Reads</source>
         <translation>Συνολικές Αναγνώσεις</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="261"/>
+        <location filename="../src/mainwindow.ui" line="277"/>
         <source>Total Host Writes</source>
         <translation>Συνολικές Εγγραφές</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="275"/>
+        <location filename="../src/mainwindow.ui" line="291"/>
         <source>Rotation Rate</source>
         <translation>Ρυθμός Περιστροφής</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="289"/>
+        <location filename="../src/mainwindow.ui" line="305"/>
         <source>Power On Count</source>
         <translation>Μετρητής Λειτουργίας</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="303"/>
+        <location filename="../src/mainwindow.ui" line="319"/>
         <location filename="../src/mainwindow.cpp" line="440"/>
         <source>Power On Hours</source>
         <translation>Ώρες Λειτουργίας</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="335"/>
+        <location filename="../src/mainwindow.ui" line="351"/>
         <source>File</source>
-        <translation>Αρχείο</translation>
+        <translation>&amp;Αρχείο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="342"/>
+        <location filename="../src/mainwindow.ui" line="358"/>
         <source>Settings</source>
-        <translation>Ρυθμίσεις</translation>
+        <translation>&amp;Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="389"/>
+        <location filename="../src/mainwindow.ui" line="405"/>
         <source>&amp;Quit</source>
-        <translation>Έξοδος</translation>
+        <translation>Έ&amp;ξοδος</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="400"/>
+        <location filename="../src/mainwindow.ui" line="416"/>
         <source>&amp;Refresh Devices</source>
-        <translation>Ανανέωση Συσκευών</translation>
+        <translation>&amp;Ανανέωση Συσκευών</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="435"/>
+        <location filename="../src/mainwindow.ui" line="451"/>
         <source>&amp;Convert Raw values to HEX</source>
-        <translation>Μετατροπή των τιμών σε δεκαεξαδικές</translation>
+        <translation>&amp;Μετατροπή των τιμών σε δεκαεξαδικές</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="448"/>
+        <location filename="../src/mainwindow.ui" line="464"/>
         <source>Self Test</source>
         <translation>Αυτοδιάγνωση</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="456"/>
+        <location filename="../src/mainwindow.ui" line="472"/>
         <source>Cyclic &amp;Navigation</source>
-        <translation>Kυκλική Πλοήγηση</translation>
+        <translation>&amp;Κυκλική Πλοήγηση</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="464"/>
-        <source>Use GB instead of TB</source>
-        <translation>Χρήση GB αντί TB</translation>
+        <location filename="../src/mainwindow.ui" line="480"/>
+        <source>Use &amp;GB instead of TB</source>
+        <translation>Χρήση &amp;GB αντί για TB</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="352"/>
+        <location filename="../src/mainwindow.ui" line="368"/>
         <source>&amp;Help</source>
-        <translation>Βοήθεια</translation>
+        <translation>&amp;Βοήθεια</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="360"/>
+        <location filename="../src/mainwindow.ui" line="376"/>
         <source>De&amp;vice</source>
-        <translation>Συσκευή</translation>
+        <translation>&amp;Συσκευή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="367"/>
+        <location filename="../src/mainwindow.ui" line="383"/>
         <location filename="../src/mainwindow.cpp" line="283"/>
         <source>Disk</source>
-        <translation>Δίσκος</translation>
+        <translation>&amp;Δίσκος</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="381"/>
+        <location filename="../src/mainwindow.ui" line="397"/>
         <source>&amp;Save JSON</source>
-        <translation>Αποθήκευση JSON</translation>
+        <translation>Αποθήκευση &amp;JSON</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="408"/>
+        <location filename="../src/mainwindow.ui" line="424"/>
         <source>&amp;GitHub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="416"/>
+        <location filename="../src/mainwindow.ui" line="432"/>
         <source>&amp;About</source>
-        <translation>Σχετικά</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="427"/>
-        <source>&amp;Ignore C4 (Reallocated Event Count)</source>
-        <translation>Αγνόησε το C4 (Reallocated Event Count)</translation>
+        <translation>&amp;Σχετικά</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="443"/>
+        <source>&amp;Ignore C4 (Reallocated Event Count)</source>
+        <translation>&amp;Αγνόησε το C4 (Reallocated Event Count)</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="459"/>
         <source>&amp;Use Fahrenheit</source>
-        <translation>Χρήση Fahrenheit</translation>
+        <translation>Χρήση &amp;Fahrenheit</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="269"/>
@@ -221,15 +221,15 @@
         <location filename="../src/mainwindow.cpp" line="344"/>
         <location filename="../src/mainwindow.cpp" line="389"/>
         <location filename="../src/mainwindow.cpp" line="1029"/>
-        <location filename="../src/mainwindow.cpp" line="1202"/>
-        <location filename="../src/mainwindow.cpp" line="1206"/>
+        <location filename="../src/mainwindow.cpp" line="1203"/>
+        <location filename="../src/mainwindow.cpp" line="1207"/>
         <source>KDiskInfo Error</source>
         <translation>Σφάλμα KDiskInfo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="151"/>
         <source>smartctl was not found, please install it!</source>
-        <translation>Το smartctl δε βρέθηκε, παρακαλείσθε να το εγκαταστήσετε</translation>
+        <translation>Το smartctl δε βρέθηκε, παρακαλείσθε να το εγκαταστήσετε!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="344"/>
@@ -248,13 +248,13 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="387"/>
-        <location filename="../src/mainwindow.cpp" line="1204"/>
+        <location filename="../src/mainwindow.cpp" line="1205"/>
         <source>Test Requested</source>
         <translation>Η αυτοδιάγνωση ξεκίνησε</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="389"/>
-        <location filename="../src/mainwindow.cpp" line="1206"/>
+        <location filename="../src/mainwindow.cpp" line="1207"/>
         <source>Error: Something went wrong</source>
         <translation>Σφάλμα: Κάτι πήγε στραβά</translation>
     </message>
@@ -267,12 +267,12 @@
         <location filename="../src/mainwindow.cpp" line="59"/>
         <location filename="../src/mainwindow.cpp" line="470"/>
         <source>Self Test Log</source>
-        <translation>Καταγραφολόγιο Αυτοδιάγνωσης</translation>
+        <translation>&amp;Καταγραφολόγιο Αυτοδιάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="55"/>
         <source>Start Self Test</source>
-        <translation>Εκκίνηση Αυτοδιάγνωσης</translation>
+        <translation>&amp;Εκκίνηση Αυτοδιάγνωσης</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="371"/>
@@ -418,12 +418,17 @@
         <translation>Διατίθεται υπό την άδεια GNU G.P.L. Έκδοση 3</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1202"/>
+        <location filename="../src/mainwindow.cpp" line="1134"/>
+        <source>Version</source>
+        <translation>Έκδοση</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1203"/>
         <source>KDiskInfo needs root access in order to abort a self-test!</source>
         <translation>Το KDiskInfo χρειάζεται δικαιώματα υπερχρήστη για να ακυρώσει μία αυτοδιάγνωση!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1204"/>
+        <location filename="../src/mainwindow.cpp" line="1205"/>
         <source>The self-test has been aborted</source>
         <translation>Η τρέχουσα αυτοδιάγνωση ακυρώθηκε</translation>
     </message>
@@ -433,7 +438,7 @@
         <translation>Δημιουργήθηκε από τον Samantas5855</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1135"/>
+        <location filename="../src/mainwindow.cpp" line="1136"/>
         <source>About KDiskInfo</source>
         <translation>Σχετικά με το KDiskInfo</translation>
     </message>
