@@ -123,40 +123,6 @@ void MainWindow::updateNavigationButtons(int currentIndex)
 
 void MainWindow::updateUI()
 {
-    QString output = getSmartctlOutput({"--scan", "--json"}, false);
-    QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
-    QJsonObject jsonObj = doc.object();
-    QJsonArray devices = jsonObj["devices"].toArray();
-    QStringList commandList;
-
-    for (const QJsonValue &value : devices) {
-        QJsonObject device = value.toObject();
-        QString deviceName = device["name"].toString();
-        commandList.append(QString("smartctl --all --json %1").arg(deviceName));
-    }
-    QString command = commandList.join(" ; ");
-
-    QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true);
-
-    QStringList deviceOutputs;
-    int startIndex = 0;
-    int endIndex = 0;
-
-    while ((endIndex = allDevicesOutput.indexOf(QRegularExpression("\\}\\n\\{"), startIndex)) != -1) {
-        ++endIndex;
-        QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
-        deviceOutputs.append(jsonFragment);
-        startIndex = endIndex;
-    }
-
-    if (startIndex < allDevicesOutput.size()) {
-        QString jsonFragment = allDevicesOutput.mid(startIndex);
-        deviceOutputs.append(jsonFragment);
-    }
-
-    QJsonObject globalObj;
-    QString globalHealth;
-    QVector<QPair<QString, int>> globalNvmeSmartOrdered;
     bool firstTime = true;
     globalIsNvme = false;
 
