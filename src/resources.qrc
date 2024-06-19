@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icon.svg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file alias="translations/kdiskinfo_el_GR.qm">../translations/kdiskinfo_el_GR.qm</file>
+        <file alias="translations/kdiskinfo_es_ES.qm">../translations/kdiskinfo_es_ES.qm</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,73 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-unix:
+    strategy:
+      fail-fast: false       
+      matrix:
+        clib: [glibc, musl]
+        include:
+          - clib: glibc
+            os: ubuntu-24.04
+          - clib: musl
+            os: ubuntu-latest
+            container: alpine:latest
+    runs-on: ${{ matrix.os }}
+    container:
+      image: ${{ matrix.container }}
+      
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies for glibc
+      run: |
+        sudo apt update
+        sudo apt install -y qt6-base-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
+      if: ${{ matrix.clib == 'glibc' }}
+    - name: Install dependencies for musl
+      run: |
+        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qtbase-x11 qt6-qtsvg breeze smartmontools
+        git config --global --add safe.directory '*'
+      if: ${{ matrix.clib == 'musl' }}
+      
+    - name: Build
+      run: |
+        cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6
+        cmake --build build
+
+    - name: Package AppImage
+      run: |
+        curl -sSfLO "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-static-x86_64.AppImage"
+        curl -sSfLO "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-static-x86_64.AppImage"
+        curl -sSfL "https://github.com/probonopd/go-appimage/releases/download/832/appimagetool-823-x86_64.AppImage" -o appimagetool-static.AppImage
+        chmod a+x *.AppImage
+        chmod a+x .github/scripts/smartctl
+         
+        mkdir -p AppDir/usr/bin
+        cp build/KDiskInfo AppDir/usr/bin/
+        cp .github/scripts/smartctl AppDir/usr/bin/
+        cp .github/scripts/KDiskInfo.desktop AppDir/
+        cp src/icon.svg AppDir/KDiskInfo.svg
+        
+        APPIMAGE_EXTRACT_AND_RUN=1 NO_STRIP=1 QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./linuxdeploy-static-x86_64.AppImage --appdir=AppDir/ -d AppDir/KDiskInfo.desktop -i AppDir/KDiskInfo.svg -e AppDir/usr/bin/KDiskInfo --plugin qt
+        echo 'export PATH="$this_dir"/usr/bin:"$PATH"' >> AppDir/apprun-hooks/linuxdeploy-plugin-qt-hook.sh
+        APPIMAGE_EXTRACT_AND_RUN=1 VERSION=${{ matrix.clib }} QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./appimagetool-static.AppImage AppDir/
+
+    - name: Upload AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        name: KDiskInfo-${{ matrix.clib }}-AppImage
+        path: ./KDiskInfo*.AppImage
+
+    - name: Upload Binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: KDiskInfo-Qt6-${{ matrix.clib }}-bin
+        path: ./build/KDiskInfo
+        
