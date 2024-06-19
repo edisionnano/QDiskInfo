@@ -117,8 +117,8 @@ void MainWindow::onPrevButtonClicked()
 
 void MainWindow::updateNavigationButtons(int currentIndex)
 {
-    prevButton->setEnabled(currentIndex > 0||(ui->actionCyclic_Navigation->isChecked() && buttonGroup->buttons().size() > 1)); // We can use setVisible if we want to mimic CrystalDiskInfo
-    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1||ui->actionCyclic_Navigation->isChecked());
+    prevButton->setEnabled(currentIndex > 0 || (ui->actionCyclic_Navigation->isChecked() && buttonGroup->buttons().size() > 1)); // We can use setVisible if we want to mimic CrystalDiskInfo
+    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1 || ui->actionCyclic_Navigation->isChecked());
 }
 
 void MainWindow::updateUI()

@@ -45,7 +45,7 @@ QString utils::getSmartctlOutput(const QStringList &arguments, bool root, bool i
         process.waitForFinished(-1);
     }
 
-    if (process.exitCode() == 127) {
+    if (process.exitCode() == 126 || process.exitCode() == 127) {
         QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
         if (initializing) {
             QTimer::singleShot(0, qApp, &QApplication::quit);
@@ -136,7 +136,7 @@ void utils::cancelSelfTest(const QString &deviceNode)
     process.start("pkexec", arguments);
     process.waitForFinished(-1);
 
-    if (process.exitCode() == 127) {
+    if (process.exitCode() == 126 || process.exitCode() == 127) {
         QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to abort a self-test!"));
     } else if (process.exitCode() == QProcess::NormalExit) {
         QMessageBox::information(nullptr, QObject::tr("Test Requested"), QObject::tr("The self-test has been aborted"));
