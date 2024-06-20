@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="23"/>
         <source>KDiskInfo</source>
-        <translation>KDiskInfo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="81"/>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="465"/>
         <source>&amp;GitHub</source>
-        <translation>&amp;GitHub</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="473"/>
@@ -241,7 +241,7 @@
         <location filename="../src/mainwindow.cpp" line="722"/>
         <location filename="../src/mainwindow.cpp" line="818"/>
         <source>ID</source>
-        <translation>ID</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="722"/>
