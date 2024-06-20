@@ -13,7 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(true);
 
-    horizontalLayout = ui->horizontalLayout;
+    QWidget *containerWidget = ui->scrollAreaWidgetContents;
+    horizontalLayout = new QHBoxLayout(containerWidget);
+    horizontalLayout->setContentsMargins(0, 0, 0, 0);
+    ui->scrollArea->setWidget(containerWidget);
 
     diskName = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("diskName"));
     temperatureValue = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("temperatureValueLabel"));
