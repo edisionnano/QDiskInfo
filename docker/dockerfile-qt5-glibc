@@ -7,4 +7,4 @@ RUN pacman --noconfirm -Syu
 RUN pacman --noconfirm -S cmake base-devel
 
 ### Dev Libraries
-RUN pacman --noconfirm -S qt5-base qt5-declarative
+RUN pacman --noconfirm -S qt5-base qt5-declarative qt5-tools

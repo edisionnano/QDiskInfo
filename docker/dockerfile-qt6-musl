@@ -9,3 +9,4 @@ RUN apk add alpine-sdk cmake
 ### Dev Libraries
 RUN apk add qt6-qtbase-dev          \
             qt6-qtdeclarative-dev   \
+            qt6-qttools             \

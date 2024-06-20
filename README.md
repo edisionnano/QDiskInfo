@@ -39,3 +39,32 @@ docker compose up kdiskinfo-qt5-glibc
 ```sh
 docker compose up kdiskinfo-qt6-glibc
 ```
+
+### Using Shell inside Docker Builds
+
+You can replace kdiskinfo-qt6-musl for the build options above:
+
+```sh
+docker compose run kdiskinfo-qt6-musl sh
+```
+
+### Generating Translate Files with Docker
+
+The commands below should be executed inside the container shell.
+On the examples the locale used is pt_BR, you can change for your desired locale.
+
+#### Qt6/musl
+
+Generate the translations file:
+
+```sh
+/usr/lib/qt6/bin/lupdate src/ -ts translations/kdiskinfo_pt_BR.ts -noobsolete
+```
+
+After finishing the translations run:
+
+```sh
+/usr/lib/qt6/bin/lrelease translations/kdiskinfo_pt_BR.ts -qm translations/kdiskinfo_pt_BR.qm
+```
+
+After finishing make sure to also edit ``src/resources.qrc`` after generating the qm to include it.
