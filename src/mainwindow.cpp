@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , settings("kdiskinfo", "kdiskinfo")
+    , settings("qdiskinfo", "qdiskinfo")
     , initializing(true)
 {
     ui->setupUi(this);
@@ -949,7 +949,7 @@ void MainWindow::on_actionSave_JSON_triggered()
 
 void MainWindow::on_actionGitHub_triggered()
 {
-    QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/KDiskInfo"));
+    QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/QDiskInfo"));
 }
 
 void MainWindow::on_actionRescan_Refresh_triggered()
@@ -970,7 +970,7 @@ void MainWindow::on_actionAbout_triggered()
     message += tr("Made by Samantas5855") + "\n";
     message += tr("Version") + " " + QString::number(PROJECT_VERSION_MAJOR) + "." + QString::number(PROJECT_VERSION_MINOR);
 
-    QMessageBox::about(this, tr("About KDiskInfo"), message);
+    QMessageBox::about(this, tr("About QDiskInfo"), message);
 }
 
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)

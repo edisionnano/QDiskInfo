@@ -3,8 +3,8 @@
         <file>icon.svg</file>
     </qresource>
     <qresource prefix="/">
-        <file alias="translations/kdiskinfo_el_GR.qm">../translations/kdiskinfo_el_GR.qm</file>
-        <file alias="translations/kdiskinfo_es_ES.qm">../translations/kdiskinfo_es_ES.qm</file>
-        <file alias="translations/kdiskinfo_pt_BR.qm">../translations/kdiskinfo_pt_BR.qm</file>
+        <file alias="translations/qdiskinfo_el_GR.qm">../translations/qdiskinfo_el_GR.qm</file>
+        <file alias="translations/qdiskinfo_es_ES.qm">../translations/qdiskinfo_es_ES.qm</file>
+        <file alias="translations/qdiskinfo_pt_BR.qm">../translations/qdiskinfo_pt_BR.qm</file>
     </qresource>
 </RCC>

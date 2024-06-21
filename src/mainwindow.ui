@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>KDiskInfo</string>
+   <string>QDiskInfo</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

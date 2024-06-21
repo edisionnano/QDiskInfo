@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(KDiskInfo VERSION 0.1 LANGUAGES CXX)
+project(QDiskInfo VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -31,18 +31,18 @@ set(PROJECT_SOURCES
         src/resources.qrc
 )
 
-add_executable(KDiskInfo
+add_executable(QDiskInfo
     ${PROJECT_SOURCES}
 )
 
-target_compile_definitions(KDiskInfo PRIVATE
-    PROJECT_VERSION_MAJOR=${KDiskInfo_VERSION_MAJOR}
-    PROJECT_VERSION_MINOR=${KDiskInfo_VERSION_MINOR}
+target_compile_definitions(QDiskInfo PRIVATE
+    PROJECT_VERSION_MAJOR=${QDiskInfo_VERSION_MAJOR}
+    PROJECT_VERSION_MINOR=${QDiskInfo_VERSION_MINOR}
 )
 
-target_link_libraries(KDiskInfo PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(QDiskInfo PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-set_target_properties(KDiskInfo PROPERTIES
+set_target_properties(QDiskInfo PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -51,14 +51,14 @@ set_target_properties(KDiskInfo PROPERTIES
 )
 
 include(GNUInstallDirs)
-install(TARGETS KDiskInfo
+install(TARGETS QDiskInfo
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(KDiskInfo)
+    qt_finalize_executable(QDiskInfo)
 endif()
 include(FeatureSummary)
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=KDiskInfo
-Icon=KDiskInfo
-Exec=KDiskInfo
+Name=QDiskInfo
+Icon=QDiskInfo
+Exec=QDiskInfo
 Terminal=false
 Categories=System;Monitor;ConsoleOnly;
 Keywords=system;process;task

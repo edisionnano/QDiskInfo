@@ -46,7 +46,7 @@ QString utils::getSmartctlOutput(const QStringList &arguments, bool root, bool i
     }
 
     if (process.exitCode() == 126 || process.exitCode() == 127) {
-        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to read S.M.A.R.T. data!"));
+        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("QDiskInfo needs root access in order to read S.M.A.R.T. data!"));
         if (initializing) {
             QTimer::singleShot(0, qApp, &QApplication::quit);
         }
@@ -79,7 +79,7 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
     QString command = commandList.join(" ; ");
 
     if (smartctlPath.isEmpty()) {
-        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("smartctl was not found, please install it!"));
+        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("smartctl was not found, please install it!"));
         QTimer::singleShot(0, qApp, &QApplication::quit);
     }
 
@@ -137,18 +137,18 @@ void utils::cancelSelfTest(const QString &deviceNode)
     process.waitForFinished(-1);
 
     if (process.exitCode() == 126 || process.exitCode() == 127) {
-        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to abort a self-test!"));
+        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("QDiskInfo needs root access in order to abort a self-test!"));
     } else if (process.exitCode() == QProcess::NormalExit) {
         QMessageBox::information(nullptr, QObject::tr("Test Requested"), QObject::tr("The self-test has been aborted"));
     } else {
-        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("Error: Something went wrong"));
+        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("Error: Something went wrong"));
     }
 }
 
 void utils::selfTestHandler(const QString &mode, const QString &name, const QString &minutes) {
     QString output = initiateSelfTest(mode, name);
     if (output.isEmpty()) {
-        QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("KDiskInfo needs root access in order to request a self-test!"));
+        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("QDiskInfo needs root access in order to request a self-test!"));
     } else {
         QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
         QJsonObject testObj = testDoc.object();
@@ -193,7 +193,7 @@ void utils::selfTestHandler(const QString &mode, const QString &name, const QStr
             }
             QMessageBox::information(nullptr, QObject::tr("Test Requested"), infoMessage);
         } else {
-            QMessageBox::critical(nullptr, QObject::tr("KDiskInfo Error"), QObject::tr("Error: Something went wrong"));
+            QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("Error: Something went wrong"));
         }
     }
 }

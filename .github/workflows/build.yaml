@@ -50,24 +50,24 @@ jobs:
         chmod a+x .github/scripts/smartctl
          
         mkdir -p AppDir/usr/bin
-        cp build/KDiskInfo AppDir/usr/bin/
+        cp build/QDiskInfo AppDir/usr/bin/
         cp .github/scripts/smartctl AppDir/usr/bin/
-        cp .github/scripts/KDiskInfo.desktop AppDir/
-        cp src/icon.svg AppDir/KDiskInfo.svg
+        cp .github/scripts/QDiskInfo.desktop AppDir/
+        cp src/icon.svg AppDir/QDiskInfo.svg
         
-        APPIMAGE_EXTRACT_AND_RUN=1 NO_STRIP=1 QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./linuxdeploy-static-x86_64.AppImage --appdir=AppDir/ -d AppDir/KDiskInfo.desktop -i AppDir/KDiskInfo.svg -e AppDir/usr/bin/KDiskInfo --plugin qt
+        APPIMAGE_EXTRACT_AND_RUN=1 NO_STRIP=1 QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./linuxdeploy-static-x86_64.AppImage --appdir=AppDir/ -d AppDir/QDiskInfo.desktop -i AppDir/QDiskInfo.svg -e AppDir/usr/bin/QDiskInfo --plugin qt
         echo 'export PATH="$this_dir"/usr/bin:"$PATH"' >> AppDir/apprun-hooks/linuxdeploy-plugin-qt-hook.sh
         APPIMAGE_EXTRACT_AND_RUN=1 VERSION=${{ matrix.clib }} QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./appimagetool-static.AppImage AppDir/
 
     - name: Upload AppImage
       uses: actions/upload-artifact@v4
       with:
-        name: KDiskInfo-${{ matrix.clib }}-AppImage
-        path: ./KDiskInfo*.AppImage
+        name: QDiskInfo-${{ matrix.clib }}-AppImage
+        path: ./QDiskInfo*.AppImage
 
     - name: Upload Binaries
       uses: actions/upload-artifact@v4
       with:
-        name: KDiskInfo-Qt6-${{ matrix.clib }}-bin
-        path: ./build/KDiskInfo
+        name: QDiskInfo-Qt6-${{ matrix.clib }}-bin
+        path: ./build/QDiskInfo
         
