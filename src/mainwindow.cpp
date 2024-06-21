@@ -8,9 +8,9 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , initializing(true)
     , ui(new Ui::MainWindow)
     , settings("qdiskinfo", "qdiskinfo")
+    , initializing(true)
 {
     ui->setupUi(this);
 
