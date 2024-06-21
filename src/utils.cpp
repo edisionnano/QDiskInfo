@@ -4,8 +4,8 @@ utils::utils() {}
 
 void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
 {
-    QList<QAbstractButton*> buttons = buttonGroup->buttons();
-    for (QAbstractButton* button : buttons) {
+    auto buttons = buttonGroup->buttons();
+    for (auto* button : buttons) {
         buttonGroup->removeButton(button);
         delete button;
     }
@@ -15,12 +15,12 @@ void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalL
 }
 
 QString utils::getSmartctlPath(bool initializing) {
-    QStringList paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
+    auto paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
 
     paths << "/usr/sbin" << "/usr/local/sbin";
 
-    for (const QString &path : paths) {
-        QString absolutePath = QDir(path).absoluteFilePath("smartctl");
+    for (const auto &path : paths) {
+        auto absolutePath = QDir(path).absoluteFilePath("smartctl");
         if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
             return absolutePath;
         }
@@ -63,27 +63,27 @@ QString utils::getSmartctlOutput(const QStringList &arguments, bool root, bool i
 
 QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 {
-    QString output = getSmartctlOutput({"--scan", "--json"}, false, initializing);
-    QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
-    QJsonObject jsonObj = doc.object();
-    QJsonArray devices = jsonObj["devices"].toArray();
-    QString smartctlPath = getSmartctlPath(initializing);
+    auto output = getSmartctlOutput({"--scan", "--json"}, false, initializing);
+    auto doc = QJsonDocument::fromJson(output.toUtf8());
+    auto jsonObj = doc.object();
+    auto devices = jsonObj["devices"].toArray();
+    auto smartctlPath = getSmartctlPath(initializing);
     QStringList commandList;
     QStringList deviceOutputs;
 
-    for (const QJsonValue &value : std::as_const(devices)) {
-        QJsonObject device = value.toObject();
-        QString deviceName = device["name"].toString();
+    for (const auto &value : std::as_const(devices)) {
+        auto device = value.toObject();
+        auto deviceName = device["name"].toString();
         commandList.append(QString(smartctlPath + " --all --json=o %1").arg(deviceName));
     }
-    QString command = commandList.join(" ; ");
+    auto command = commandList.join(" ; ");
 
     if (smartctlPath.isEmpty()) {
         QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("smartctl was not found, please install it!"));
         QTimer::singleShot(0, qApp, &QApplication::quit);
     }
 
-    QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true, initializing);
+    auto allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true, initializing);
 
     int startIndex = 0;
     int endIndex = 0;
@@ -92,13 +92,13 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 
     while ((endIndex = allDevicesOutput.indexOf(regex, startIndex)) != -1) {
         ++endIndex;
-        QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
+        auto jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
         deviceOutputs.append(jsonFragment);
         startIndex = endIndex;
     }
 
     if (startIndex < allDevicesOutput.size()) {
-        QString jsonFragment = allDevicesOutput.mid(startIndex);
+        auto jsonFragment = allDevicesOutput.mid(startIndex);
         deviceOutputs.append(jsonFragment);
     }
 
@@ -112,7 +112,7 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 QString utils::initiateSelfTest(const QString &testType, const QString &deviceNode)
 {
     QProcess process;
-    QString command = getSmartctlPath(false);
+    auto command = getSmartctlPath(false);
     QStringList arguments;
     arguments << command << "--json=o" << "-t" << testType << deviceNode;
 
@@ -129,7 +129,7 @@ QString utils::initiateSelfTest(const QString &testType, const QString &deviceNo
 void utils::cancelSelfTest(const QString &deviceNode)
 {
     QProcess process;
-    QString command = getSmartctlPath(false);
+    auto command = getSmartctlPath(false);
     QStringList arguments;
     arguments << command << "-X" << deviceNode;
 
@@ -146,24 +146,24 @@ void utils::cancelSelfTest(const QString &deviceNode)
 }
 
 void utils::selfTestHandler(const QString &mode, const QString &name, const QString &minutes) {
-    QString output = initiateSelfTest(mode, name);
+    auto output = initiateSelfTest(mode, name);
     if (output.isEmpty()) {
         QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("QDiskInfo needs root access in order to request a self-test!"));
     } else {
-        QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
-        QJsonObject testObj = testDoc.object();
-        QJsonObject smartctlObj = testObj.value("smartctl").toObject();
-        QJsonObject deviceObj = testObj.value("device").toObject();
-        QString name = deviceObj.value("name").toString();
-        int exitStatus = smartctlObj.value("exit_status").toInt();
+        auto testDoc = QJsonDocument::fromJson(output.toUtf8());
+        auto testObj = testDoc.object();
+        auto smartctlObj = testObj.value("smartctl").toObject();
+        auto deviceObj = testObj.value("device").toObject();
+        auto name = deviceObj.value("name").toString();
+        auto exitStatus = smartctlObj.value("exit_status").toInt();
 
-        QJsonArray outputArray = smartctlObj["output"].toArray();
+        auto outputArray = smartctlObj["output"].toArray();
         static const QRegularExpression regex("\\((\\d+%)\\s*(\\w+)\\)");
 
         QString percentage;
-        for (const QJsonValue &value : outputArray) {
-            QString line = value.toString();
-            QRegularExpressionMatch match = regex.match(line);
+        for (const auto &value : outputArray) {
+            auto line = value.toString();
+            auto match = regex.match(line);
             if (match.hasMatch()) {
                 percentage = match.captured(0);
                 break;
@@ -179,7 +179,7 @@ void utils::selfTestHandler(const QString &mode, const QString &name, const QStr
             msgBox.setIcon(QMessageBox::Warning);
 
             msgBox.addButton(QMessageBox::Cancel);
-            QPushButton *abortButton = msgBox.addButton(QMessageBox::Ok);
+            auto *abortButton = msgBox.addButton(QMessageBox::Ok);
 
             msgBox.exec();
 
@@ -187,7 +187,7 @@ void utils::selfTestHandler(const QString &mode, const QString &name, const QStr
                 cancelSelfTest(name);
             }
         } else if (exitStatus == 0) {
-            QString infoMessage = QObject::tr("A self-test has been requested successfully");
+            auto infoMessage = QObject::tr("A self-test has been requested successfully");
             if (minutes != "0") {
                 infoMessage = infoMessage + "\n" + QObject::tr("It will be completed after") + " " + minutes + " " + QObject::tr("minutes");
             }
@@ -202,7 +202,7 @@ QString utils::toTitleCase(const QString& sentence) {
     QString result;
     bool capitalizeNext = true;
 
-    for (const QChar& c : sentence) {
+    for (const auto& c : sentence) {
         if (c.isLetter()) {
             if (capitalizeNext) {
                 result += c.toUpper();

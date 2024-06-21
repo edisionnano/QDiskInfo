@@ -8,20 +8,20 @@ CustomButton::CustomButton(const QString &text1, const QString &text2, const QSt
 }
 
 void CustomButton::adjustWidthToFitText() {
-    QFont font = this->font();
-    QFontMetrics fm(font);
+    auto font = this->font();
+    QFontMetrics fontMetrics(font);
 
-    int maxWidth = 0;
+    auto maxWidth = 0;
     QString lines[] = {text1, text2, text3};
 
-    for (const QString &line : lines) {
-        int lineWidth = fm.horizontalAdvance(line);
+    for (const auto &line : lines) {
+        auto lineWidth = fontMetrics.horizontalAdvance(line);
         if (lineWidth > maxWidth) {
             maxWidth = lineWidth;
         }
     }
 
-    int desiredWidth = maxWidth + 28;
+    auto desiredWidth = maxWidth + 28;
     setMinimumWidth(desiredWidth);
     setMaximumWidth(desiredWidth);
 }
@@ -29,8 +29,8 @@ void CustomButton::adjustWidthToFitText() {
 void CustomButton::paintEvent(QPaintEvent *event) {
     QPushButton::paintEvent(event);
     QPainter painter(this);
-    QPalette pal = palette();
-    QColor textColor = pal.color(QPalette::ButtonText);
+    auto pal = palette();
+    auto textColor = pal.color(QPalette::ButtonText);
 
     QPen pen(lineColor, 6);
     painter.setPen(pen);

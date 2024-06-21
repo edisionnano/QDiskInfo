@@ -2,9 +2,10 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
+    , initializing(true)
     , ui(new Ui::MainWindow)
     , settings("qdiskinfo", "qdiskinfo")
-    , initializing(true)
+
 {
     ui->setupUi(this);
 
@@ -13,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(true);
 
-    QWidget *containerWidget = ui->scrollAreaWidgetContents;
+    auto *containerWidget = ui->scrollAreaWidgetContents;
     horizontalLayout = new QHBoxLayout(containerWidget);
     horizontalLayout->setContentsMargins(0, 0, 0, 0);
     ui->scrollArea->setWidget(containerWidget);
@@ -76,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionCyclic_Navigation->setChecked(settings.value("CyclicNavigation", false).toBool());
     ui->actionUse_GB_instead_of_TB->setChecked(settings.value("UseGB", false).toBool());
 
-    QAction *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
+    auto *toggleEchoModeAction = serialNumberLineEdit->addAction(QIcon::fromTheme(QStringLiteral("visibility")), QLineEdit::TrailingPosition);
     connect(toggleEchoModeAction, &QAction::triggered, this, [=]() {
         if (serialNumberLineEdit->echoMode() == QLineEdit::Password) {
             serialNumberLineEdit->setEchoMode(QLineEdit::Normal);
@@ -87,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
-    QPair<QStringList, QJsonArray> values = Utils.scanDevices(initializing);
+    auto values = Utils.scanDevices(initializing);
     deviceOutputs = values.first;
     devices = values.second;
     if (!deviceOutputs.isEmpty()) {
@@ -104,16 +105,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::onNextButtonClicked()
 {
-    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
-    int nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
+    auto currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    auto nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
     buttonGroup->buttons().at(nextIndex)->click();
     updateNavigationButtons(nextIndex);
 }
 
 void MainWindow::onPrevButtonClicked()
 {
-    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
-    int prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
+    auto currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    auto prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
     buttonGroup->buttons().at(prevIndex)->click();
     updateNavigationButtons(prevIndex);
 }
@@ -130,32 +131,32 @@ void MainWindow::updateUI()
     globalIsNvme = false;
 
     for (int i = 0; i < devices.size(); ++i) {
-        QJsonObject device = devices[i].toObject();
-        QString deviceName = device["name"].toString();
+        auto device = devices[i].toObject();
+        auto deviceName = device["name"].toString();
 
         QString allOutput;
         if (i >= 0 && i < deviceOutputs.size()) {
             allOutput = deviceOutputs[i];
         }
 
-        QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
-        QJsonObject localObj = localDoc.object();
+        auto localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
+        auto localObj = localDoc.object();
 
-        QString modelName = localObj["model_name"].toString();
-        QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-        QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
+        auto modelName = localObj["model_name"].toString();
+        auto attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+        auto nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
         QString temperature = "-- °C";
-        bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
+        auto healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
         bool bad = false;
         QString health;
         QColor healthColor;
 
-        float diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
-        QString gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
-        QString tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+        auto diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+        auto gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+        auto tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
         QString diskCapacityString;
-        int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
+        auto diskCapacityGbInt = static_cast<int>(diskCapacityGB);
         bool useGB = ui->actionUse_GB_instead_of_TB->isChecked();
         if (diskCapacityGbInt < 1000 || useGB) {
             diskCapacityString = locale.toString(diskCapacityGB, 'f', 1) + " " + gbSymbol;
@@ -163,13 +164,13 @@ void MainWindow::updateUI()
             diskCapacityString = QString::number(diskCapacityGbInt/1000) + " " + tbSymbol;
         }
 
-        QString protocol = localObj["device"].toObject()["protocol"].toString();
+        auto protocol = localObj["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
 
-        int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
+        auto temperatureInt = localObj["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
             if (ui->actionUse_Fahrenheit->isChecked()) {
-                int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
+                auto fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
                 temperature = QString::number(fahrenheit) + " °F";
             } else {
                 temperature = QString::number(temperatureInt) + " °C";
@@ -178,8 +179,8 @@ void MainWindow::updateUI()
 
         QVector<QPair<QString, int>> nvmeSmartOrdered;
         if (!isNvme) {
-            for (const QJsonValue &attr : attributes) {
-                QJsonObject attrObj = attr.toObject();
+            for (const auto &attr : attributes) {
+                auto attrObj = attr.toObject();
                 if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198 || (attrObj["id"] == 196 && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && attrObj["raw"].toObject()["value"].toDouble()) {
                     caution = true;
                 }
@@ -191,8 +192,8 @@ void MainWindow::updateUI()
             JsonParser parser;
             nvmeSmartOrdered = parser.parse(allOutput);
             int row = 1;
-            for (const QPair<QString, int> &pair : std::as_const(nvmeSmartOrdered)) {
-                QString id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
+            for (const auto &pair : std::as_const(nvmeSmartOrdered)) {
+                auto id = QString("%1").arg(row, 2, 16, QChar('0')).toUpper();
                 int raw = pair.second;
                 if (id == "01" && raw) {
                     bad = true;
@@ -229,13 +230,13 @@ void MainWindow::updateUI()
             healthColor = naColor;
         }
 
-        CustomButton *button = new CustomButton(health, temperature, deviceName, healthColor, this);
+        auto *button = new CustomButton(health, temperature, deviceName, healthColor, this);
         button->setToolTip(tr("Disk") + " " + QString::number(i) + " : " +  modelName + " : " + diskCapacityString);
 
         buttonGroup->addButton(button);
         horizontalLayout->addWidget(button);
 
-        QAction *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + diskCapacityString, this);
+        auto *diskAction = new QAction("(" + QString::number(i+1) + ") " + modelName + " " + diskCapacityString, this);
         diskAction->setCheckable(true);
         menuDisk->addAction(diskAction);
         disksGroup->addAction(diskAction);
@@ -290,20 +291,20 @@ void MainWindow::updateUI()
 
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
-    QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-    QJsonObject pollingMinutes = localObj["ata_smart_data"].toObject()["self_test"].toObject()["polling_minutes"].toObject();
-    QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
-    QString modelName = localObj["model_name"].toString();
-    QString firmwareVersion = localObj["firmware_version"].toString();
-    float diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
-    int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
-    int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
+    auto attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
+    auto pollingMinutes = localObj["ata_smart_data"].toObject()["self_test"].toObject()["polling_minutes"].toObject();
+    auto nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
+    auto modelName = localObj["model_name"].toString();
+    auto firmwareVersion = localObj["firmware_version"].toString();
+    auto diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+    auto diskCapacityGbInt = static_cast<int>(diskCapacityGB);
+    auto temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
     int totalWritesInt = 0;
     int totalReadsInt = 0;
     bool useGB = ui->actionUse_GB_instead_of_TB->isChecked();
 
-    QString gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
-    QString tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+    auto gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
+    auto tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
     QString diskCapacityString;
     if (diskCapacityGbInt < 1000 || useGB) {
         diskCapacityString = locale.toString(diskCapacityGB, 'f', 1) + " " + gbSymbol;
@@ -314,22 +315,22 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString totalReads;
     QString totalWrites;
     QString percentage = "";
-    QString serialNumber = localObj["serial_number"].toString();
-    QJsonObject deviceObj = localObj["device"].toObject();
-    QString protocol = deviceObj["protocol"].toString();
-    QString type = deviceObj["type"].toString();
-    QString name = deviceObj["name"].toString();
-    QJsonArray outputArray = localObj.value("smartctl").toObject()["output"].toArray();
+    auto serialNumber = localObj["serial_number"].toString();
+    auto deviceObj = localObj["device"].toObject();
+    auto protocol = deviceObj["protocol"].toString();
+    auto type = deviceObj["type"].toString();
+    auto name = deviceObj["name"].toString();
+    auto outputArray = localObj.value("smartctl").toObject()["output"].toArray();
 
-    QJsonArray nvmeSelfTestsTable = localObj["nvme_self_test_log"].toObject()["table"].toArray();
-    QJsonArray ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
+    auto nvmeSelfTestsTable = localObj["nvme_self_test_log"].toObject()["table"].toArray();
+    auto ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
 
     bool isNvme = (protocol == "NVMe");
     bool nvmeHasSelfTest = false;
 
     auto createTablePopup = [=](QJsonArray selfTestsTable) {
-        QWidget *popup = new QWidget();
-        QTableWidget *tableWidget = new QTableWidget();
+        auto *popup = new QWidget();
+        auto *tableWidget = new QTableWidget();
 
         tableWidget->setRowCount(selfTestsTable.size());
         tableWidget->setColumnCount(3);
@@ -337,7 +338,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         tableWidget->setHorizontalHeaderLabels({tr("Type"), tr("Status"), tr("Power On Hours")});
 
         for (int i = 0; i < selfTestsTable.size(); ++i) {
-            QJsonObject entry = selfTestsTable[i].toObject();
+            auto entry = selfTestsTable[i].toObject();
             QTableWidgetItem *item;
 
             if (isNvme) {
@@ -354,7 +355,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
 
         for (int i = 0; i < tableWidget->columnCount(); ++i) {
-            QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
+            auto *headerItem = tableWidget->horizontalHeaderItem(i);
             if (headerItem) {
                 if (i == 2) {
                    headerItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -376,7 +377,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         tableWidget->verticalHeader()->setDefaultSectionSize(31);
         tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-        QVBoxLayout *layout = new QVBoxLayout;
+        auto *layout = new QVBoxLayout;
         layout->addWidget(tableWidget);
         popup->setLayout(layout);
         popup->setWindowTitle(tr("Self Test Log"));
@@ -393,12 +394,12 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     protocolLineEdit->setText(protocol);
     deviceNodeLineEdit->setText(name);
 
-    QStringList keys = pollingMinutes.keys();
+    auto keys = pollingMinutes.keys();
     std::sort(keys.begin(), keys.end(), [&pollingMinutes](const QString& key1, const QString& key2) {
         return pollingMinutes[key1].toInt() < pollingMinutes[key2].toInt();
     });
 
-    int rotationRateInt = localObj["rotation_rate"].toInt(-1);
+    auto rotationRateInt = localObj["rotation_rate"].toInt(-1);
     QString rotationRate;
     if (rotationRateInt > 0) {
         rotationRate = QString::number(rotationRateInt);
@@ -411,7 +412,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     rotationRateLineEdit->setText(rotationRate);
     rotationRateLineEdit->setAlignment(Qt::AlignRight);
 
-    int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
+    auto powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
     QString powerCycleCount;
     if (powerCycleCountInt >= 0) {
         powerCycleCount = QString::number(powerCycleCountInt) + " " + tr("count");
@@ -422,7 +423,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     powerOnCountLineEdit->setText(powerCycleCount);
     powerOnCountLineEdit->setAlignment(Qt::AlignRight);
 
-    int powerOnTimeInt = localObj["power_on_time"].toObject().value("hours").toInt(-1);
+    auto powerOnTimeInt = localObj["power_on_time"].toObject().value("hours").toInt(-1);
     QString powerOnTime;
     if (powerOnTimeInt >= 0) {
         powerOnTime = QString::number(powerOnTimeInt) + " " + tr("hours");
@@ -434,19 +435,19 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     powerOnHoursLineEdit->setAlignment(Qt::AlignRight);
 
     if (!isNvme) {
-        for (const QJsonValue &attr : attributes) {
-            QJsonObject attrObj = attr.toObject();
+        for (const auto &attr : attributes) {
+            auto attrObj = attr.toObject();
             if (attrObj["id"] == 202) {
                 if (attrObj["name"] == "Percent_Lifetime_Remain") {
-                    int percentageUsed = 100 - attrObj["raw"].toObject()["value"].toInt();
+                    auto percentageUsed = 100 - attrObj["raw"].toObject()["value"].toInt();
                     percentage = QString::number(percentageUsed) + " %";
                 }
             } else if (attrObj["id"] == 241) {
                 if (attrObj["name"] == "Total_Writes_GB") {
-                    int gigabytes = attrObj["raw"].toObject()["value"].toInt();
+                    auto gigabytes = attrObj["raw"].toObject()["value"].toInt();
                     totalWritesInt = gigabytes;
                 } else if (attrObj["name"] == "Host_Writes_32MiB") {
-                    double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
+                    auto gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                     totalWritesInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Total_LBAs_Written") {
                     unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
@@ -455,19 +456,19 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWritesInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Host_Writes_GiB" || attrObj["name"] == "Lifetime_Writes_GiB") {
-                    double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
-                    double bytesPerGiB = static_cast<double>(1ULL << 30);
-                    double bytesPerGB = 1e9;
-                    double conversionFactor = bytesPerGiB / bytesPerGB;
-                    double gigabytes = gibibytes * conversionFactor;
+                    auto gibibytes = attrObj["raw"].toObject()["value"].toDouble();
+                    auto bytesPerGiB = static_cast<double>(1ULL << 30);
+                    auto bytesPerGB = 1e9;
+                    auto conversionFactor = bytesPerGiB / bytesPerGB;
+                    auto gigabytes = gibibytes * conversionFactor;
                     totalWritesInt = static_cast<int>(gigabytes);
                 }
             } else if (attrObj["id"] == 242) {
                 if (attrObj["name"] == "Total_Reads_GB") {
-                    int gigabytes = attrObj["raw"].toObject()["value"].toInt();
+                    auto gigabytes = attrObj["raw"].toObject()["value"].toInt();
                     totalReadsInt = gigabytes;
                 } else if (attrObj["name"] == "Host_Reads_32MiB") {
-                    double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
+                    auto gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                     totalReadsInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Total_LBAs_Read") {
                     unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
@@ -476,11 +477,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     unsigned long long gigabytes = (lbaRead * logicalBlockSize) / oneGB;
                     totalReadsInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Host_Reads_GiB" || attrObj["name"] == "Lifetime_Reads_GiB") {
-                    double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
-                    double bytesPerGiB = static_cast<double>(1ULL << 30);
-                    double bytesPerGB = 1e9;
-                    double conversionFactor = bytesPerGiB / bytesPerGB;
-                    double gigabytes = gibibytes * conversionFactor;
+                    auto gibibytes = attrObj["raw"].toObject()["value"].toDouble();
+                    auto bytesPerGiB = static_cast<double>(1ULL << 30);
+                    auto bytesPerGB = 1e9;
+                    auto conversionFactor = bytesPerGiB / bytesPerGB;
+                    auto gigabytes = gibibytes * conversionFactor;
                     totalReadsInt = static_cast<int>(gigabytes);
                 }
             } else if (attrObj["id"] == 246) { // MX500
@@ -492,18 +493,18 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     totalWritesInt = static_cast<int>(gigabytes);
                 }
             } else if (attrObj["name"] == "Remaining_Lifetime_Perc") {
-                int percentageUsed = attrObj["raw"].toObject()["value"].toInt();
+                auto percentageUsed = attrObj["raw"].toObject()["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
             } else if (attrObj["name"] == "Media_Wearout_Indicator" || attrObj["name"] == "SSD_Life_Left") {
-                int percentageUsed = attrObj["value"].toInt();
+                auto percentageUsed = attrObj["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
             }
         }
         if (percentage.isEmpty() && rotationRate == "---- (SSD)") { // Workaround for some drives which have this and another attribute
-            for (const QJsonValue &attr : attributes) {
-                QJsonObject attrObj = attr.toObject();
+            for (const auto &attr : attributes) {
+                auto attrObj = attr.toObject();
                 if (attrObj["name"] == "Wear_Leveling_Count") {
-                    int percentageUsed = attrObj["value"].toInt();
+                    auto percentageUsed = attrObj["value"].toInt();
                     percentage = QString::number(percentageUsed) + " %";
                     break;
                 }
@@ -511,18 +512,18 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     } else {
         for (auto smartItem = nvmeLog.begin(); smartItem != nvmeLog.end(); ++smartItem) {
-            QString key = smartItem.key();
-            QJsonValue value = smartItem.value();
+            auto key = smartItem.key();
+            auto value = smartItem.value();
             if (key == "data_units_written") {
-                double dataUnitsWritten = value.toDouble();
-                double gigabytes = (dataUnitsWritten * 512) / 1'000'000;
+                auto dataUnitsWritten = value.toDouble();
+                auto gigabytes = (dataUnitsWritten * 512) / 1'000'000;
                 totalWritesInt = static_cast<int>(gigabytes);
             } else if (key == "data_units_read") {
-                double dataUnitsRead = value.toDouble();
-                double gigabytes = (dataUnitsRead * 512) / 1'000'000;
+                auto dataUnitsRead = value.toDouble();
+                auto gigabytes = (dataUnitsRead * 512) / 1'000'000;
                 totalReadsInt = static_cast<int>(gigabytes);
             } else if (key == "percentage_used") {
-                int percentageUsed = 100 - value.toInt();
+                auto percentageUsed = 100 - value.toInt();
                 percentage = QString::number(percentageUsed) + " %";
             }
         }
@@ -561,7 +562,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         QString stringValue;
         warningTemperature = 65;
         criticalTemperature = 70;
-        for (const QJsonValue &value : outputArray) {
+        for (const auto &value : outputArray) {
             stringValue = value.toString();
             if (stringValue.startsWith("Optional Admin Commands")) {
                 if (stringValue.contains("Self_Test")) {
@@ -570,7 +571,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (stringValue.startsWith("Warning  Comp. Temp. Threshold")) {
                 int pos = stringValue.indexOf(':');
                 if (pos != -1) {
-                    QString thresholdStr = stringValue.mid(pos + 1).trimmed();
+                    auto thresholdStr = stringValue.mid(pos + 1).trimmed();
                     int temperature = thresholdStr.section(' ', 0, 0).toInt();
                     if (temperature > 0) {
                         warningTemperature = temperature;
@@ -579,7 +580,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (stringValue.startsWith("Critical Comp. Temp. Threshold")) {
                 int pos = stringValue.indexOf(':');
                 if (pos != -1) {
-                    QString thresholdStr = stringValue.mid(pos + 1).trimmed();
+                    auto thresholdStr = stringValue.mid(pos + 1).trimmed();
                     int temperature = thresholdStr.section(' ', 0, 0).toInt();
                     if (temperature > 0) {
                         criticalTemperature = temperature;
@@ -591,7 +592,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (temperatureInt > warningTemperature) { // TODO: Let the user set an alarm temp.
         temperatureValue->setStyleSheet("background-color: " + badColor.name() + ";");
-    } else if ((temperatureInt < criticalTemperature) && (temperatureInt > warningTemperature)){
+    } else if ((temperatureInt < criticalTemperature) && (temperatureInt > warningTemperature)) {
         temperatureValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
     } else if (temperatureInt == 0) {
         temperatureValue->setStyleSheet("background-color: " + naColor.name() + ";");
@@ -603,7 +604,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     if (temperatureInt > 0) {
         if (ui->actionUse_Fahrenheit->isChecked()) {
-            int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
+            auto fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
             temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(fahrenheit) + " °F</span></p></body></html>");
         } else {
             temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
@@ -642,8 +643,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
 
         int i = 0;
-        for (const QString& key : keys) {
-            QString minutes = QString::number(static_cast<int>(pollingMinutes[key].toInt()));
+        for (const auto& key : keys) {
+            auto minutes = QString::number(static_cast<int>(pollingMinutes[key].toInt()));
             QString keyTranslated;
             if (key == "short") {
                 keyTranslated = tr("Short");
@@ -655,8 +656,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 keyTranslated = key;
                 keyTranslated[0] = keyTranslated[0].toUpper();
             }
-            QString actionLabel = keyTranslated + " (" + minutes + " " + tr("Min.)");
-            QAction *action = new QAction(actionLabel, this);
+            auto actionLabel = keyTranslated + " (" + minutes + " " + tr("Min.)");
+            auto *action = new QAction(actionLabel, this);
             selfTestMenu->addAction(action);
 
             QString mode;
@@ -693,13 +694,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             selfTestMenu->setDisabled(true);
         }
 
-        QAction *actionShort = new QAction(tr("Short"), this);
+        auto *actionShort = new QAction(tr("Short"), this);
         selfTestMenu->addAction(actionShort);
         connect(actionShort, &QAction::triggered, this, [this, mode = "short", name, minutes = "0"]() {
             Utils.selfTestHandler(mode, name, minutes);
         });
 
-        QAction *actionLong = new QAction(tr("Extended"), this);
+        auto *actionLong = new QAction(tr("Extended"), this);
         selfTestMenu->addAction(actionLong);
         connect(actionLong , &QAction::triggered, this, [this, mode = "long", name, minutes = "0"]() {
             Utils.selfTestHandler(mode, name, minutes);
@@ -731,15 +732,15 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     tableWidget->horizontalHeaderItem(3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     int row = 0;
-    for (const QPair<QString, int> &pair : std::as_const(nvmeLogOrdered)) {
-        QString id = QString("%1").arg(row + 1, 2, 16, QChar('0')).toUpper();
+    for (const auto &pair : std::as_const(nvmeLogOrdered)) {
+        auto id = QString("%1").arg(row + 1, 2, 16, QChar('0')).toUpper();
 
-        QString key = pair.first;
-        QString name = key.replace("_", " ");
+        auto key = pair.first;
+        auto name = key.replace("_", " ");
         name = Utils.toTitleCase(name);
 
-        int rawInt = pair.second;
-        QString raw = QString::number(rawInt);
+        auto rawInt = pair.second;
+        auto raw = QString::number(rawInt);
         if ((ui->actionHEX->isChecked())) {
             raw = QString("%1").arg(raw.toUInt(nullptr), 14, 16, QChar('0')).toUpper();
         }
@@ -762,7 +763,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
                 warningMessage = tr("Persistent memory region has become Read-Only");
             }
         } else if (id == "03") {
-            int availableSpareThreshold = nvmeLogOrdered.at(3).second;
+            auto availableSpareThreshold = nvmeLogOrdered.at(3).second;
             if (availableSpareThreshold > 100) { // Thx to crystaldiskinfo for these workarounds
                 statusColor = goodColor;
             } else if (rawInt == 0 && availableSpareThreshold == 0) {
@@ -780,15 +781,15 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
             statusColor = goodColor;
         }
 
-        QTableWidgetItem *statusItem = new QTableWidgetItem();
+        auto *statusItem = new QTableWidgetItem();
         statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
 
-        QTableWidgetItem *idItem = new QTableWidgetItem(id);
+        auto *idItem = new QTableWidgetItem(id);
         idItem->setTextAlignment(Qt::AlignCenter);
 
-        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+        auto *nameItem = new QTableWidgetItem(name);
 
-        QTableWidgetItem *rawItem = new QTableWidgetItem(raw);
+        auto *rawItem = new QTableWidgetItem(raw);
         rawItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         tableWidget->setItem(row, 0, statusItem);
@@ -800,7 +801,7 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
     }
 
     tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    for (int i = 0; i < tableWidget->columnCount(); ++i) {
+    for (auto i = 0; i < tableWidget->columnCount(); ++i) {
         if (i != 2) {
             tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
         }
@@ -823,8 +824,8 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
     tableWidget->setRowCount(attributes.size());
 
-    for (int i = 0; i < tableWidget->columnCount(); ++i) {
-        QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
+    for (auto i = 0; i < tableWidget->columnCount(); ++i) {
+        auto *headerItem = tableWidget->horizontalHeaderItem(i);
         if (headerItem) {
             if (i == 2) {
                 headerItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -835,15 +836,15 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     }
 
     int row = 0;
-    for (const QJsonValue &attr : attributes) {
-        QJsonObject attrObj = attr.toObject();
-        QString id = QString("%1").arg(attrObj["id"].toInt(), 2, 16, QChar('0')).toUpper();
-        QString name = attrObj["name"].toString().replace("_", " ");
+    for (const auto &attr : attributes) {
+        auto attrObj = attr.toObject();
+        auto id = QString("%1").arg(attrObj["id"].toInt(), 2, 16, QChar('0')).toUpper();
+        auto name = attrObj["name"].toString().replace("_", " ");
         int value = attrObj["value"].toInt();
         int worst = attrObj["worst"].toInt();
         int thresh = attrObj["thresh"].toInt();
-        QString rawString = attrObj["raw"].toObject()["string"].toString();
-        QString rawHEX = rawString;
+        auto rawString = attrObj["raw"].toObject()["string"].toString();
+        auto rawHEX = rawString;
 
         int spaceIndex = rawHEX.indexOf(' ');
         if (spaceIndex != -1) {
@@ -865,21 +866,21 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
             statusColor = goodColor;
         }
 
-        QTableWidgetItem *statusItem = new QTableWidgetItem();
+        auto *statusItem = new QTableWidgetItem();
         statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
 
-        QTableWidgetItem *idItem = new QTableWidgetItem(id);
+        auto *idItem = new QTableWidgetItem(id);
         idItem->setTextAlignment(Qt::AlignCenter);
 
-        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+        auto *nameItem = new QTableWidgetItem(name);
 
-        QTableWidgetItem *valueItem = new QTableWidgetItem(QString::number(value));
+        auto *valueItem = new QTableWidgetItem(QString::number(value));
         valueItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-        QTableWidgetItem *worstItem = new QTableWidgetItem(QString::number(worst));
+        auto *worstItem = new QTableWidgetItem(QString::number(worst));
         worstItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-        QTableWidgetItem *threshItem = new QTableWidgetItem(QString::number(thresh));
+        auto *threshItem = new QTableWidgetItem(QString::number(thresh));
         threshItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         QTableWidgetItem *rawItem;
@@ -902,7 +903,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     }
 
     tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    for (int i = 0; i < tableWidget->columnCount(); ++i) {
+    for (auto i = 0; i < tableWidget->columnCount(); ++i) {
         if (i != 2) {
             tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
         }
@@ -926,9 +927,9 @@ void MainWindow::on_actionSave_JSON_triggered()
         return;
     }
 
-    QString fileName = QFileDialog::getSaveFileName(this,
-                                                    tr("Save JSON"), "",
-                                                    tr("JSON (*.json);;All Files (*)"));
+    auto fileName = QFileDialog::getSaveFileName(this,
+                                                 tr("Save JSON"), "",
+                                                 tr("JSON (*.json);;All Files (*)"));
     if (fileName.isEmpty())
         return;
     else {
@@ -940,7 +941,7 @@ void MainWindow::on_actionSave_JSON_triggered()
         }
 
         QJsonDocument doc(deviceJson);
-        QByteArray jsonData = doc.toJson();
+        auto jsonData = doc.toJson();
 
         file.write(jsonData);
         file.close();
@@ -954,7 +955,7 @@ void MainWindow::on_actionGitHub_triggered()
 
 void MainWindow::on_actionRescan_Refresh_triggered()
 {
-    QPair<QStringList, QJsonArray> values = Utils.scanDevices(initializing);
+    auto values = Utils.scanDevices(initializing);
     deviceOutputs = values.first;
     devices = values.second;
     if (!deviceOutputs.isEmpty()) {
@@ -965,7 +966,7 @@ void MainWindow::on_actionRescan_Refresh_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QString message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n";
+    auto message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n";
     message += tr("Licensed under the GNU G.P.L. Version 3") + "\n";
     message += tr("Made by Samantas5855") + "\n";
     message += tr("Version") + " " + QString::number(PROJECT_VERSION_MAJOR) + "." + QString::number(PROJECT_VERSION_MINOR);
@@ -1003,7 +1004,7 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
 {
     settings.setValue("CyclicNavigation", ui->actionCyclic_Navigation->isChecked());
-    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    auto currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
     updateNavigationButtons(currentIndex);
 }
 
