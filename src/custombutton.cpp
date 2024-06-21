@@ -1,5 +1,7 @@
 #include "custombutton.h"
+
 #include <QFontMetrics>
+#include <QPainter>
 
 CustomButton::CustomButton(const QString &text1, const QString &text2, const QString &text3, const QColor &lineColor, QWidget *parent)
     : QPushButton(parent), text1(text1), text2(text2), text3(text3), lineColor(lineColor) {

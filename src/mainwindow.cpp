@@ -1,10 +1,16 @@
 #include "mainwindow.h"
 
+#include <QDesktopServices>
+#include <QFileDialog>
+#include <QJsonDocument>
+#include <QMessageBox>
+#include <QUrl>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
+    , initializing(true)
     , ui(new Ui::MainWindow)
     , settings("qdiskinfo", "qdiskinfo")
-    , initializing(true)
 {
     ui->setupUi(this);
 

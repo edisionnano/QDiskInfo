@@ -1,8 +1,9 @@
-#ifndef CUSTOMBUTTON_H
-#define CUSTOMBUTTON_H
+#pragma once
 
+#include <QColor>
 #include <QPushButton>
-#include <QPainter>
+#include <QString>
+#include <QWidget>
 
 class CustomButton : public QPushButton {
     Q_OBJECT
@@ -18,12 +19,9 @@ protected:
     void setText3(const QString &newText3);
     void adjustWidthToFitText();
 
-
 private:
     QString text1;
     QString text2;
     QString text3;
     QColor lineColor;
 };
-
-#endif

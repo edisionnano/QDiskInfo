@@ -1,6 +1,14 @@
 #include "utils.h"
 
-utils::utils() {}
+#include <QAbstractButton>
+#include <QApplication>
+#include <QDir>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QMessageBox>
+#include <QProcess>
+#include <QPushButton>
+#include <QTimer>
 
 void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
 {

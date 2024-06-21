@@ -1,5 +1,4 @@
-#ifndef STATUSDOT_H
-#define STATUSDOT_H
+#pragma once
 
 #include <QPainter>
 #include <QStyleOptionViewItem>
@@ -16,5 +15,3 @@ public:
                const QStyleOptionViewItem &option,
                const QModelIndex &index) const override;
 };
-
-#endif

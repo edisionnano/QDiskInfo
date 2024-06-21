@@ -1,33 +1,15 @@
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
-#include <QMainWindow>
-#include <QProcess>
-#include <QWidget>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QButtonGroup>
-#include <QAction>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QDesktopServices>
-#include <QUrl>
-#include <QTimer>
-#include <QSettings>
-#include <QMouseEvent>
-#include <QActionGroup>
 #include <QHBoxLayout>
-#include <QSpacerItem>
-#include <QPushButton>
-#include <QAbstractButton>
+#include <QJsonArray>
 #include <QMenu>
-#include <QApplication>
+#include <QSpacerItem>
 
 class utils
 {
 public:
-    utils();
+    utils() = default;
 
     void clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk);
     QString getSmartctlPath(bool initializing);
@@ -38,5 +20,3 @@ public:
     void selfTestHandler(const QString &mode, const QString &name, const QString &minutes);
     QString toTitleCase(const QString& sentence);
 };
-
-#endif // UTILS_H
