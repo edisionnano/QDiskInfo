@@ -40,6 +40,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::NoFrame</enum>
+          </property>
           <property name="verticalScrollBarPolicy">
            <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
           </property>
@@ -51,7 +54,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>780</width>
+             <width>784</width>
              <height>16</height>
             </rect>
            </property>
