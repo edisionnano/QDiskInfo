@@ -1,8 +1,6 @@
 #include "jsonparser.h"
 
-JsonParser::JsonParser()
-{
-}
+#include <QStringList>
 
 QVector<QPair<QString, int>> JsonParser::parse(const QString &json)
 {

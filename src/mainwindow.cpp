@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 
+#include <QDesktopServices>
+#include <QFileDialog>
+#include <QJsonDocument>
+#include <QMessageBox>
+#include <QUrl>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

@@ -1,7 +1,13 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
+#include <QAction>
+#include <QActionGroup>
+#include <QJsonObject>
 #include <QMainWindow>
+#include <QMouseEvent>
+#include <QSettings>
+#include <QTableWidget>
+#include <QWidget>
 #include <cmath>
 
 #include "statusdot.h"
@@ -74,5 +80,3 @@ private:
     void addSmartAttributesTable(const QJsonArray &attributes);
     void mousePressEvent(QMouseEvent*);
 };
-
-#endif
