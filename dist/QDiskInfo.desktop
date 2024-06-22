@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=QDiskInfo
-GenericName=SMART Viwer
+GenericName=SMART Viewer
 Comment=SMART data viewer
 Icon=QDiskInfo
 Exec=QDiskInfo
