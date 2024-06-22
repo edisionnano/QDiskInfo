@@ -57,6 +57,10 @@ install(TARGETS QDiskInfo
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+install(FILES "dist/QDiskInfo.desktop"
+        DESTINATION "share/applications")
+install(FILES "dist/QDiskInfo.svg"
+        DESTINATION "share/icons/hicolor/scalable/apps")
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(QDiskInfo)

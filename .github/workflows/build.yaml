@@ -52,8 +52,8 @@ jobs:
         mkdir -p AppDir/usr/bin
         cp build/QDiskInfo AppDir/usr/bin/
         cp .github/scripts/smartctl AppDir/usr/bin/
-        cp .github/scripts/QDiskInfo.desktop AppDir/
-        cp src/icon.svg AppDir/QDiskInfo.svg
+        cp dist/QDiskInfo.desktop AppDir/
+        cp dist/QDiskInfo.svg AppDir/QDiskInfo.svg
         
         APPIMAGE_EXTRACT_AND_RUN=1 NO_STRIP=1 QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./linuxdeploy-static-x86_64.AppImage --appdir=AppDir/ -d AppDir/QDiskInfo.desktop -i AppDir/QDiskInfo.svg -e AppDir/usr/bin/QDiskInfo --plugin qt
         echo 'export PATH="$this_dir"/usr/bin:"$PATH"' >> AppDir/apprun-hooks/linuxdeploy-plugin-qt-hook.sh
