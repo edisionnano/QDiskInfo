@@ -110,21 +110,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::onNextButtonClicked()
 {
-    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
-    int nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
+    qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    qsizetype nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
     buttonGroup->buttons().at(nextIndex)->click();
     updateNavigationButtons(nextIndex);
 }
 
 void MainWindow::onPrevButtonClicked()
 {
-    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
-    int prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
+    qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    qsizetype prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
     buttonGroup->buttons().at(prevIndex)->click();
     updateNavigationButtons(prevIndex);
 }
 
-void MainWindow::updateNavigationButtons(int currentIndex)
+void MainWindow::updateNavigationButtons(qsizetype currentIndex)
 {
     prevButton->setEnabled(currentIndex > 0 || (ui->actionCyclic_Navigation->isChecked() && buttonGroup->buttons().size() > 1)); // We can use setVisible if we want to mimic CrystalDiskInfo
     nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1 || ui->actionCyclic_Navigation->isChecked());
@@ -157,7 +157,7 @@ void MainWindow::updateUI()
         QString health;
         QColor healthColor;
 
-        float diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+        double diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
         QString gbSymbol = locale.formattedDataSize(1 << 30, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
         QString tbSymbol = locale.formattedDataSize(qint64(1) << 40, 1, QLocale::DataSizeTraditionalFormat).split(' ')[1];
         QString diskCapacityString;
@@ -249,7 +249,7 @@ void MainWindow::updateUI()
         button->setCheckable(true);
         button->setAutoExclusive(true);
 
-        int buttonIndex = buttonGroup->buttons().indexOf(button);
+        qsizetype buttonIndex = buttonGroup->buttons().indexOf(button);
 
         auto updateWindow = [=]() {
             if (isNvme) {
@@ -301,7 +301,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
     QString modelName = localObj["model_name"].toString();
     QString firmwareVersion = localObj["firmware_version"].toString();
-    float diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
+    double diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
     int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
     int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
     int totalWritesInt = 0;
@@ -335,32 +335,38 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
     auto createTablePopup = [=](QJsonArray selfTestsTable) {
         QWidget *popup = new QWidget();
-        QTableWidget *tableWidget = new QTableWidget();
+        QTableWidget *selfTestsTableWidget = new QTableWidget();
+        selfTestsTableWidget->setFocusPolicy(Qt::NoFocus);
 
-        tableWidget->setRowCount(selfTestsTable.size());
-        tableWidget->setColumnCount(3);
-        tableWidget->verticalHeader()->setVisible(false);
-        tableWidget->setHorizontalHeaderLabels({tr("Type"), tr("Status"), tr("Power On Hours")});
+        qsizetype rowCount = selfTestsTable.size();
+        if (rowCount > std::numeric_limits<int>::max()) {
+            rowCount = std::numeric_limits<int>::max();
+        }
 
-        for (int i = 0; i < selfTestsTable.size(); ++i) {
+        selfTestsTableWidget->setRowCount(static_cast<int>(rowCount));
+        selfTestsTableWidget->setColumnCount(3);
+        selfTestsTableWidget->verticalHeader()->setVisible(false);
+        selfTestsTableWidget->setHorizontalHeaderLabels({tr("Type"), tr("Status"), tr("Power On Hours")});
+
+        for (int i = 0; i < rowCount; ++i) {
             QJsonObject entry = selfTestsTable[i].toObject();
             QTableWidgetItem *item;
 
             if (isNvme) {
-                tableWidget->setItem(i, 0, new QTableWidgetItem(entry["self_test_code"].toObject()["string"].toString()));
-                tableWidget->setItem(i, 1, new QTableWidgetItem(entry["self_test_result"].toObject()["string"].toString()));
+                selfTestsTableWidget->setItem(i, 0, new QTableWidgetItem(entry["self_test_code"].toObject()["string"].toString()));
+                selfTestsTableWidget->setItem(i, 1, new QTableWidgetItem(entry["self_test_result"].toObject()["string"].toString()));
                 item = new QTableWidgetItem(QString::number(entry["power_on_hours"].toInt()));
             } else {
-                tableWidget->setItem(i, 0, new QTableWidgetItem(entry["type"].toObject()["string"].toString()));
-                tableWidget->setItem(i, 1, new QTableWidgetItem(entry["status"].toObject()["string"].toString()));
+                selfTestsTableWidget->setItem(i, 0, new QTableWidgetItem(entry["type"].toObject()["string"].toString()));
+                selfTestsTableWidget->setItem(i, 1, new QTableWidgetItem(entry["status"].toObject()["string"].toString()));
                 item = new QTableWidgetItem(QString::number(entry["lifetime_hours"].toInt()));
             }
             item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-            tableWidget->setItem(i, 2, item);
+            selfTestsTableWidget->setItem(i, 2, item);
         }
 
-        for (int i = 0; i < tableWidget->columnCount(); ++i) {
-            QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
+        for (int i = 0; i < selfTestsTableWidget->columnCount(); ++i) {
+            QTableWidgetItem *headerItem = selfTestsTableWidget->horizontalHeaderItem(i);
             if (headerItem) {
                 if (i == 2) {
                    headerItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -371,19 +377,19 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
 
 
-        tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-        for (int i = 0; i < tableWidget->columnCount(); ++i) {
+        selfTestsTableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+        for (int i = 0; i < selfTestsTableWidget->columnCount(); ++i) {
             if (i != 1) {
-                tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
+                selfTestsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
             }
         }
 
-        tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-        tableWidget->verticalHeader()->setDefaultSectionSize(31);
-        tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        selfTestsTableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+        selfTestsTableWidget->verticalHeader()->setDefaultSectionSize(31);
+        selfTestsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         QVBoxLayout *layout = new QVBoxLayout;
-        layout->addWidget(tableWidget);
+        layout->addWidget(selfTestsTableWidget);
         popup->setLayout(layout);
         popup->setWindowTitle(tr("Self Test Log"));
         popup->resize(400, 400);
@@ -455,10 +461,10 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                     totalWritesInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Total_LBAs_Written") {
-                    unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                    unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                    unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                    unsigned long long gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
+                    int logicalBlockSize = localObj["logical_block_size"].toInt();
+                    qlonglong lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
+                    qlonglong oneGB = static_cast<qlonglong>(std::pow(2, 30));
+                    qlonglong gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWritesInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Host_Writes_GiB" || attrObj["name"] == "Lifetime_Writes_GiB") {
                     double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
@@ -476,10 +482,10 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     double gigabytes = (attrObj["raw"].toObject()["value"].toInt() * 32 * 1024.0 * 1024.0) / 1e9;
                     totalReadsInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Total_LBAs_Read") {
-                    unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                    unsigned long long lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                    unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                    unsigned long long gigabytes = (lbaRead * logicalBlockSize) / oneGB;
+                    int logicalBlockSize = localObj["logical_block_size"].toInt();
+                    qlonglong lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
+                    qlonglong oneGB = static_cast<qlonglong>(std::pow(2, 30));
+                    qlonglong gigabytes = (lbaRead * logicalBlockSize) / oneGB;
                     totalReadsInt = static_cast<int>(gigabytes);
                 } else if (attrObj["name"] == "Host_Reads_GiB" || attrObj["name"] == "Lifetime_Reads_GiB") {
                     double gibibytes = attrObj["raw"].toObject()["value"].toDouble();
@@ -491,10 +497,10 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 }
             } else if (attrObj["id"] == 246) { // MX500
                 if (attrObj["name"] == "Total_LBAs_Written") {
-                    unsigned int logicalBlockSize = localObj["logical_block_size"].toInt();
-                    unsigned long long lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                    unsigned long long oneGB = static_cast<unsigned long long>(std::pow(2, 30));
-                    unsigned long long gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
+                    int logicalBlockSize = localObj["logical_block_size"].toInt();
+                    qlonglong lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
+                    qlonglong oneGB = static_cast<qlonglong>(std::pow(2, 30));
+                    qlonglong gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
                     totalWritesInt = static_cast<int>(gigabytes);
                 }
             } else if (attrObj["name"] == "Remaining_Lifetime_Perc") {
@@ -574,7 +580,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     nvmeHasSelfTest = true;
                 }
             } else if (stringValue.startsWith("Warning  Comp. Temp. Threshold")) {
-                int pos = stringValue.indexOf(':');
+                qsizetype pos = stringValue.indexOf(':');
                 if (pos != -1) {
                     QString thresholdStr = stringValue.mid(pos + 1).trimmed();
                     int temperature = thresholdStr.section(' ', 0, 0).toInt();
@@ -583,7 +589,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     }
                 }
             } else if (stringValue.startsWith("Critical Comp. Temp. Threshold")) {
-                int pos = stringValue.indexOf(':');
+                qsizetype pos = stringValue.indexOf(':');
                 if (pos != -1) {
                     QString thresholdStr = stringValue.mid(pos + 1).trimmed();
                     int temperature = thresholdStr.section(' ', 0, 0).toInt();
@@ -649,7 +655,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
         int i = 0;
         for (const QString& key : keys) {
-            QString minutes = QString::number(static_cast<int>(pollingMinutes[key].toInt()));
+            QString minutes = QString::number(pollingMinutes[key].toInt());
             QString keyTranslated;
             if (key == "short") {
                 keyTranslated = tr("Short");
@@ -727,11 +733,17 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 {
     QString warningMessage = "";
 
+    qsizetype rowCount = nvmeLogOrdered.size();
+    if (rowCount > std::numeric_limits<int>::max()) {
+        rowCount = std::numeric_limits<int>::max();
+    }
+
+    tableWidget->setRowCount(static_cast<int>(rowCount));
     tableWidget->setColumnCount(4);
     tableWidget->setHorizontalHeaderLabels({"", tr("ID"), tr("Attribute Name"), tr("Raw Values")});
     tableWidget->verticalHeader()->setVisible(false);
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
-    tableWidget->setRowCount(nvmeLogOrdered.size());
+
 
     tableWidget->horizontalHeaderItem(2)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     tableWidget->horizontalHeaderItem(3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -823,11 +835,16 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 
 void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 {
+    qsizetype rowCount = attributes.size();
+    if (rowCount > std::numeric_limits<int>::max()) {
+        rowCount = std::numeric_limits<int>::max();
+    }
+
+    tableWidget->setRowCount(static_cast<int>(rowCount));
     tableWidget->setColumnCount(7);
     tableWidget->setHorizontalHeaderLabels({"", tr("ID"), tr("Attribute Name"), tr("Current"), tr("Worst"), tr("Threshold"), tr("Raw Values")});
     tableWidget->verticalHeader()->setVisible(false);
     tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
-    tableWidget->setRowCount(attributes.size());
 
     for (int i = 0; i < tableWidget->columnCount(); ++i) {
         QTableWidgetItem *headerItem = tableWidget->horizontalHeaderItem(i);
@@ -851,7 +868,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
         QString rawString = attrObj["raw"].toObject()["string"].toString();
         QString rawHEX = rawString;
 
-        int spaceIndex = rawHEX.indexOf(' ');
+        qsizetype spaceIndex = rawHEX.indexOf(' ');
         if (spaceIndex != -1) {
             rawHEX = rawHEX.left(spaceIndex);
         }
@@ -981,7 +998,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)
 {
-    settings.setValue("IgnoreC4", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
+    settings.setValue("IgnoreC4", enabled);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
@@ -990,7 +1007,7 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
 
 void MainWindow::on_actionHEX_toggled(bool enabled)
 {
-    settings.setValue("HEX", ui->actionHEX->isChecked());
+    settings.setValue("HEX", enabled);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
@@ -999,7 +1016,7 @@ void MainWindow::on_actionHEX_toggled(bool enabled)
 
 void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
-    settings.setValue("Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
+    settings.setValue("Fahrenheit", enabled);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
@@ -1008,14 +1025,14 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 
 void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
 {
-    settings.setValue("CyclicNavigation", ui->actionCyclic_Navigation->isChecked());
-    int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
+    settings.setValue("CyclicNavigation", cyclicNavigation);
+    qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
     updateNavigationButtons(currentIndex);
 }
 
 void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
 {
-    settings.setValue("UseGB", ui->actionUse_GB_instead_of_TB->isChecked());
+    settings.setValue("UseGB", gigabytes);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();

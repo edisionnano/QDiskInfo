@@ -30,10 +30,10 @@ QVector<QPair<QString, int>> JsonParser::parse(const QString &json)
             if (trimmedLine.contains("}")) {
                 break;
             }
-            int colon_pos = trimmedLine.indexOf(":");
-            if (colon_pos != -1) {
-                QString key = removeQuotes(trimmedLine.left(colon_pos));
-                QString valueString = trimmedLine.mid(colon_pos + 1).trimmed();
+            qsizetype colonPos = trimmedLine.indexOf(":");
+            if (colonPos != -1) {
+                QString key = removeQuotes(trimmedLine.left(colonPos));
+                QString valueString = trimmedLine.mid(colonPos + 1).trimmed();
                 valueString.chop(1);
                 int value = valueString.toInt();
                 data.append(qMakePair(key, value));

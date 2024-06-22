@@ -9,7 +9,7 @@ class CustomButton : public QPushButton {
     Q_OBJECT
 
 public:
-    CustomButton(const QString &text1, const QString &text2, const QString &text3, const QColor &lineColor, QWidget *parent = nullptr);
+    CustomButton(const QString &text1_, const QString &text2_, const QString &text3_, const QColor &lineColor_, QWidget *parent = nullptr);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

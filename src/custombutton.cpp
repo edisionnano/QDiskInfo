@@ -3,8 +3,8 @@
 #include <QFontMetrics>
 #include <QPainter>
 
-CustomButton::CustomButton(const QString &text1, const QString &text2, const QString &text3, const QColor &lineColor, QWidget *parent)
-    : QPushButton(parent), text1(text1), text2(text2), text3(text3), lineColor(lineColor) {
+CustomButton::CustomButton(const QString &text1_, const QString &text2_, const QString &text3_, const QColor &lineColor_, QWidget *parent)
+    : QPushButton(parent), text1(text1_), text2(text2_), text3(text3_), lineColor(lineColor_) {
     setMinimumHeight(60);
     adjustWidthToFitText();
 }
