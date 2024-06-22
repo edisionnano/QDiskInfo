@@ -442,7 +442,8 @@
     </property>
     <addaction name="actionGitHub"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout"/>
+    <addaction name="actionAbout_QDiskInfo"/>
+    <addaction name="actionAbout_Qt"/>
    </widget>
    <widget class="QMenu" name="menuDevice">
     <property name="title">
@@ -497,12 +498,13 @@
     <string>&amp;GitHub</string>
    </property>
   </action>
-  <action name="actionAbout">
+  <action name="actionAbout_QDiskInfo">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;About</string>
+    <string>&amp;About QDiskInfo</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -551,6 +553,14 @@
    </property>
    <property name="text">
     <string>Use &amp;GB instead of TB</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
+   <property name="text">
+    <string>About Qt</string>
    </property>
   </action>
  </widget>

@@ -975,6 +975,22 @@ void MainWindow::on_actionGitHub_triggered()
     QDesktopServices::openUrl(QUrl("https://github.com/edisionnano/QDiskInfo"));
 }
 
+void MainWindow::on_actionAbout_QDiskInfo_triggered()
+{
+    QString message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n";
+    message += tr("Licensed under the GNU G.P.L. Version 3") + "\n";
+    message += tr("Made by Samantas5855") + "\n";
+    message += tr("Version") + " " + QString::number(PROJECT_VERSION_MAJOR) + "." + QString::number(PROJECT_VERSION_MINOR);
+
+    QMessageBox::about(this, tr("About QDiskInfo"), message);
+}
+
+void MainWindow::on_actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+
 void MainWindow::on_actionRescan_Refresh_triggered()
 {
     QPair<QStringList, QJsonArray> values = Utils.scanDevices(initializing);
@@ -984,16 +1000,6 @@ void MainWindow::on_actionRescan_Refresh_triggered()
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
     }
-}
-
-void MainWindow::on_actionAbout_triggered()
-{
-    QString message = tr("An ATA and NVMe S.M.A.R.T. data viewer for Linux") + "\n";
-    message += tr("Licensed under the GNU G.P.L. Version 3") + "\n";
-    message += tr("Made by Samantas5855") + "\n";
-    message += tr("Version") + " " + QString::number(PROJECT_VERSION_MAJOR) + "." + QString::number(PROJECT_VERSION_MINOR);
-
-    QMessageBox::about(this, tr("About QDiskInfo"), message);
 }
 
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)

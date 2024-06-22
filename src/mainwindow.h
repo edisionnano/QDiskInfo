@@ -34,8 +34,9 @@ private slots:
     void on_actionQuit_triggered();
     void on_actionSave_JSON_triggered();
     void on_actionGitHub_triggered();
+    void on_actionAbout_QDiskInfo_triggered();
+    void on_actionAbout_Qt_triggered();
     void on_actionRescan_Refresh_triggered();
-    void on_actionAbout_triggered();
     void on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled);
     void on_actionHEX_toggled(bool enabled);
     void on_actionUse_Fahrenheit_toggled(bool enabled);
