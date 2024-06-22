@@ -643,7 +643,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
 
         int i = 0;
         for (const QString& key : keys) {
-            QString minutes = QString::number(static_cast<int>(pollingMinutes[key].toInt()));
+            QString minutes = QString::number(pollingMinutes[key].toInt());
             QString keyTranslated;
             if (key == "short") {
                 keyTranslated = tr("Short");

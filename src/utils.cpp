@@ -74,7 +74,7 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
     for (const QJsonValue &value : std::as_const(devices)) {
         QJsonObject device = value.toObject();
         QString deviceName = device["name"].toString();
-        commandList.append(QString(smartctlPath + " --all --json=o %1").arg(deviceName));
+        commandList.append((smartctlPath + " --all --json=o %1").arg(deviceName));
     }
     QString command = commandList.join(" ; ");
 

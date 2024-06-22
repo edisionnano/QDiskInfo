@@ -9,7 +9,7 @@ void StatusDot::paint(QPainter *painter, const QStyleOptionViewItem &option, con
     painter->save();
     painter->setRenderHint(QPainter::Antialiasing, true);
     QRect dotRect(opt.rect.center().x() - dotSize / 2, opt.rect.center().y() - dotSize / 2, dotSize, dotSize);
-    QColor color = QColor(index.data(Qt::BackgroundRole).value<QColor>());
+    QColor color = index.data(Qt::BackgroundRole).value<QColor>();
     painter->setBrush(color);
     painter->setPen(Qt::NoPen);
     painter->drawEllipse(dotRect);
