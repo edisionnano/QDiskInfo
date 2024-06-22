@@ -20,5 +20,3 @@ public:
     void selfTestHandler(const QString &mode, const QString &name, const QString &minutes);
     QString toTitleCase(const QString& sentence);
 };
-
-#endif
