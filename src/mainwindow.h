@@ -67,7 +67,7 @@ private:
 
     void onNextButtonClicked();
     void onPrevButtonClicked();
-    void updateNavigationButtons(int currentIndex);
+    void updateNavigationButtons(qsizetype currentIndex);
     void updateUI();
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);

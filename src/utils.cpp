@@ -85,8 +85,8 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 
     QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true, initializing);
 
-    int startIndex = 0;
-    int endIndex = 0;
+    qsizetype startIndex = 0;
+    qsizetype endIndex = 0;
 
     static const QRegularExpression regex("\\}\\n\\{");
 
@@ -153,8 +153,6 @@ void utils::selfTestHandler(const QString &mode, const QString &name, const QStr
         QJsonDocument testDoc = QJsonDocument::fromJson(output.toUtf8());
         QJsonObject testObj = testDoc.object();
         QJsonObject smartctlObj = testObj.value("smartctl").toObject();
-        QJsonObject deviceObj = testObj.value("device").toObject();
-        QString name = deviceObj.value("name").toString();
         int exitStatus = smartctlObj.value("exit_status").toInt();
 
         QJsonArray outputArray = smartctlObj["output"].toArray();
