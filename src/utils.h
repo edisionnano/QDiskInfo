@@ -30,7 +30,7 @@ public:
     utils();
 
     void clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk);
-    QString getSmartctlPath(bool initializing);
+    QString getSmartctlPath();
     QString getSmartctlOutput(const QStringList &arguments, bool root, bool initializing);
     QPair<QStringList, QJsonArray> scanDevices(bool initializing);
     QString initiateSelfTest(const QString &testType, const QString &deviceNode);
@@ -39,4 +39,4 @@ public:
     QString toTitleCase(const QString& sentence);
 };
 
-#endif // UTILS_H
+#endif

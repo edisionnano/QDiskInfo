@@ -975,7 +975,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled)
 {
-    settings.setValue("IgnoreC4", ui->actionIgnore_C4_Reallocation_Event_Count->isChecked());
+    settings.setValue("IgnoreC4", enabled);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
@@ -984,7 +984,7 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
 
 void MainWindow::on_actionHEX_toggled(bool enabled)
 {
-    settings.setValue("HEX", ui->actionHEX->isChecked());
+    settings.setValue("HEX", enabled);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
@@ -993,7 +993,7 @@ void MainWindow::on_actionHEX_toggled(bool enabled)
 
 void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
-    settings.setValue("Fahrenheit", ui->actionUse_Fahrenheit->isChecked());
+    settings.setValue("Fahrenheit", enabled);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();
@@ -1002,14 +1002,14 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 
 void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
 {
-    settings.setValue("CyclicNavigation", ui->actionCyclic_Navigation->isChecked());
+    settings.setValue("CyclicNavigation", cyclicNavigation);
     int currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
     updateNavigationButtons(currentIndex);
 }
 
 void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
 {
-    settings.setValue("UseGB", ui->actionUse_GB_instead_of_TB->isChecked());
+    settings.setValue("UseGB", gigabytes);
     if (!initializing) {
         Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
         updateUI();

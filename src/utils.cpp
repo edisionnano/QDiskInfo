@@ -14,7 +14,7 @@ void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalL
     menuDisk->clear();
 }
 
-QString utils::getSmartctlPath(bool initializing) {
+QString utils::getSmartctlPath() {
     QStringList paths = QString::fromLocal8Bit(qgetenv("PATH")).split(QDir::listSeparator(), Qt::SkipEmptyParts);
 
     paths << "/usr/sbin" << "/usr/local/sbin";
@@ -37,10 +37,10 @@ QString utils::getSmartctlOutput(const QStringList &arguments, bool root, bool i
     if (root) {
         command = "pkexec";
     } else {
-        command = getSmartctlPath(initializing);
+        command = getSmartctlPath();
     }
 
-    if (!getSmartctlPath(initializing).isEmpty()) {
+    if (!getSmartctlPath().isEmpty()) {
         process.start(command, arguments);
         process.waitForFinished(-1);
     }
@@ -67,7 +67,7 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
     QJsonArray devices = jsonObj["devices"].toArray();
-    QString smartctlPath = getSmartctlPath(initializing);
+    QString smartctlPath = getSmartctlPath();
     QStringList commandList;
     QStringList deviceOutputs;
 
@@ -112,7 +112,7 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 QString utils::initiateSelfTest(const QString &testType, const QString &deviceNode)
 {
     QProcess process;
-    QString command = getSmartctlPath(false);
+    QString command = getSmartctlPath();
     QStringList arguments;
     arguments << command << "--json=o" << "-t" << testType << deviceNode;
 
@@ -129,7 +129,7 @@ QString utils::initiateSelfTest(const QString &testType, const QString &deviceNo
 void utils::cancelSelfTest(const QString &deviceNode)
 {
     QProcess process;
-    QString command = getSmartctlPath(false);
+    QString command = getSmartctlPath();
     QStringList arguments;
     arguments << command << "-X" << deviceNode;
 
