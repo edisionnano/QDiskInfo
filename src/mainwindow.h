@@ -80,5 +80,3 @@ private:
     void addSmartAttributesTable(const QJsonArray &attributes);
     void mousePressEvent(QMouseEvent*);
 };
-
-#endif
