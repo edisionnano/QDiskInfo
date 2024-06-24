@@ -32,6 +32,10 @@ set(PROJECT_SOURCES
         src/resources.qrc
 )
 
+if (INCLUDE_OPTIONAL_RESOURCES)
+    set(PROJECT_SOURCES ${PROJECT_SOURCES} dist/theme/theme_resources.qrc)
+endif()
+
 add_executable(QDiskInfo
     ${PROJECT_SOURCES}
 )
@@ -39,6 +43,8 @@ add_executable(QDiskInfo
 target_compile_definitions(QDiskInfo PRIVATE
     PROJECT_VERSION_MAJOR=${QDiskInfo_VERSION_MAJOR}
     PROJECT_VERSION_MINOR=${QDiskInfo_VERSION_MINOR}
+    INCLUDE_OPTIONAL_RESOURCES=$<BOOL:${INCLUDE_OPTIONAL_RESOURCES}>
+    CHARACTER_IS_RIGHT=$<BOOL:${CHARACTER_IS_RIGHT}>
 )
 
 target_link_libraries(QDiskInfo PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

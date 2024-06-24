@@ -51,12 +51,16 @@ private:
     utils Utils;
     QButtonGroup *buttonGroup;
     QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
     QLabel *diskName, *temperatureValue, *healthStatusValue;
+    QLabel *temperatureLabelHorizontal, *healthStatusLabelHorizontal, *temperatureValueHorizontal, *healthStatusValueHorizontal;
     QLineEdit *firmwareLineEdit, *serialNumberLineEdit, *typeLineEdit, *protocolLineEdit, *deviceNodeLineEdit;
     QLineEdit *totalReadsLineEdit, *totalWritesLineEdit, *rotationRateLineEdit, *powerOnCountLineEdit, *powerOnHoursLineEdit;
     QTableWidget *tableWidget;
     QPushButton *prevButton, *nextButton;
     QColor goodColor, cautionColor, badColor, naColor;
+    QLabel *statusLabel;
     QJsonObject deviceJson;
     QSpacerItem *buttonStretch;
     QAction *actionCyclic_Navigation;
@@ -79,5 +83,6 @@ private:
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);
+    void transformWindow();
     void mousePressEvent(QMouseEvent*);
 };

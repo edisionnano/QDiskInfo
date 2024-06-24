@@ -24,9 +24,17 @@ MainWindow::MainWindow(QWidget *parent)
     horizontalLayout->setContentsMargins(0, 0, 0, 0);
     ui->scrollArea->setWidget(containerWidget);
 
+    verticalLayout = ui->centralwidget->findChild<QVBoxLayout*>("verticalLayout");
+    gridLayout = ui->centralwidget->findChild<QGridLayout*>("gridLayout");
+
     diskName = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("diskName"));
     temperatureValue = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("temperatureValueLabel"));
     healthStatusValue = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("healthStatusValueLabel"));
+
+    temperatureLabelHorizontal = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("healthStatusLabelHorizozontal"));
+    healthStatusLabelHorizontal = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("temperatureLabelHorizontal"));
+    temperatureValueHorizontal = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("temperatureValueLabelHorizontal"));
+    healthStatusValueHorizontal = qobject_cast<QLabel *>(ui->centralwidget->findChild<QLabel*>("healthStatusValueLabelHorizontal"));
 
     firmwareLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("firmwareLineEdit"));
     serialNumberLineEdit = qobject_cast<QLineEdit *>(ui->centralwidget->findChild<QLineEdit*>("serialNumberLineEdit"));
@@ -76,6 +84,8 @@ MainWindow::MainWindow(QWidget *parent)
     badColor = QColor(Qt::red);
     naColor = QColor(Qt::gray);
 
+    statusLabel = new QLabel;
+
     ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("IgnoreC4", true).toBool());
     ui->actionHEX->setChecked(settings.value("HEX", true).toBool());
     ui->actionUse_Fahrenheit->setChecked(settings.value("Fahrenheit", false).toBool());
@@ -101,6 +111,30 @@ MainWindow::MainWindow(QWidget *parent)
     }
     this->setFocus();
     initializing = false;
+
+    if (!INCLUDE_OPTIONAL_RESOURCES || CHARACTER_IS_RIGHT) {
+        QLayoutItem *leftSpacerItem = gridLayout->itemAtPosition(2, 0);
+        if (leftSpacerItem) {
+            gridLayout->removeItem(leftSpacerItem);
+            if (dynamic_cast<QSpacerItem*>(leftSpacerItem)) {
+                delete leftSpacerItem;
+            }
+            else if (QWidget *widget = leftSpacerItem->widget()) {
+                delete widget;
+            } else {
+                delete leftSpacerItem;
+            }
+        }
+    }
+
+    if (INCLUDE_OPTIONAL_RESOURCES) {
+        transformWindow();
+    } else {
+        delete temperatureLabelHorizontal;
+        delete healthStatusLabelHorizontal;
+        delete temperatureValueHorizontal;
+        delete healthStatusValueHorizontal;
+    }
 }
 
 MainWindow::~MainWindow()
@@ -601,14 +635,23 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     }
 
-    if (temperatureInt > warningTemperature) { // TODO: Let the user set an alarm temp.
-        temperatureValue->setStyleSheet("background-color: " + badColor.name() + ";");
-    } else if ((temperatureInt < criticalTemperature) && (temperatureInt > warningTemperature)){
-        temperatureValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
-    } else if (temperatureInt == 0) {
-        temperatureValue->setStyleSheet("background-color: " + naColor.name() + ";");
+    QLabel *temperatureValueLabel, *healthStatusValueLabel;
+    if (INCLUDE_OPTIONAL_RESOURCES) {
+        temperatureValueLabel = temperatureValueHorizontal;
+        healthStatusValueLabel = healthStatusValueHorizontal;
     } else {
-        temperatureValue->setStyleSheet("background-color: " + goodColor.name() + ";");
+        temperatureValueLabel = temperatureValue;
+        healthStatusValueLabel = healthStatusValue;
+    }
+
+    if (temperatureInt > warningTemperature) { // TODO: Let the user set an alarm temp.
+        temperatureValueLabel->setStyleSheet("background-color: " + badColor.name() + ";");
+    } else if ((temperatureInt < criticalTemperature) && (temperatureInt > warningTemperature)){
+        temperatureValueLabel->setStyleSheet("background-color: " + cautionColor.name() + ";");
+    } else if (temperatureInt == 0) {
+        temperatureValueLabel->setStyleSheet("background-color: " + naColor.name() + ";");
+    } else {
+        temperatureValueLabel->setStyleSheet("background-color: " + goodColor.name() + ";");
     }
 
     QString labelStyle = "font-size:12pt; font-weight:700; color:black";
@@ -616,32 +659,54 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (temperatureInt > 0) {
         if (ui->actionUse_Fahrenheit->isChecked()) {
             int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
-            temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(fahrenheit) + " °F</span></p></body></html>");
+            temperatureValueLabel->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(fahrenheit) + " °F</span></p></body></html>");
         } else {
-            temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
+            temperatureValueLabel->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + QString::number(temperatureInt) + " °C</span></p></body></html>");
         }
     } else {
-        temperatureValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + "-- °C" + "</span></p></body></html>");
+        temperatureValueLabel->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + "-- °C" + "</span></p></body></html>");
     }
 
-    temperatureValue->setAlignment(Qt::AlignCenter);
+    temperatureValueLabel->setAlignment(Qt::AlignCenter);
 
     if (health == tr("Bad")) {
-        healthStatusValue->setStyleSheet("background-color: " + badColor.name() + ";");
+        healthStatusValueLabel->setStyleSheet("background-color: " + badColor.name() + ";");
     } else if (health == tr("Caution")){
-        healthStatusValue->setStyleSheet("background-color: " + cautionColor.name() + ";");
+        healthStatusValueLabel->setStyleSheet("background-color: " + cautionColor.name() + ";");
     } else if (health == tr("Good")) {
-        healthStatusValue->setStyleSheet("background-color: " + goodColor.name() + ";");
+        healthStatusValueLabel->setStyleSheet("background-color: " + goodColor.name() + ";");
     } else {
-        healthStatusValue->setStyleSheet("background-color: " + naColor.name() + ";");
+        healthStatusValueLabel->setStyleSheet("background-color: " + naColor.name() + ";");
+    }
+
+    if (INCLUDE_OPTIONAL_RESOURCES) {
+        QPixmap statusAnimeBackground;
+        QSize labelSize(100, 30);
+        if (health == tr("Bad")) {
+            statusAnimeBackground = QPixmap(":/icons/bad.png");
+        } else if (health == tr("Caution")){
+            statusAnimeBackground = QPixmap(":/icons/caution.png");
+        } else if (health == tr("Good")) {
+            statusAnimeBackground = QPixmap(":/icons/good.png");
+        } else {
+            statusAnimeBackground = QPixmap(":/icons/unknown.png");
+        }
+        QPixmap statusAnimeBackgroundScaled = statusAnimeBackground.scaled(labelSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        statusLabel->setPixmap(statusAnimeBackgroundScaled);
+        statusLabel->setToolTip(health);
     }
 
     QString percentageText = "";
     if (!percentage.isEmpty()) {
-        percentageText = "<br/>" + percentage;
+        if (INCLUDE_OPTIONAL_RESOURCES) {
+            percentageText = "  (" + percentage + ")"; // 2 spaces is not a mistake
+        } else {
+            percentageText = "<br>" + percentage;
+        }
     }
-    healthStatusValue->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + health + percentageText + "</span></p></body></html>");
-    healthStatusValue->setAlignment(Qt::AlignCenter);
+
+    healthStatusValueLabel->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + health + percentageText + "</span></p></body></html>");
+    healthStatusValueLabel->setAlignment(Qt::AlignCenter);
 
     if (protocol != "NVMe") {
         addSmartAttributesTable(attributes);
@@ -934,6 +999,54 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
     tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     tableWidget->verticalHeader()->setDefaultSectionSize(31);
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+void MainWindow::transformWindow() {
+    setMaximumSize(960, 960);
+    resize(960, 600);
+
+    QLayoutItem *item;
+    while ((item = verticalLayout->takeAt(0)) != nullptr) {
+        QWidget *widget = item->widget();
+        if (widget) {
+            delete widget;
+        }
+        delete item;
+    }
+
+    verticalLayout->addWidget(statusLabel);
+
+    if (CHARACTER_IS_RIGHT) {
+        QSpacerItem *spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        gridLayout->addItem(spacer,3,3);
+        setMinimumWidth(645);
+    } else {
+        setMinimumWidth(960);
+    }
+
+    QHBoxLayout *infoLayout = ui->centralwidget->findChild<QHBoxLayout*>("info");
+    QSpacerItem *spacerItem = infoLayout->itemAt(1)->spacerItem();
+    if (spacerItem) {
+            infoLayout->removeItem(spacerItem);
+            delete spacerItem;
+    }
+
+    QPalette palette = QApplication::palette();
+    QColor backgroundColor = palette.color(QPalette::Window);
+    int lightness = backgroundColor.lightness();
+    bool darkTheme = lightness < 128;
+
+    QPixmap animeBackground;
+    if (darkTheme) {
+        animeBackground = QPixmap(":/icons/bg_dark.png");
+    } else {
+        animeBackground = QPixmap(":/icons/bg_light.png");
+    }
+
+    animeBackground = animeBackground.scaled(this->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    palette.setBrush(QPalette::Window, QBrush(animeBackground));
+    ui->centralwidget->setPalette(palette);
+    ui->centralwidget->setAutoFillBackground(true);
 }
 
 void MainWindow::on_actionQuit_triggered()

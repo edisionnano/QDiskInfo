@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>bg_light.png</file>
+        <file>bg_dark.png</file>
+        <file>good.png</file>
+        <file>caution.png</file>
+        <file>bad.png</file>
+        <file>unknown.png</file>
+    </qresource>
+</RCC>

@@ -24,3 +24,12 @@ This will create a `QDiskInfo` binary on the build directory but you can also in
 ```sh
 sudo make install
 ```
+
+## Using CrystalDiskInfo Anime Themes
+The process is similar to the one above with a few changes:<br>
+First you must download the edition of CrystalDiskInfo you want (Aoi for example) in ZIP format from [here](https://crystalmark.info/en/download/), from this archive you shall copy the light and dark backgrounds as well as the good, caution, bad, unknown icons to dist/theme with the same name as the templates there.<br>
+Once you do that compile like above but when running CMake do this instead:
+```sh
+cmake .. -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6 -DINCLUDE_OPTIONAL_RESOURCES=ON -DCHARACTER_IS_RIGHT=ON
+```
+Regarding the `-DCHARACTER_IS_RIGHT` set it to ON for themes where the character is right (like Aoi) or OFF for most other themes.
