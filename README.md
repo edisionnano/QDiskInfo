@@ -6,7 +6,7 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 ## Compiling and Installing
 First you will need to clone the repository and cd inside
 ```sh
-https://github.com/edisionnano/QDiskInfo.git && cd QDiskInfo
+git clone https://github.com/edisionnano/QDiskInfo.git && cd QDiskInfo
 ```
 Then you must create a build directory and cd inside
 ```sh
