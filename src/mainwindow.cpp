@@ -183,7 +183,6 @@ void MainWindow::updateUI()
 
         QString modelName = localObj["model_name"].toString();
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-        QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
         QString temperature = "-- °C";
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
