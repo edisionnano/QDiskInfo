@@ -217,9 +217,9 @@ void MainWindow::updateUI()
 
         QVector<QPair<QString, int>> nvmeSmartOrdered;
         if (!isNvme) {
-            for (const QJsonValue &attr : attributes) {
+            for (const QJsonValue &attr : std::as_const(attributes)) {
                 QJsonObject attrObj = attr.toObject();
-                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198 || (attrObj["id"] == 196 && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && attrObj["raw"].toObject()["value"].toDouble()) {
+                if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198 || (attrObj["id"] == 196 && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && attrObj["raw"].toObject()["value"].toDouble() > 0) {
                     caution = true;
                 }
                 if (attrObj["thresh"].toInt() && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
@@ -479,7 +479,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     powerOnHoursLineEdit->setAlignment(Qt::AlignRight);
 
     if (!isNvme) {
-        for (const QJsonValue &attr : attributes) {
+        for (const QJsonValue &attr : std::as_const(attributes)) {
             QJsonObject attrObj = attr.toObject();
             if (attrObj["id"] == 202) {
                 if (attrObj["name"] == "Percent_Lifetime_Remain") {
@@ -545,7 +545,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             }
         }
         if (percentage.isEmpty() && rotationRate == "---- (SSD)") { // Workaround for some drives which have this and another attribute
-            for (const QJsonValue &attr : attributes) {
+            for (const QJsonValue &attr : std::as_const(attributes)) {
                 QJsonObject attrObj = attr.toObject();
                 if (attrObj["name"] == "Wear_Leveling_Count") {
                     int percentageUsed = attrObj["value"].toInt();
@@ -606,7 +606,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         QString stringValue;
         warningTemperature = 65;
         criticalTemperature = 70;
-        for (const QJsonValue &value : outputArray) {
+        for (const QJsonValue &value : std::as_const(outputArray)) {
             stringValue = value.toString();
             if (stringValue.startsWith("Optional Admin Commands")) {
                 if (stringValue.contains("Self_Test")) {
@@ -717,8 +717,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             selfTestMenu->setEnabled(true);
         }
 
-        int i = 0;
-        for (const QString& key : keys) {
+        for (const QString& key : std::as_const(keys)) {
             QString minutes = QString::number(pollingMinutes[key].toInt());
             QString keyTranslated;
             if (key == "short") {
@@ -745,8 +744,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             connect(action, &QAction::triggered, this, [this, mode, name, minutes]() {
                 Utils.selfTestHandler(mode, name, minutes);
             });
-
-            i++;
         }
 
         if (ataSelfTestsTable.isEmpty()) {
