@@ -9,7 +9,7 @@ QVector<QPair<QString, int>> JsonParser::parse(const QString &json)
     bool found = false;
     bool skip = false;
 
-    for (const QString &line : lines) {
+    for (const QString &line : std::as_const(lines)) {
         QString trimmedLine = line.trimmed();
         if (trimmedLine.contains("[")) {
             skip = true;

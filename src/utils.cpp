@@ -13,7 +13,7 @@
 void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
 {
     QList<QAbstractButton*> buttons = buttonGroup->buttons();
-    for (QAbstractButton* button : buttons) {
+    for (QAbstractButton* button : std::as_const(buttons)) {
         buttonGroup->removeButton(button);
         delete button;
     }
@@ -27,7 +27,7 @@ QString utils::getSmartctlPath() {
 
     paths << "/usr/sbin" << "/usr/local/sbin";
 
-    for (const QString &path : paths) {
+    for (const QString &path : std::as_const(paths)) {
         QString absolutePath = QDir(path).absoluteFilePath("smartctl");
         if (QFile::exists(absolutePath) && QFileInfo(absolutePath).isExecutable()) {
             return absolutePath;
