@@ -5,6 +5,12 @@ This app is a frontend for smartctl which is part of the smartmontools package.<
 The icon is a modified version of the KDE Partition Manager logo which is available under GPL-3.0+.
 
 ## Compiling and Installing
+### Compilation Dependencies
+Ubuntu and based distros (Mint, Pop!_OS, etc.)
+```sh
+sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-wayland smartmontools
+```
+### Compilation Steps
 First you will need to clone the repository and cd inside
 ```sh
 git clone https://github.com/edisionnano/QDiskInfo.git && cd QDiskInfo
