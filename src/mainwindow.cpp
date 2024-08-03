@@ -341,6 +341,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString firmwareVersion = localObj["firmware_version"].toString();
     double diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
     int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
+    int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
     int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
     int totalWritesInt = 0;
     int totalReadsInt = 0;
@@ -360,12 +361,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString percentage = "";
     QString serialNumber = localObj["serial_number"].toString();
     QJsonObject deviceObj = localObj["device"].toObject();
-
     QString protocol = deviceObj["protocol"].toString();
-    if (protocol == "SCSI") {
-        modelName = localObj["scsi_model_name"].toString();
-    }
-
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
     QJsonArray outputArray = localObj.value("smartctl").toObject()["output"].toArray();
@@ -374,6 +370,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QJsonArray ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
 
     bool isNvme = (protocol == "NVMe");
+    bool isScsi = (protocol == "SCSI");
+
+    if (isScsi) {
+        modelName = localObj["scsi_model_name"].toString();
+        powerCycleCountInt = localObj["scsi_start_stop_cycle_counter"].toObject().value("accumulated_load_unload_cycles").toInt(-1);
+    }
+
     bool nvmeHasSelfTest = false;
 
     auto createTablePopup = [=](QJsonArray selfTestsTable) {
@@ -466,7 +469,6 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     rotationRateLineEdit->setText(rotationRate);
     rotationRateLineEdit->setAlignment(Qt::AlignRight);
 
-    int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
     QString powerCycleCount;
     if (powerCycleCountInt >= 0) {
         powerCycleCount = QString::number(powerCycleCountInt) + " " + tr("count");
