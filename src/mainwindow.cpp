@@ -338,7 +338,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QJsonObject pollingMinutes = localObj["ata_smart_data"].toObject()["self_test"].toObject()["polling_minutes"].toObject();
     QJsonObject nvmeLog = localObj["nvme_smart_health_information_log"].toObject();
     QString modelName = localObj["model_name"].toString();
-    QString firmwareVersion = localObj["firmware_version"].toString();
+    QString firmwareVersion = localObj["firmware_version"].toString("----");
     double diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
     int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
     int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
