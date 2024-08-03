@@ -181,7 +181,15 @@ void MainWindow::updateUI()
         QJsonDocument localDoc = QJsonDocument::fromJson(allOutput.toUtf8());
         QJsonObject localObj = localDoc.object();
 
+        QString protocol = localObj["device"].toObject()["protocol"].toString();
+        bool isNvme = (protocol == "NVMe");
+
         QString modelName = localObj["model_name"].toString();
+
+        if (protocol == "SCSI") {
+            modelName = localObj["scsi_model_name"].toString();
+        }
+
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
         QString temperature = "-- °C";
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
@@ -201,9 +209,6 @@ void MainWindow::updateUI()
         } else {
             diskCapacityString = QString::number(diskCapacityGbInt/1000) + " " + tbSymbol;
         }
-
-        QString protocol = localObj["device"].toObject()["protocol"].toString();
-        bool isNvme = (protocol == "NVMe");
 
         int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
         if (temperatureInt > 0) {
@@ -355,7 +360,12 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QString percentage = "";
     QString serialNumber = localObj["serial_number"].toString();
     QJsonObject deviceObj = localObj["device"].toObject();
+
     QString protocol = deviceObj["protocol"].toString();
+    if (protocol == "SCSI") {
+        modelName = localObj["scsi_model_name"].toString();
+    }
+
     QString type = deviceObj["type"].toString();
     QString name = deviceObj["name"].toString();
     QJsonArray outputArray = localObj.value("smartctl").toObject()["output"].toArray();
