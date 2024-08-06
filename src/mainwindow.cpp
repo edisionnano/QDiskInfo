@@ -375,6 +375,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (isScsi) {
         modelName = localObj["scsi_model_name"].toString();
         powerCycleCountInt = localObj["scsi_start_stop_cycle_counter"].toObject().value("accumulated_load_unload_cycles").toInt(-1);
+        firmwareVersion = localObj["scsi_revision"].toString("----");
     }
 
     bool nvmeHasSelfTest = false;
