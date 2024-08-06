@@ -373,9 +373,12 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     bool isScsi = (protocol == "SCSI");
 
     if (isScsi) {
+        QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
         modelName = localObj["scsi_model_name"].toString();
-        powerCycleCountInt = localObj["scsi_start_stop_cycle_counter"].toObject().value("accumulated_load_unload_cycles").toInt(-1);
+        powerCycleCountInt = localObj["scsi_start_stop_cycle_counter"].toObject().value("accumulated_load_unload_cycles").toInt();
         firmwareVersion = localObj["scsi_revision"].toString("----");
+        totalReadsInt = scsiErrorCounterLog.value("read").toObject().value("gigabytes_processed").toString().split(",").first().toInt();
+        totalWritesInt = scsiErrorCounterLog.value("write").toObject().value("gigabytes_processed").toString().split(",").first().toInt();
     }
 
     bool nvmeHasSelfTest = false;
