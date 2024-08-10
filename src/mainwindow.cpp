@@ -234,11 +234,15 @@ void MainWindow::updateUI()
                 }
             }
         } else if (isScsi) {
-             QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
+            QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
             for (const QString& key : {"read", "write", "verify"}) {
                 if (scsiErrorCounterLog.value(key).toObject().value("total_uncorrected_errors").toInt() != 0) {
                     caution = true;
                 }
+            }
+
+            if (localObj.value("scsi_grown_defect_list").toInt() != 0) {
+                caution = true;
             }
         } else {
             JsonParser parser;
@@ -905,7 +909,6 @@ void MainWindow::addSCSIErrorCounterLogTable(const QJsonObject &scsiErrorLog)
     tableWidget->verticalHeader()->setDefaultSectionSize(31);
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
-
 
 void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {
