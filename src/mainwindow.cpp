@@ -183,10 +183,12 @@ void MainWindow::updateUI()
 
         QString protocol = localObj["device"].toObject()["protocol"].toString();
         bool isNvme = (protocol == "NVMe");
+        bool isScsi = (protocol == "SCSI");
+        bool isAta = (protocol == "ATA");
 
         QString modelName = localObj["model_name"].toString();
 
-        if (protocol == "SCSI") {
+        if (isScsi) {
             modelName = localObj["scsi_model_name"].toString();
         }
 
@@ -221,7 +223,7 @@ void MainWindow::updateUI()
         }
 
         QVector<QPair<QString, int>> nvmeSmartOrdered;
-        if (!isNvme) {
+        if (isAta) {
             for (const QJsonValue &attr : std::as_const(attributes)) {
                 QJsonObject attrObj = attr.toObject();
                 if ((attrObj["id"] == 5 || attrObj["id"] == 197 || attrObj["id"] == 198 || (attrObj["id"] == 196 && !(ui->actionIgnore_C4_Reallocation_Event_Count->isChecked()))) && attrObj["raw"].toObject()["value"].toDouble() > 0) {
@@ -229,6 +231,13 @@ void MainWindow::updateUI()
                 }
                 if (attrObj["thresh"].toInt() && (attrObj["value"].toInt() < attrObj["thresh"].toInt())) {
                     bad = true;
+                }
+            }
+        } else if (isScsi) {
+             QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
+            for (const QString& key : {"read", "write", "verify"}) {
+                if (scsiErrorCounterLog.value(key).toObject().value("total_uncorrected_errors").toInt() != 0) {
+                    caution = true;
                 }
             }
         } else {
@@ -369,11 +378,13 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     QJsonArray nvmeSelfTestsTable = localObj["nvme_self_test_log"].toObject()["table"].toArray();
     QJsonArray ataSelfTestsTable = localObj["ata_smart_self_test_log"].toObject()["standard"].toObject()["table"].toArray();
 
+    QJsonObject scsiErrorCounterLog;
+
     bool isNvme = (protocol == "NVMe");
     bool isScsi = (protocol == "SCSI");
 
     if (isScsi) {
-        QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
+        scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
         modelName = localObj["scsi_model_name"].toString();
         powerCycleCountInt = localObj["scsi_start_stop_cycle_counter"].toObject().value("accumulated_load_unload_cycles").toInt();
         firmwareVersion = localObj["scsi_revision"].toString("----");
@@ -723,7 +734,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     healthStatusValueLabel->setText("<html><head/><body><p><span style='" + labelStyle +"'>" + health + percentageText + "</span></p></body></html>");
     healthStatusValueLabel->setAlignment(Qt::AlignCenter);
 
-    if (protocol != "NVMe") {
+    if (protocol == "ATA") {
         addSmartAttributesTable(attributes);
         selfTestMenu->clear();
 
@@ -771,6 +782,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 createTablePopup(ataSelfTestsTable);
             });
         }
+    } else if (protocol == "SCSI") {
+            selfTestMenu->clear();
+            selfTestMenu->setDisabled(true);
+            selfTestLogAction->setDisabled(true);
+            addSCSIErrorCounterLogTable(scsiErrorCounterLog);
     } else {
         addNvmeLogTable(nvmeLogOrdered);
 
@@ -805,6 +821,91 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     }
 }
+
+void MainWindow::addSCSIErrorCounterLogTable(const QJsonObject &scsiErrorLog)
+{
+
+    QStringList operations = {"read", "write", "verify"};
+
+    tableWidget->setRowCount(3);
+    tableWidget->setColumnCount(9);
+    tableWidget->verticalHeader()->setVisible(false);
+    tableWidget->setItemDelegateForColumn(0, new StatusDot(tableWidget));
+
+    tableWidget->setHorizontalHeaderLabels({
+        "",
+        "Operation",
+        "Errors Corrected\nby ECC Fast",
+        "Errors Corrected\nby ECC Delayed",
+        "Errors Corrected\nby Rereads/Rewrites",
+        "Total Errors\nCorrected",
+        "Correction Algorithm\nInvocations",
+        "Gigabytes\nProcessed",
+        "Total Uncorrected\nErrors"
+    });
+
+    int row = 0;
+    for (const QString& operation : operations) {
+        QColor statusColor;
+        QJsonObject operationData = scsiErrorLog[operation].toObject();
+
+        if (operationData["total_uncorrected_errors"].toInt() == 0) {
+            statusColor = goodColor;
+        } else {
+            statusColor = cautionColor;
+        }
+
+        QTableWidgetItem *statusItem = new QTableWidgetItem();
+        statusItem->setData(Qt::BackgroundRole, QVariant(statusColor));
+
+        tableWidget->setItem(row, 0, statusItem);
+
+        QString operationTranslated;
+        if (operation == "read") {
+            operationTranslated = tr("Read");
+        } else if (operation == "write") {
+            operationTranslated = tr("Write");
+        } else if (operation == "verify") {
+            operationTranslated = tr("Verify");
+        }
+
+        tableWidget->setItem(row, 1, new QTableWidgetItem(operationTranslated));
+        tableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(operationData["errors_corrected_by_eccfast"].toInt())));
+        tableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(operationData["errors_corrected_by_eccdelayed"].toInt())));
+        tableWidget->setItem(row, 4, new QTableWidgetItem(QString::number(operationData["errors_corrected_by_rereads_rewrites"].toInt())));
+        tableWidget->setItem(row, 5, new QTableWidgetItem(QString::number(operationData["total_errors_corrected"].toInt())));
+        tableWidget->setItem(row, 6, new QTableWidgetItem(QString::number(operationData["correction_algorithm_invocations"].toInt())));
+        tableWidget->setItem(row, 7, new QTableWidgetItem(operationData["gigabytes_processed"].toString()));
+        tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(operationData["total_uncorrected_errors"].toInt())));
+
+        ++row;
+
+        for (int rowNum = 0; rowNum < 3; ++rowNum) {
+            for (int column = 0; column < 9; ++column) {
+                QTableWidgetItem *item = tableWidget->item(rowNum, column);
+                if (item) {
+                    if (column == 1) {
+                        item->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+                    } else {
+                        item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                    }
+                }
+            }
+        }
+    }
+
+    tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    for (int i = 0; i < tableWidget->columnCount(); ++i) {
+        if (i != 1) {
+            tableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::ResizeToContents);
+        }
+    }
+
+    tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    tableWidget->verticalHeader()->setDefaultSectionSize(31);
+    tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
 
 void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered)
 {

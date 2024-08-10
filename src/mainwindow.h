@@ -81,6 +81,7 @@ private:
     void updateNavigationButtons(qsizetype currentIndex);
     void updateUI();
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
+    void addSCSIErrorCounterLogTable(const QJsonObject &scsiErrorCounterLog);
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
     void addSmartAttributesTable(const QJsonArray &attributes);
     void transformWindow();
