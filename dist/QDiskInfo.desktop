@@ -7,5 +7,5 @@ Comment=SMART data viewer
 Icon=QDiskInfo
 Exec=QDiskInfo
 Terminal=false
-Categories=System;Monitor;ConsoleOnly;
+Categories=System;Monitor;
 Keywords=system;process;task
