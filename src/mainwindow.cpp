@@ -212,7 +212,8 @@ void MainWindow::updateUI()
             diskCapacityString = QString::number(diskCapacityGbInt/1000) + " " + tbSymbol;
         }
 
-        int temperatureInt = localObj["temperature"].toObject()["current"].toInt();
+        QJsonObject temperatureObj = localObj["temperature"].toObject();
+        int temperatureInt = temperatureObj["current"].toInt();
         if (temperatureInt > 0) {
             if (ui->actionUse_Fahrenheit->isChecked()) {
                 int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
@@ -235,7 +236,7 @@ void MainWindow::updateUI()
             }
         } else if (isScsi) {
             QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
-            for (const QString& key : {"read", "write", "verify"}) {
+            for (const QString key : {"read", "write", "verify"}) {
                 if (scsiErrorCounterLog.value(key).toObject().value("total_uncorrected_errors").toInt() != 0) {
                     caution = true;
                 }
@@ -355,7 +356,8 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     double diskCapacityGB = localObj.value("user_capacity").toObject().value("bytes").toDouble() / 1e9;
     int diskCapacityGbInt = static_cast<int>(diskCapacityGB);
     int powerCycleCountInt = localObj["power_cycle_count"].toInt(-1);
-    int temperatureInt =  localObj["temperature"].toObject()["current"].toInt();
+    QJsonObject temperatureObj = localObj["temperature"].toObject();
+    int temperatureInt = temperatureObj["current"].toInt();
     int totalWritesInt = 0;
     int totalReadsInt = 0;
     bool useGB = ui->actionUse_GB_instead_of_TB->isChecked();
@@ -662,6 +664,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                     }
                 }
             }
+        }
+    } else if (isScsi) {
+        int driveTripInt = temperatureObj["drive_trip"].toInt();
+        if (driveTripInt > 0) {
+            criticalTemperature = driveTripInt;
         }
     }
 
