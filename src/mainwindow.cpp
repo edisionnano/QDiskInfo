@@ -572,6 +572,9 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (attrObj["name"] == "Remaining_Lifetime_Perc") {
                 int percentageUsed = attrObj["raw"].toObject()["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
+            } else if (attrObj["name"] == "Percent_Lifetime_Remain") {
+                int percentageUsed = attrObj["raw"].toObject()["value"].toInt();
+                percentage = QString::number(percentageUsed) + " %";
             } else if (attrObj["name"] == "Media_Wearout_Indicator" || attrObj["name"] == "SSD_Life_Left") {
                 int percentageUsed = attrObj["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
