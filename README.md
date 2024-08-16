@@ -10,6 +10,10 @@ Ubuntu and based distros (Mint, Pop!_OS, etc.)
 ```sh
 sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-wayland smartmontools
 ```
+Fedora and derivatives (Nobara Project, etc.)
+```
+sudo dnf install cmake git mesa-libGL-devel libxkbcommon-devel qt6-qtbase-devel qt6-qtwayland-devel smartmontools
+```
 ### Compilation Steps
 First you will need to clone the repository and cd inside
 ```sh
