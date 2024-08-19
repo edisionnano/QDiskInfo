@@ -245,7 +245,7 @@ void MainWindow::updateUI()
             int scsiGrownDefectList = localObj.value("scsi_grown_defect_list").toInt();
             if (scsiGrownDefectList != 0) {
                 caution = true;
-                QMessageBox::warning(nullptr, tr("Warning"), deviceName + ": " + tr("Grown Defect List") + ": " + QString::number(scsiGrownDefectList));
+                QMessageBox::warning(nullptr, tr("Critical Warning"), deviceName + ": " + tr("Grown Defect List") + ": " + QString::number(scsiGrownDefectList));
             }
         } else {
             JsonParser parser;

@@ -63,7 +63,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="250"/>
-        <location filename="../src/mainwindow.cpp" line="383"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>Type</source>
         <translation>Τύπος</translation>
     </message>
@@ -89,7 +89,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="328"/>
-        <location filename="../src/mainwindow.cpp" line="383"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>Power On Hours</source>
         <translation>Ώρες Λειτουργίας</translation>
     </message>
@@ -144,7 +144,7 @@
         <translation>Σχετικά με το &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1103"/>
+        <location filename="../src/mainwindow.cpp" line="1234"/>
         <source>About Qt</source>
         <translation>Σχετικά με το Qt</translation>
     </message>
@@ -160,7 +160,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="531"/>
-        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
         <source>Disk</source>
         <translation>&amp;Δίσκος</translation>
     </message>
@@ -185,66 +185,66 @@
         <translation>Χρήση &amp;Fahrenheit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="259"/>
-        <location filename="../src/mainwindow.cpp" line="676"/>
-        <location filename="../src/mainwindow.cpp" line="689"/>
+        <location filename="../src/mainwindow.cpp" line="279"/>
+        <location filename="../src/mainwindow.cpp" line="721"/>
+        <location filename="../src/mainwindow.cpp" line="734"/>
         <source>Good</source>
         <translation>Καλή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="262"/>
-        <location filename="../src/mainwindow.cpp" line="674"/>
-        <location filename="../src/mainwindow.cpp" line="687"/>
+        <location filename="../src/mainwindow.cpp" line="282"/>
+        <location filename="../src/mainwindow.cpp" line="719"/>
+        <location filename="../src/mainwindow.cpp" line="732"/>
         <source>Caution</source>
         <translation>Προσοχή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="265"/>
-        <location filename="../src/mainwindow.cpp" line="672"/>
-        <location filename="../src/mainwindow.cpp" line="685"/>
+        <location filename="../src/mainwindow.cpp" line="285"/>
+        <location filename="../src/mainwindow.cpp" line="717"/>
+        <location filename="../src/mainwindow.cpp" line="730"/>
         <source>Bad</source>
         <translation>Κακή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="268"/>
+        <location filename="../src/mainwindow.cpp" line="288"/>
         <source>Unknown</source>
         <translation>Άγνωστη</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="808"/>
-        <location filename="../src/mainwindow.cpp" line="910"/>
+        <location filename="../src/mainwindow.cpp" line="939"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>Attribute Name</source>
         <translation>Ιδιότητα</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="808"/>
-        <location filename="../src/mainwindow.cpp" line="910"/>
+        <location filename="../src/mainwindow.cpp" line="939"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>Raw Values</source>
         <translation>Τιμή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="910"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>Current</source>
         <translation>Τρέχουσα</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="910"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>Worst</source>
         <translation>Χειρότερη</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="910"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>Threshold</source>
         <translation>Όριο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="383"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>Status</source>
         <translation>Κατάσταση</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="76"/>
-        <location filename="../src/mainwindow.cpp" line="428"/>
+        <location filename="../src/mainwindow.cpp" line="463"/>
         <source>Self Test Log</source>
         <translation>&amp;Καταγραφολόγιο Αυτοδιάγνωσης</translation>
     </message>
@@ -254,125 +254,149 @@
         <translation>&amp;Εκκίνηση Αυτοδιάγνωσης</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="779"/>
         <source>Min.)</source>
         <translation>Λεπ.)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="726"/>
-        <location filename="../src/mainwindow.cpp" line="773"/>
+        <location filename="../src/mainwindow.cpp" line="770"/>
+        <location filename="../src/mainwindow.cpp" line="820"/>
         <source>Short</source>
         <translation>Σύντομο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="463"/>
+        <location filename="../src/mainwindow.cpp" line="248"/>
+        <source>Grown Defect List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="497"/>
         <source>count</source>
         <translation>μονάδες</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="474"/>
+        <location filename="../src/mainwindow.cpp" line="508"/>
         <source>hours</source>
         <translation>ώρες</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="728"/>
+        <location filename="../src/mainwindow.cpp" line="772"/>
         <source>Conveyance</source>
         <translation>Μεταφορά</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="730"/>
-        <location filename="../src/mainwindow.cpp" line="779"/>
+        <location filename="../src/mainwindow.cpp" line="774"/>
+        <location filename="../src/mainwindow.cpp" line="826"/>
         <source>Extended</source>
         <translation>Εμπεριστατωμένο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="808"/>
-        <location filename="../src/mainwindow.cpp" line="910"/>
+        <location filename="../src/mainwindow.cpp" line="884"/>
+        <source>Read</source>
+        <translatorcomment>Ανάγνωση</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="886"/>
+        <source>Write</source>
+        <translatorcomment>Εγγραφή</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="888"/>
+        <source>Verify</source>
+        <translatorcomment>Επαλήθευση</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="939"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="835"/>
+        <location filename="../src/mainwindow.cpp" line="966"/>
         <source>Available spare capacity has fallen below the threshold</source>
         <translation>Η υγεία του δίσκου έχει πέσει κάτω από το όριο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="837"/>
+        <location filename="../src/mainwindow.cpp" line="968"/>
         <source>Temperature error (Overheat or Overcool)</source>
         <translation>Σφάλμα θερμοκρασίας (Υπερθέρμανση ή Υπερψύξη)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="839"/>
+        <location filename="../src/mainwindow.cpp" line="970"/>
         <source>NVM subsystem reliability has been degraded</source>
         <translation>Η αξιοπιστία του NVMe έχει μειωθεί</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="841"/>
+        <location filename="../src/mainwindow.cpp" line="972"/>
         <source>Media has been placed in Read Only Mode</source>
         <translation>Το μέσο έχει τεθεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="843"/>
+        <location filename="../src/mainwindow.cpp" line="974"/>
         <source>Volatile memory backup device has Failed</source>
         <translation>Η δημιουργία αρχείου επαναφοράς της μη διατηρήσιμης μνήμης απέτυχε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="845"/>
+        <location filename="../src/mainwindow.cpp" line="976"/>
         <source>Persistent memory region has become Read-Only</source>
         <translation>Η διατηρήσιμη μνήμη έχει μεταβεί αποκλειστικά σε λειτουργία ανάγνωσης</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="897"/>
+        <location filename="../src/mainwindow.cpp" line="248"/>
+        <location filename="../src/mainwindow.cpp" line="1028"/>
         <source>Critical Warning</source>
         <translation>Σημαντική Προειδοποίηση</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1060"/>
+        <location filename="../src/mainwindow.cpp" line="1191"/>
         <source>Empty JSON</source>
         <translation>Κενό JSON</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1061"/>
+        <location filename="../src/mainwindow.cpp" line="1192"/>
         <source>The JSON is empty</source>
         <translation>Αυτό το JSON είναι κενό</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1066"/>
+        <location filename="../src/mainwindow.cpp" line="1197"/>
         <source>Save JSON</source>
         <translation>Αποθήκευση JSON</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1067"/>
+        <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>JSON (*.json);;All Files (*)</source>
         <translation>JSON (*.json);;;Όλα τα αρχεία (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1073"/>
+        <location filename="../src/mainwindow.cpp" line="1204"/>
         <source>Unable to open file for writing</source>
         <translation>Δεν είναι δυνατό το άνοιγμα αυτού του αρχείου για εγγραφή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1093"/>
+        <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux</source>
         <translation>Ένας αναγνώστης S.M.A.R.T. για τα Linux</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1094"/>
+        <location filename="../src/mainwindow.cpp" line="1225"/>
         <source>Licensed under the GNU G.P.L. Version 3</source>
         <translation>Διατίθεται υπό την άδεια GNU G.P.L. Έκδοση 3</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1096"/>
+        <location filename="../src/mainwindow.cpp" line="1227"/>
         <source>Version</source>
         <translation>Έκδοση</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1095"/>
+        <location filename="../src/mainwindow.cpp" line="1226"/>
         <source>Made by Samantas5855</source>
         <translation>Δημιουργήθηκε από τον Samantas5855</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1098"/>
+        <location filename="../src/mainwindow.cpp" line="1229"/>
         <source>About QDiskInfo</source>
         <translation>Σχετικά με το QDiskInfo</translation>
     </message>
