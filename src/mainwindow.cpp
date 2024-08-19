@@ -573,11 +573,14 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 int percentageUsed = attrObj["raw"].toObject()["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
             } else if (attrObj["name"] == "Percent_Lifetime_Remain") {
-                int percentageUsed = attrObj["raw"].toObject()["value"].toInt();
+                int percentageUsed = attrObj["value"].toInt();
                 percentage = QString::number(percentageUsed) + " %";
             } else if (attrObj["name"] == "Media_Wearout_Indicator" || attrObj["name"] == "SSD_Life_Left") {
                 int percentageUsed = attrObj["value"].toInt();
-                percentage = QString::number(percentageUsed) + " %";
+                int percentageUsedWorst = attrObj["worst"].toInt();
+                if (percentageUsedWorst <= 100) {
+                    percentage = QString::number(percentageUsed) + " %";
+                }
             }
         }
         if (percentage.isEmpty() && rotationRate == "---- (SSD)") { // Workaround for some drives which have this and another attribute
