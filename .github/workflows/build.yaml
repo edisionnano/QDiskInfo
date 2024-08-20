@@ -30,17 +30,17 @@ jobs:
     - name: Install dependencies for glibc
       run: |
         sudo apt update
-        sudo apt install -y qt6-base-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
+        sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
       if: ${{ matrix.clib == 'glibc' }}
     - name: Install dependencies for musl
       run: |
-        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qtbase-x11 qt6-qtsvg breeze smartmontools
+        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qttools-dev qt6-qtbase-x11 qt6-qtsvg breeze smartmontools
         git config --global --add safe.directory '*'
       if: ${{ matrix.clib == 'musl' }}
       
     - name: Build
       run: |
-        cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6
+        cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6 -DENABLE_TRANSLATIONS=ON
         cmake --build build
 
     - name: Package AppImage

@@ -14,35 +14,51 @@ if(NOT DEFINED QT_VERSION_MAJOR)
     set(QT_VERSION_MAJOR 6)
 endif()
 
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+if(ENABLE_TRANSLATIONS)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+else()
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+endif()
 
 set(PROJECT_SOURCES
-        src/main.cpp
-        src/mainwindow.cpp
-        src/mainwindow.h
-        src/mainwindow.ui
-        src/custombutton.h
-        src/custombutton.cpp
-        src/statusdot.h
-        src/statusdot.cpp
-        src/jsonparser.h
-        src/jsonparser.cpp
-        src/utils.h
-        src/utils.cpp
-        src/resources.qrc
+    src/main.cpp
+    src/mainwindow.cpp
+    src/mainwindow.h
+    src/mainwindow.ui
+    src/custombutton.h
+    src/custombutton.cpp
+    src/statusdot.h
+    src/statusdot.cpp
+    src/jsonparser.h
+    src/jsonparser.cpp
+    src/utils.h
+    src/utils.cpp
+    src/resources.qrc
 )
 
-if (INCLUDE_OPTIONAL_RESOURCES)
+if(INCLUDE_OPTIONAL_RESOURCES)
     set(PROJECT_SOURCES ${PROJECT_SOURCES} dist/theme/theme_resources.qrc)
 endif()
 
-add_executable(QDiskInfo
-    ${PROJECT_SOURCES}
-)
+if(ENABLE_TRANSLATIONS)
+    file(GLOB TS_FILES "${CMAKE_SOURCE_DIR}/translations/*.ts")
+    qt_add_translation(QM_FILES ${TS_FILES})
+    set(TRANSLATIONS_QRC "${CMAKE_BINARY_DIR}/translations.qrc")
+    file(WRITE ${TRANSLATIONS_QRC} "<RCC>\n  <qresource prefix=\"/translations\">\n")
+    foreach(QM_FILE ${QM_FILES})
+        get_filename_component(QM_FILE_NAME ${QM_FILE} NAME)
+        file(APPEND ${TRANSLATIONS_QRC} "    <file>${QM_FILE_NAME}</file>\n")
+    endforeach()
+    file(APPEND ${TRANSLATIONS_QRC} "  </qresource>\n</RCC>\n")
+    list(APPEND PROJECT_SOURCES ${TRANSLATIONS_QRC})
+endif()
+
+add_executable(QDiskInfo ${PROJECT_SOURCES})
 
 target_compile_definitions(QDiskInfo PRIVATE
     PROJECT_VERSION_MAJOR=${QDiskInfo_VERSION_MAJOR}
     PROJECT_VERSION_MINOR=${QDiskInfo_VERSION_MINOR}
+    ENABLE_TRANSLATIONS=$<BOOL:${ENABLE_TRANSLATIONS}>
     INCLUDE_OPTIONAL_RESOURCES=$<BOOL:${INCLUDE_OPTIONAL_RESOURCES}>
     CHARACTER_IS_RIGHT=$<BOOL:${CHARACTER_IS_RIGHT}>
 )
