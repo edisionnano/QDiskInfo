@@ -1,5 +1,5 @@
 # QDiskInfo
-QDiskInfo is a frontend for smartctl (part of the smartmontools package). It provides a user experience similar to CrystalDiskInfo. It shows the SMART (Self-Monitoring, Analysis, and Reporting Technology) data of modern hard disk drives. 
+QDiskInfo is a frontend for smartctl (part of the smartmontools package). It provides a user experience similar to CrystalDiskInfo. It shows the SMART (Self-Monitoring, Analysis, and Reporting Technology) data of modern hard disk drives.
 ![mockup](https://github.com/edisionnano/QDiskInfo/assets/26039434/e5488f41-6ea2-4304-9ae8-13d5dac7715b)
 The icon is a modified version of the KDE Partition Manager logo which is available under GPL-3.0+.
 
@@ -8,13 +8,13 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 
 ## Compiling and Installing
 ### Compilation and Runtime Dependencies
-Ubuntu and based distros (Mint, Pop!_OS, etc.)
+Ubuntu and based distros (Mint, Pop!\_OS, etc.)
 ```sh
-sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-wayland smartmontools
+sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-tools-dev qt6-wayland smartmontools
 ```
 Fedora and derivatives (Nobara Project, etc.)
 ```
-sudo dnf install cmake git mesa-libGL-devel libxkbcommon-devel qt6-qtbase-devel qt6-qtwayland-devel smartmontools
+sudo dnf install cmake git mesa-libGL-devel libxkbcommon-devel qt6-qtbase-devel qt6-qttools-devel qt6-qtwayland-devel smartmontools
 ```
 ### Compilation Steps
 First you will need to clone the repository and cd inside
@@ -41,13 +41,13 @@ sudo make install
 ## Localisation
 Currently, QDiskInfo has support for the following languages:
 - 🌐 English (C)
-- 🇬🇷 Greek (el_GR)
-- 🇪🇸 Spanish (es_ES)
-- 🇧🇷 Brazilian Portuguese (pt_BR)
-- 🇨🇳 Simplified Chinese (zh_CN)
+- 🇬🇷 Greek (`el_GR`)
+- 🇪🇸 Spanish (`es_ES`)
+- 🇧🇷 Brazilian Portuguese (`pt_BR`)
+- 🇨🇳 Simplified Chinese (`zh_CN`)
 
 You can translate QDiskInfo to your language very easily using [Crowdin](https://crowdin.com/project/qdiskinfo). If your language isn't available on Crowdin, feel free to create a new issue.
-<br><br>Alternatively you can copy the qdiskinfo_en_US.ts, which can be found inside the translations folder, to the locale you want. For example to qdiskinfo_de_DE.ts for German. Then you can use the QT Linguist application to translate the strings, marking every finished one with a tick. Once you are finished you can compile the .ts file to a .qm file by running this command from the root of the project 
+<br><br>Alternatively you can copy the `qdiskinfo_en_US.ts`, which can be found inside the translations folder, to the locale you want. For example to `qdiskinfo_de_DE.ts` for German. Then you can use the QT Linguist application to translate the strings, marking every finished one with a tick. Once you are finished you can compile the .ts file to a .qm file by running this command from the root of the project:
 ```sh
 lrelease translations/qdiskinfo_de_DE.ts -qm translations/qdiskinfo_de_DE.qm
 ```
