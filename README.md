@@ -3,11 +3,11 @@ QDiskInfo is a frontend for smartctl (part of the smartmontools package). It pro
 ![mockup](https://github.com/edisionnano/QDiskInfo/assets/26039434/e5488f41-6ea2-4304-9ae8-13d5dac7715b)
 The icon is a modified version of the KDE Partition Manager logo which is available under GPL-3.0+.
 
-## Binary Packages
+## Packages
 [![Packaging status](https://repology.org/badge/vertical-allrepos/qdiskinfo.svg)](https://repology.org/project/qdiskinfo/versions)
 
 ## Compiling and Installing
-### Compilation Dependencies
+### Compilation and Runtime Dependencies
 Ubuntu and based distros (Mint, Pop!_OS, etc.)
 ```sh
 sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-wayland smartmontools
