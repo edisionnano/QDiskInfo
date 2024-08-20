@@ -38,6 +38,26 @@ This will create a `QDiskInfo` binary on the build directory but you can also in
 sudo make install
 ```
 
+## Localisation
+Currently, QDiskInfo has support for the following languages:
+- 🌐 English (C)
+- 🇬🇷 Greek (el_GR)
+- 🇪🇸 Spanish (es_ES)
+- 🇧🇷 Brazilian Portuguese (pt_BR)
+- 🇨🇳 Simplified Chinese (zh_CN)
+
+You can translate QDiskInfo to your language very easily using [Crowdin](https://crowdin.com/project/qdiskinfo). If your language isn't available on Crowdin, feel free to create a new issue.
+<br><br>Alternatively you can copy the qdiskinfo_en_US.ts, which can be found inside the translations folder, to the locale you want. For example to qdiskinfo_de_DE.ts for German. Then you can use the QT Linguist application to translate the strings, marking every finished one with a tick. Once you are finished you can compile the .ts file to a .qm file by running this command from the root of the project 
+```sh
+lrelease translations/qdiskinfo_de_DE.ts -qm translations/qdiskinfo_de_DE.qm
+```
+Once you do that, add the .qm file on `src/resources.qrc` and compile the project.
+<br>If your system language differs from the one you are translating to, you can use
+```sh
+LC_ALL=de_DE.UTF-8 ./QDiskInfo
+```
+to force the app to use the language of your choice.
+
 ## Using CrystalDiskInfo Anime Themes
 The process is similar to the one above with a few changes:<br>
 First you must download the edition of CrystalDiskInfo you want (Aoi for example) in ZIP format from [here](https://crystalmark.info/en/download/), from this archive you shall copy the light and dark backgrounds as well as the good, caution, bad, unknown icons to dist/theme with the same name as the templates there.<br>
