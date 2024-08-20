@@ -16,6 +16,25 @@ endif()
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+set(TS_FILES
+    translations/qdiskinfo_el_GR.ts
+    translations/qdiskinfo_es_ES.ts
+    translations/qdiskinfo_zh_CN.ts
+    translations/qdiskinfo_en_US.ts
+    translations/qdiskinfo_pt_BR.ts
+)
+set_source_files_properties(${TS_FILES}
+    PROPERTIES OUTPUT_LOCATION
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations")
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    find_package(Qt6LinguistTools REQUIRED)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    find_package(Qt5LinguistTools REQUIRED)
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
 set(PROJECT_SOURCES
         src/main.cpp
         src/mainwindow.cpp
