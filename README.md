@@ -21,7 +21,7 @@ First you will need to clone the repository and cd inside
 ```sh
 git clone https://github.com/edisionnano/QDiskInfo.git && cd QDiskInfo
 ```
-Then you must create a build directory and cd inside
+Then you must create a build directory and cd inside, you can name it `build`
 ```sh
 mkdir build && cd build
 ```
@@ -37,6 +37,11 @@ This will create a `QDiskInfo` binary on the build directory but you can also in
 ```sh
 sudo make install
 ```
+If you installed QDiskInfo on your system using `sudo make install` and wish to uninstall it then run
+```sh
+sudo xargs rm < install_manifest.txt
+```
+in your build directory. The `install_manifest.txt` file is generated after running `sudo make install` so if you no longer have it, you can install again and then uninstall.
 
 ## Localisation
 Currently, QDiskInfo has support for the following languages:
