@@ -63,6 +63,10 @@ to force the app to use the language of your choice.
 lupdate src/ -ts translations/qdiskinfo_de_DE.ts -noobsolete
 ```
 
+## Common Issues
+### Icons are Missing
+If you are using QDiskInfo outside KDE, the arrows on the navigation keys and some other icons may be missing. To fix this install the Qt6 Configuration Tool (qt6ct) and append `export QT_QPA_PLATFORMTHEME=qt6ct` to the file `/etc/environment`
+
 ## Using CrystalDiskInfo Anime Themes
 The process is similar to the one above with a few changes:<br>
 First you must download the edition of CrystalDiskInfo you want (Aoi for example) in ZIP format from [here](https://crystalmark.info/en/download/), from this archive you shall copy the light and dark backgrounds as well as the good, caution, bad, unknown icons to dist/theme with the same name as the templates there.<br>
