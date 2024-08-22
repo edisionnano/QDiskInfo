@@ -13,8 +13,12 @@ Ubuntu and based distros (Mint, Pop!_OS, etc.)
 sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-tools-dev qt6-wayland smartmontools
 ```
 Fedora and derivatives (Nobara Project, etc.)
-```
+```sh
 sudo dnf install cmake git mesa-libGL-devel libxkbcommon-devel qt6-qtbase-devel qt6-qttools-devel qt6-qtwayland-devel smartmontools
+```
+Arch Linux (includes Manjaro, EndeavourOS. CachyOS, Garuda Linux, etc.)
+```sh
+sudo pacman -Syu base-devel cmake hicolor-icon-theme polkit qt6-base qt6-svg smartmontools
 ```
 ### Compilation Steps
 First you will need to clone the repository and cd inside
