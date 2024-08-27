@@ -5,6 +5,9 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 
 ## Packages
 [![Packaging status](https://repology.org/badge/vertical-allrepos/qdiskinfo.svg)](https://repology.org/project/qdiskinfo/versions)
+<br>Other than those mentioned in the widget above, there is also:
+ - A [Fedora Copr Repository](https://copr.fedorainfracloud.org/coprs/birkch/QDiskInfo)
+ - A [Gentoo Portage Overlay](http://gpo.zugaina.org/sys-apps/qdiskinfo)
 
 ## Compiling and Installing
 ### Compilation and Runtime Dependencies
