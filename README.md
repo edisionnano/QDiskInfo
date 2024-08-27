@@ -8,6 +8,8 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 <br>Other than those mentioned in the widget above, there is also:
  - A [Fedora Copr Repository](https://copr.fedorainfracloud.org/coprs/birkch/QDiskInfo)
  - A [Gentoo Portage Overlay](http://gpo.zugaina.org/sys-apps/qdiskinfo)
+ - A Flatpak is currently <span style="color:blue">NOT</span> possible due to a [permission issue](https://github.com/flatpak/flatpak/issues/2452)
+ - AppImages which include smartctl can be downloaded [here](https://github.com/edisionnano/QDiskInfo/actions) if you are logged in with a GitHub account, you need to run them using sudo/doas/run0 currently. See [here](https://github.com/edisionnano/QDiskInfo/issues/5) for AppImage issues.
 
 ## Compiling and Installing
 ### Compilation and Runtime Dependencies
