@@ -64,7 +64,7 @@ jobs:
         cp /usr/lib/x86_64-linux-gnu/qt6/plugins/styles/libqt6ct-style.so ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles
 
         # HACK
-        patchelf --set-rpath 'atchelf --set-rpath '$ORIGIN/../../../../../bin:$ORIGIN/../../../../../lib64:$ORIGIN/../../../../../../lib64:$ORIGIN/../../../..:$ORIGIN/../../../../../../lib:$ORIGIN/../../../libfakeroot:$ORIGIN/../../../../../local/lib:$ORIGIN/../../../../../local/lib/x86_64-linux-gnu:$ORIGIN/../../../../../../lib/x86_64-linux-gnu:$ORIGIN/../../..:$ORIGIN/../../../../../../lib32:$ORIGIN/../../../../../lib32:$ORIGIN/../../../../../../lib/x86_64-linux-gnu/gconv:$ORIGIN/.:$ORIGIN/../iconengines:$ORIGIN/../imageformats:$ORIGIN/../xcbglintegrations' ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/* ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/*
+        patchelf --set-rpath '$ORIGIN/../../../../../bin:$ORIGIN/../../../../../lib64:$ORIGIN/../../../../../../lib64:$ORIGIN/../../../..:$ORIGIN/../../../../../../lib:$ORIGIN/../../../libfakeroot:$ORIGIN/../../../../../local/lib:$ORIGIN/../../../../../local/lib/x86_64-linux-gnu:$ORIGIN/../../../../../../lib/x86_64-linux-gnu:$ORIGIN/../../..:$ORIGIN/../../../../../../lib32:$ORIGIN/../../../../../lib32:$ORIGIN/../../../../../../lib/x86_64-linux-gnu/gconv:$ORIGIN/.:$ORIGIN/../iconengines:$ORIGIN/../imageformats:$ORIGIN/../xcbglintegrations' ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/* ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/*
 
         ./appimagetool-static.AppImage AppDir
 
