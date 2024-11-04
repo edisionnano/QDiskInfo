@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies for glibc
       run: |
         sudo apt update
-        sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
+        sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools qt6ct
       if: ${{ matrix.clib == 'glibc' }}
     - name: Install dependencies for musl
       run: |
@@ -54,6 +54,10 @@ jobs:
         cp build/QDiskInfo AppDir/usr/bin/
         cp dist/QDiskInfo.desktop AppDir/usr/share/applications
         cp dist/QDiskInfo.svg AppDir/QDiskInfo.svg
+
+        mkdir -p ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes
+        cp -r /usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes \
+          ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins
         
         ./appimagetool-static.AppImage -s deploy AppDir/usr/share/applications/*.desktop
         cp .github/scripts/smartctl AppDir/usr/bin/ # done afterwards because patchelf errors out static bins
