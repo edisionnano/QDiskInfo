@@ -50,7 +50,7 @@ jobs:
         chmod a+x *.AppImage
         chmod a+x .github/scripts/smartctl
          
-        mkdir -p AppDir/usr/bin
+        mkdir -p AppDir/usr/bin/../share/applications
         cp build/QDiskInfo AppDir/usr/bin/
         cp dist/QDiskInfo.desktop AppDir/usr/share/applications
         cp dist/QDiskInfo.svg AppDir/QDiskInfo.svg
