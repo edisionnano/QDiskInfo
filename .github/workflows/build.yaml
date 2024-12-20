@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies for glibc
       run: |
         sudo apt update
-        sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools
+        sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools qt6ct patchelf
       if: ${{ matrix.clib == 'glibc' }}
     - name: Install dependencies for musl
       run: |
@@ -45,26 +45,33 @@ jobs:
 
     - name: Package AppImage
       run: |
-        curl -sSfLO "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-static-x86_64.AppImage"
-        curl -sSfLO "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-static-x86_64.AppImage"
+        export APPIMAGE_EXTRACT_AND_RUN=1 ARCH=x86_64 VERSION=anylinux
         curl -sSfL "https://github.com/probonopd/go-appimage/releases/download/832/appimagetool-823-x86_64.AppImage" -o appimagetool-static.AppImage
         chmod a+x *.AppImage
         chmod a+x .github/scripts/smartctl
          
-        mkdir -p AppDir/usr/bin
+        mkdir -p AppDir/usr/bin/../share/applications
         cp build/QDiskInfo AppDir/usr/bin/
-        cp .github/scripts/smartctl AppDir/usr/bin/
-        cp dist/QDiskInfo.desktop AppDir/
+        cp dist/QDiskInfo.desktop AppDir/usr/share/applications
         cp dist/QDiskInfo.svg AppDir/QDiskInfo.svg
         
-        APPIMAGE_EXTRACT_AND_RUN=1 NO_STRIP=1 QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./linuxdeploy-static-x86_64.AppImage --appdir=AppDir/ -d AppDir/QDiskInfo.desktop -i AppDir/QDiskInfo.svg -e AppDir/usr/bin/QDiskInfo --plugin qt
-        echo 'export PATH="$this_dir"/usr/bin:"$PATH"' >> AppDir/apprun-hooks/linuxdeploy-plugin-qt-hook.sh
-        APPIMAGE_EXTRACT_AND_RUN=1 VERSION=${{ matrix.clib }} QMAKE=/usr/bin/qmake6 ARCH=x86_64 ./appimagetool-static.AppImage AppDir/
+        ./appimagetool-static.AppImage -s deploy AppDir/usr/share/applications/*.desktop
+
+        # deploy qt6ct
+        mkdir -p ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/../styles
+        cp -v /usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/libqt6ct.so ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes
+        cp -v /usr/lib/x86_64-linux-gnu/qt6/plugins/styles/libqt6ct-style.so ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles
+        cp -v /usr/lib/x86_64-linux-gnu/libqt6ct* ./AppDir/lib/x86_64-linux-gnu
+
+        # HACK
+        patchelf --set-rpath '$ORIGIN/../../../../../bin:$ORIGIN/../../../../../lib64:$ORIGIN/../../../../../../lib64:$ORIGIN/../../../..:$ORIGIN/../../../../../../lib:$ORIGIN/../../../libfakeroot:$ORIGIN/../../../../../local/lib:$ORIGIN/../../../../../local/lib/x86_64-linux-gnu:$ORIGIN/../../../../../../lib/x86_64-linux-gnu:$ORIGIN/../../..:$ORIGIN/../../../../../../lib32:$ORIGIN/../../../../../lib32:$ORIGIN/../../../../../../lib/x86_64-linux-gnu/gconv:$ORIGIN/.:$ORIGIN/../iconengines:$ORIGIN/../imageformats:$ORIGIN/../xcbglintegrations' ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/* ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/* ./AppDir/lib/x86_64-linux-gnu/libqt6ct*
+
+        ./appimagetool-static.AppImage AppDir
 
     - name: Upload AppImage
       uses: actions/upload-artifact@v4
       with:
-        name: QDiskInfo-${{ matrix.clib }}-AppImage
+        name: QDiskInfo-anylinux-AppImage
         path: ./QDiskInfo*.AppImage
 
     - name: Upload Binaries
