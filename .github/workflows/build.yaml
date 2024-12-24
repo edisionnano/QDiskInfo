@@ -10,34 +10,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-unix:
-    strategy:
-      fail-fast: false       
-      matrix:
-        clib: [glibc, musl]
-        include:
-          - clib: glibc
-            os: ubuntu-24.04
-          - clib: musl
-            os: ubuntu-latest
-            container: alpine:latest
-    runs-on: ${{ matrix.os }}
-    container:
-      image: ${{ matrix.container }}
-      
+  build:
+    runs-on: ubuntu-24.04
+
     steps:
     - uses: actions/checkout@v4
-    - name: Install dependencies for glibc
+
+    - name: Install dependencies
       run: |
         sudo apt update
         sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools qt6ct patchelf
-      if: ${{ matrix.clib == 'glibc' }}
-    - name: Install dependencies for musl
-      run: |
-        apk add git cmake make gcc g++ curl gcompat qt6-qtbase-dev qt6-qttools-dev qt6-qtbase-x11 qt6-qtsvg breeze smartmontools
-        git config --global --add safe.directory '*'
-      if: ${{ matrix.clib == 'musl' }}
-      
+
     - name: Build
       run: |
         cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6 -DENABLE_TRANSLATIONS=ON
@@ -48,7 +31,6 @@ jobs:
         export APPIMAGE_EXTRACT_AND_RUN=1 ARCH=x86_64 VERSION=anylinux
         curl -sSfL "https://github.com/probonopd/go-appimage/releases/download/832/appimagetool-823-x86_64.AppImage" -o appimagetool-static.AppImage
         chmod a+x *.AppImage
-        chmod a+x .github/scripts/smartctl
          
         mkdir -p AppDir/usr/bin/../share/applications
         cp build/QDiskInfo AppDir/usr/bin/
@@ -77,6 +59,5 @@ jobs:
     - name: Upload Binaries
       uses: actions/upload-artifact@v4
       with:
-        name: QDiskInfo-Qt6-${{ matrix.clib }}-bin
+        name: QDiskInfo-Qt6-bin
         path: ./build/QDiskInfo
-        
