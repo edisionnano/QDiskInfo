@@ -35,7 +35,7 @@ jobs:
         mkdir -p AppDir/usr/bin/../share/applications
         cp build/QDiskInfo AppDir/usr/bin/
         cp dist/QDiskInfo.desktop AppDir/usr/share/applications
-        cp dist/QDiskInfo.svg AppDir/QDiskInfo.svg
+        cp dist/QDiskInfo-256x256.png AppDir/QDiskInfo.png
         
         ./appimagetool-static.AppImage -s deploy AppDir/usr/share/applications/*.desktop
 
