@@ -6,396 +6,396 @@
     <message>
       <location filename="../src/mainwindow.ui" line="23"/>
       <source>QDiskInfo</source>
-      <translation type="unfinished">QDiskInfo</translation>
+      <translation>QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="56"/>
       <location filename="../src/mainwindow.ui" line="243"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;健康狀態&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="72"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;良好&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="95"/>
       <location filename="../src/mainwindow.ui" line="364"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;溫度&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="111"/>
       <location filename="../src/mainwindow.ui" line="354"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="156"/>
       <source>Firmware</source>
-      <translation type="unfinished">Firmware</translation>
+      <translation>軔體</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="170"/>
       <source>Serial Number</source>
-      <translation type="unfinished">Serial Number</translation>
+      <translation>序列號</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="184"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>通訊協議</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="198"/>
       <source>Device Node</source>
-      <translation type="unfinished">Device Node</translation>
+      <translation>設備節點</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="233"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;良好 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="250"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>類型</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="272"/>
       <source>Total Host Reads</source>
-      <translation type="unfinished">Total Host Reads</translation>
+      <translation>主機總計讀取</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="286"/>
       <source>Total Host Writes</source>
-      <translation type="unfinished">Total Host Writes</translation>
+      <translation>主機總計寫入</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="300"/>
       <source>Rotation Rate</source>
-      <translation type="unfinished">Rotation Rate</translation>
+      <translation>轉速</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="314"/>
       <source>Power On Count</source>
-      <translation type="unfinished">Power On Count</translation>
+      <translation>通電次數</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="328"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Power On Hours</source>
-      <translation type="unfinished">Power On Hours</translation>
+      <translation>通電時間</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="402"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;硬碟名稱&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="498"/>
       <source>File</source>
-      <translation type="unfinished">File</translation>
+      <translation>檔案</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="505"/>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation>設定</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="515"/>
       <source>&amp;Help</source>
-      <translation type="unfinished">&amp;Help</translation>
+      <translation>&amp;幫助</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="524"/>
       <source>De&amp;vice</source>
-      <translation type="unfinished">De&amp;vice</translation>
+      <translation>&amp;設備</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="531"/>
       <location filename="../src/mainwindow.cpp" line="293"/>
       <source>Disk</source>
-      <translation type="unfinished">Disk</translation>
+      <translation>磁碟</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="545"/>
       <source>&amp;Save JSON</source>
-      <translation type="unfinished">&amp;Save JSON</translation>
+      <translation>&amp;儲存 JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="553"/>
       <source>&amp;Quit</source>
-      <translation type="unfinished">&amp;Quit</translation>
+      <translation>&amp;離開</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="564"/>
       <source>&amp;Refresh Devices</source>
-      <translation type="unfinished">&amp;Refresh Devices</translation>
+      <translation>&amp;刷新設備</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="572"/>
       <source>&amp;GitHub</source>
-      <translation type="unfinished">&amp;GitHub</translation>
+      <translation>&amp;GitHub</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="581"/>
       <source>&amp;About QDiskInfo</source>
-      <translation type="unfinished">&amp;About QDiskInfo</translation>
+      <translation>&amp;關於 QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="592"/>
       <source>&amp;Ignore C4 (Reallocated Event Count)</source>
-      <translation type="unfinished">&amp;Ignore C4 (Reallocated Event Count)</translation>
+      <translation>&amp;忽略 C4 (重新分配事件計數)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="600"/>
       <source>&amp;Convert Raw values to HEX</source>
-      <translation type="unfinished">&amp;Convert Raw values to HEX</translation>
+      <translation>&amp;轉換原始值成十六進制</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="608"/>
       <source>&amp;Use Fahrenheit</source>
-      <translation type="unfinished">&amp;Use Fahrenheit</translation>
+      <translation>&amp;使用 華氏溫度</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="613"/>
       <source>Self Test</source>
-      <translation type="unfinished">Self Test</translation>
+      <translation>自我檢測</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="621"/>
       <source>Cyclic &amp;Navigation</source>
-      <translation type="unfinished">Cyclic &amp;Navigation</translation>
+      <translation>循環 &amp;導航</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="629"/>
       <source>Use &amp;GB instead of TB</source>
-      <translation type="unfinished">Use &amp;GB instead of TB</translation>
+      <translation>使用 &amp;GB 而不是 TB</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="637"/>
       <source>About &amp;Qt</source>
-      <translation type="unfinished">About &amp;Qt</translation>
+      <translation>關於 &amp;Qt</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="72"/>
       <source>Start Self Test</source>
-      <translation type="unfinished">Start Self Test</translation>
+      <translation>自檢開始</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="76"/>
       <location filename="../src/mainwindow.cpp" line="463"/>
       <source>Self Test Log</source>
-      <translation type="unfinished">Self Test Log</translation>
+      <translation>自檢記錄</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <location filename="../src/mainwindow.cpp" line="1028"/>
       <source>Critical Warning</source>
-      <translation type="unfinished">Critical Warning</translation>
+      <translation>嚴重警告</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <source>Grown Defect List</source>
-      <translation type="unfinished">Grown Defect List</translation>
+      <translation>缺陷磁區列表</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="279"/>
       <location filename="../src/mainwindow.cpp" line="721"/>
       <location filename="../src/mainwindow.cpp" line="734"/>
       <source>Good</source>
-      <translation type="unfinished">Good</translation>
+      <translation>好</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="282"/>
       <location filename="../src/mainwindow.cpp" line="719"/>
       <location filename="../src/mainwindow.cpp" line="732"/>
       <source>Caution</source>
-      <translation type="unfinished">Caution</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="285"/>
       <location filename="../src/mainwindow.cpp" line="717"/>
       <location filename="../src/mainwindow.cpp" line="730"/>
       <source>Bad</source>
-      <translation type="unfinished">Bad</translation>
+      <translation>不良</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="288"/>
       <source>Unknown</source>
-      <translation type="unfinished">Unknown</translation>
+      <translation>未知</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>狀態</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="497"/>
       <source>count</source>
-      <translation type="unfinished">count</translation>
+      <translation>次數</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="508"/>
       <source>hours</source>
-      <translation type="unfinished">hours</translation>
+      <translation>小時</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="770"/>
       <location filename="../src/mainwindow.cpp" line="820"/>
       <source>Short</source>
-      <translation type="unfinished">Short</translation>
+      <translation>短</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="772"/>
       <source>Conveyance</source>
-      <translation type="unfinished">Conveyance</translation>
+      <translation>轉移</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="774"/>
       <location filename="../src/mainwindow.cpp" line="826"/>
       <source>Extended</source>
-      <translation type="unfinished">Extended</translation>
+      <translation>擴充</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="779"/>
       <source>Min.)</source>
-      <translation type="unfinished">Min.)</translation>
+      <translation>分鐘)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="884"/>
       <source>Read</source>
-      <translation type="unfinished">Read</translation>
+      <translation>讀取</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="886"/>
       <source>Write</source>
-      <translation type="unfinished">Write</translation>
+      <translation>寫入</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="888"/>
       <source>Verify</source>
-      <translation type="unfinished">Verify</translation>
+      <translation>校驗</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>ID</source>
-      <translation type="unfinished">ID</translation>
+      <translation>ID</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Attribute Name</source>
-      <translation type="unfinished">Attribute Name</translation>
+      <translation>屬性名稱</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Raw Values</source>
-      <translation type="unfinished">Raw Values</translation>
+      <translation>原始值</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="966"/>
       <source>Available spare capacity has fallen below the threshold</source>
-      <translation type="unfinished">Available spare capacity has fallen below the threshold</translation>
+      <translation>可用備用容量降至閾值以下</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="968"/>
       <source>Temperature error (Overheat or Overcool)</source>
-      <translation type="unfinished">Temperature error (Overheat or Overcool)</translation>
+      <translation>溫度錯誤 (過熱或過冷)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="970"/>
       <source>NVM subsystem reliability has been degraded</source>
-      <translation type="unfinished">NVM subsystem reliability has been degraded</translation>
+      <translation>NVM子系統的可靠度已下降</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="972"/>
       <source>Media has been placed in Read Only Mode</source>
-      <translation type="unfinished">Media has been placed in Read Only Mode</translation>
+      <translation>媒體已置於唯讀模式</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="974"/>
       <source>Volatile memory backup device has Failed</source>
-      <translation type="unfinished">Volatile memory backup device has Failed</translation>
+      <translation>揮發性記憶體備份設備發生故障</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="976"/>
       <source>Persistent memory region has become Read-Only</source>
-      <translation type="unfinished">Persistent memory region has become Read-Only</translation>
+      <translation>持久記憶體區域已變為唯讀</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Current</source>
-      <translation type="unfinished">Current</translation>
+      <translation>當前值</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Worst</source>
-      <translation type="unfinished">Worst</translation>
+      <translation>最差值</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Threshold</source>
-      <translation type="unfinished">Threshold</translation>
+      <translation>臨界值</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1191"/>
       <source>Empty JSON</source>
-      <translation type="unfinished">Empty JSON</translation>
+      <translation>空 JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1192"/>
       <source>The JSON is empty</source>
-      <translation type="unfinished">The JSON is empty</translation>
+      <translation>JSON 為空</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1197"/>
       <source>Save JSON</source>
-      <translation type="unfinished">Save JSON</translation>
+      <translation>存成 JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1198"/>
       <source>JSON (*.json);;All Files (*)</source>
-      <translation type="unfinished">JSON (*.json);;All Files (*)</translation>
+      <translation>JSON (*.json);;所有檔案 (*)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1204"/>
       <source>Unable to open file for writing</source>
-      <translation type="unfinished">Unable to open file for writing</translation>
+      <translation>無法開啟檔案進行寫入</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1224"/>
       <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux</source>
-      <translation type="unfinished">An ATA and NVMe S.M.A.R.T. data viewer for Linux</translation>
+      <translation>適用於 Linux 的 ATA 和 NVMe S.M.A.R.T. 數據檢視器</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1225"/>
       <source>Licensed under the GNU G.P.L. Version 3</source>
-      <translation type="unfinished">Licensed under the GNU G.P.L. Version 3</translation>
+      <translation>根據 GNU G.P.L. 第3版 授權</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1226"/>
       <source>Made by Samantas5855</source>
-      <translation type="unfinished">Made by Samantas5855</translation>
+      <translation>由 Samantas5855 撰寫</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1227"/>
       <source>Version</source>
-      <translation type="unfinished">Version</translation>
+      <translation>版本</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1229"/>
       <source>About QDiskInfo</source>
-      <translation type="unfinished">About QDiskInfo</translation>
+      <translation>關於 QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1234"/>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>關於 Qt</translation>
     </message>
   </context>
   <context>
@@ -408,84 +408,84 @@
       <location filename="../src/utils.cpp" line="159"/>
       <location filename="../src/utils.cpp" line="202"/>
       <source>QDiskInfo Error</source>
-      <translation type="unfinished">QDiskInfo Error</translation>
+      <translation>QDiskInfo 錯誤</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="57"/>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo 需要 root 權限才能讀取 S.M.A.R.T. 數據！</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="90"/>
       <source>smartctl was not found, please install it!</source>
-      <translation type="unfinished">smartctl was not found, please install it!</translation>
+      <translation>未能找到 smartctl，請安裝該相關套件！</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="148"/>
       <source>QDiskInfo needs root access in order to abort a self-test!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to abort a self-test!</translation>
+      <translation>QDiskInfo 需要 root 權限才能中止自檢！</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="150"/>
       <location filename="../src/utils.cpp" line="200"/>
       <source>Test Requested</source>
-      <translation type="unfinished">Test Requested</translation>
+      <translation>已請求自檢</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="150"/>
       <source>The self-test has been aborted</source>
-      <translation type="unfinished">The self-test has been aborted</translation>
+      <translation>已中止自檢</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="152"/>
       <location filename="../src/utils.cpp" line="202"/>
       <source>Error: Something went wrong</source>
-      <translation type="unfinished">Error: Something went wrong</translation>
+      <translation>錯誤：出了點問題</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="159"/>
       <source>QDiskInfo needs root access in order to request a self-test!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to request a self-test!</translation>
+      <translation>QDiskInfo 需要 root 權限才能請求自檢！</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="178"/>
       <source>remaining</source>
-      <translation type="unfinished">remaining</translation>
+      <translation>剩餘</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="179"/>
       <source>completed</source>
-      <translation type="unfinished">completed</translation>
+      <translation>已完成</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="183"/>
       <source>Test Already Running</source>
-      <translation type="unfinished">Test Already Running</translation>
+      <translation>自檢已在執行</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="184"/>
       <source>A self-test is already being performed</source>
-      <translation type="unfinished">A self-test is already being performed</translation>
+      <translation>已有正在執行的自檢</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="184"/>
       <source>You can press the Ok button in order to abort the test that is currently running</source>
-      <translation type="unfinished">You can press the Ok button in order to abort the test that is currently running</translation>
+      <translation>你可以按下 Ok 得以中止正在執行的自檢</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="196"/>
       <source>A self-test has been requested successfully</source>
-      <translation type="unfinished">A self-test has been requested successfully</translation>
+      <translation>已成功請求了自檢</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="198"/>
       <source>It will be completed after</source>
-      <translation type="unfinished">It will be completed after</translation>
+      <translation>完成自檢估計需要</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="198"/>
       <source>minutes</source>
-      <translation type="unfinished">minutes</translation>
+      <translation>分鐘</translation>
     </message>
   </context>
 </TS>
