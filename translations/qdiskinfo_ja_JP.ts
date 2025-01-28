@@ -6,143 +6,143 @@
     <message>
       <location filename="../src/mainwindow.ui" line="23"/>
       <source>QDiskInfo</source>
-      <translation type="unfinished">QDiskInfo</translation>
+      <translation>QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="56"/>
       <location filename="../src/mainwindow.ui" line="243"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;健康状態&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="72"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;良好&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="95"/>
       <location filename="../src/mainwindow.ui" line="364"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;温度&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="111"/>
       <location filename="../src/mainwindow.ui" line="354"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="156"/>
       <source>Firmware</source>
-      <translation type="unfinished">Firmware</translation>
+      <translation>ファームウェア</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="170"/>
       <source>Serial Number</source>
-      <translation type="unfinished">Serial Number</translation>
+      <translation>シリアルナンバー</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="184"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>プロトコル</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="198"/>
       <source>Device Node</source>
-      <translation type="unfinished">Device Node</translation>
+      <translation>デバイスノード</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="233"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;良好 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="250"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>タイプ</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="272"/>
       <source>Total Host Reads</source>
-      <translation type="unfinished">Total Host Reads</translation>
+      <translation>ホスト総読み込み量</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="286"/>
       <source>Total Host Writes</source>
-      <translation type="unfinished">Total Host Writes</translation>
+      <translation>ホスト総書き込み量</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="300"/>
       <source>Rotation Rate</source>
-      <translation type="unfinished">Rotation Rate</translation>
+      <translation>回転速度</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="314"/>
       <source>Power On Count</source>
-      <translation type="unfinished">Power On Count</translation>
+      <translation>電源投入回数</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="328"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Power On Hours</source>
-      <translation type="unfinished">Power On Hours</translation>
+      <translation>動作時間</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="402"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;ドライブ名&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="498"/>
       <source>File</source>
-      <translation type="unfinished">File</translation>
+      <translation>ファイル</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="505"/>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation>設定</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="515"/>
       <source>&amp;Help</source>
-      <translation type="unfinished">&amp;Help</translation>
+      <translation>ヘルプ(&amp;H)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="524"/>
       <source>De&amp;vice</source>
-      <translation type="unfinished">De&amp;vice</translation>
+      <translation>デバイス(&amp;v)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="531"/>
       <location filename="../src/mainwindow.cpp" line="293"/>
       <source>Disk</source>
-      <translation type="unfinished">Disk</translation>
+      <translation>ディスク</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="545"/>
       <source>&amp;Save JSON</source>
-      <translation type="unfinished">&amp;Save JSON</translation>
+      <translation>JSONを保存(&amp;S)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="553"/>
       <source>&amp;Quit</source>
-      <translation type="unfinished">&amp;Quit</translation>
+      <translation>終了(&amp;Q)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="564"/>
       <source>&amp;Refresh Devices</source>
-      <translation type="unfinished">&amp;Refresh Devices</translation>
+      <translation>リフレッシュ(&amp;R)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="572"/>
       <source>&amp;GitHub</source>
-      <translation type="unfinished">&amp;GitHub</translation>
+      <translation>Github(&amp;G)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="581"/>
       <source>&amp;About QDiskInfo</source>
-      <translation type="unfinished">&amp;About QDiskInfo</translation>
+      <translation>QDiskInfoについて(&amp;A)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="592"/>
@@ -162,7 +162,7 @@
     <message>
       <location filename="../src/mainwindow.ui" line="613"/>
       <source>Self Test</source>
-      <translation type="unfinished">Self Test</translation>
+      <translation>セルフテスト</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="621"/>
@@ -177,24 +177,24 @@
     <message>
       <location filename="../src/mainwindow.ui" line="637"/>
       <source>About &amp;Qt</source>
-      <translation type="unfinished">About &amp;Qt</translation>
+      <translation>Qtについて(&amp;Q)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="72"/>
       <source>Start Self Test</source>
-      <translation type="unfinished">Start Self Test</translation>
+      <translation>セルフテストを開始</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="76"/>
       <location filename="../src/mainwindow.cpp" line="463"/>
       <source>Self Test Log</source>
-      <translation type="unfinished">Self Test Log</translation>
+      <translation>セルフテスト ログ</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <location filename="../src/mainwindow.cpp" line="1028"/>
       <source>Critical Warning</source>
-      <translation type="unfinished">Critical Warning</translation>
+      <translation>致命的</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
@@ -206,31 +206,31 @@
       <location filename="../src/mainwindow.cpp" line="721"/>
       <location filename="../src/mainwindow.cpp" line="734"/>
       <source>Good</source>
-      <translation type="unfinished">Good</translation>
+      <translation>良好</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="282"/>
       <location filename="../src/mainwindow.cpp" line="719"/>
       <location filename="../src/mainwindow.cpp" line="732"/>
       <source>Caution</source>
-      <translation type="unfinished">Caution</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="285"/>
       <location filename="../src/mainwindow.cpp" line="717"/>
       <location filename="../src/mainwindow.cpp" line="730"/>
       <source>Bad</source>
-      <translation type="unfinished">Bad</translation>
+      <translation>危険</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="288"/>
       <source>Unknown</source>
-      <translation type="unfinished">Unknown</translation>
+      <translation>不明</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>ステータス</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="497"/>
