@@ -1,263 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES" sourcelanguage="en">
+<TS version="2.1" language="ru_RU" sourcelanguage="en">
   <context>
     <name>MainWindow</name>
     <message>
       <location filename="../src/mainwindow.ui" line="23"/>
       <source>QDiskInfo</source>
-      <translation type="unfinished">QDiskInfo</translation>
+      <translation>QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="56"/>
       <location filename="../src/mainwindow.ui" line="243"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Estado&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Состояние здоровья&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="72"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Bueno&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Хорошее&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="95"/>
       <location filename="../src/mainwindow.ui" line="364"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperatura&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Температура&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="111"/>
       <location filename="../src/mainwindow.ui" line="354"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="156"/>
       <source>Firmware</source>
-      <translation type="unfinished">Firmware</translation>
+      <translation>Прошивка</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="170"/>
       <source>Serial Number</source>
-      <translation>Número de Serie</translation>
+      <translation>Серийный номер</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="184"/>
       <source>Protocol</source>
-      <translation>Protocolo</translation>
+      <translation>Протокол</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="198"/>
       <source>Device Node</source>
-      <translation>Archivo de Dispositivo</translation>
+      <translation>Путь к устройству</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="233"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Хорошее 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="250"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Type</source>
-      <translation>Tipo</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="272"/>
       <source>Total Host Reads</source>
-      <translation>Lecturas Totales</translation>
+      <translation>Всего прочитано</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="286"/>
       <source>Total Host Writes</source>
-      <translation>Escrituras Totales</translation>
+      <translation>Всего записано</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="300"/>
       <source>Rotation Rate</source>
-      <translation>Velocidad Rotacional</translation>
+      <translation>Скорость вращения</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="314"/>
       <source>Power On Count</source>
-      <translation>Veces Encendido</translation>
+      <translation>Количество включений</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="328"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Power On Hours</source>
-      <translation>Horas Encendido</translation>
+      <translation>Время работы</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="402"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Nombre del Disco&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Наименование устройства&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="498"/>
       <source>File</source>
-      <translation>Archivo</translation>
+      <translation>Файл</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="505"/>
       <source>Settings</source>
-      <translation>Ajustes</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="515"/>
       <source>&amp;Help</source>
-      <translation>Ayuda</translation>
+      <translation>&amp;Помощь</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="524"/>
       <source>De&amp;vice</source>
-      <translation>Dispositi&amp;vo</translation>
+      <translation>У&amp;стройство</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="531"/>
       <location filename="../src/mainwindow.cpp" line="293"/>
       <source>Disk</source>
-      <translation>Disco</translation>
+      <translation>Диск</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="545"/>
       <source>&amp;Save JSON</source>
-      <translation>Guardar Archivo JSON</translation>
+      <translation>&amp;Сохранить JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="553"/>
       <source>&amp;Quit</source>
-      <translation>Salir</translation>
+      <translation>&amp;Выход</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="564"/>
       <source>&amp;Refresh Devices</source>
-      <translation>Actualizar Dispositivos</translation>
+      <translation>&amp;Обновить устройства</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="572"/>
       <source>&amp;GitHub</source>
-      <translation type="unfinished">&amp;GitHub</translation>
+      <translation>&amp;GitHub</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="581"/>
       <source>&amp;About QDiskInfo</source>
-      <translation>Acerca de &amp;QDiskInfo</translation>
+      <translation>&amp;Об QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="592"/>
       <source>&amp;Ignore C4 (Reallocated Event Count)</source>
-      <translation>&amp;Ignorar C4 (Reallocated Event Count)</translation>
+      <translation>&amp;Игнорировать C4 (Reallocated Event Count)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="600"/>
       <source>&amp;Convert Raw values to HEX</source>
-      <translation>&amp;Convertir valores en Bruto a HEX</translation>
+      <translation>&amp;Преобразовать Raw значения в HEX</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="608"/>
       <source>&amp;Use Fahrenheit</source>
-      <translation>&amp;Usar Fahrenheit</translation>
+      <translation>&amp;Температура в Фаренгейтах</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="613"/>
       <source>Self Test</source>
-      <translation>Ejecutar Autotest</translation>
+      <translation>Самотестирование</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="621"/>
       <source>Cyclic &amp;Navigation</source>
-      <translation>&amp;Navegación Cíclica</translation>
+      <translation>Циклическая &amp;навигация</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="629"/>
       <source>Use &amp;GB instead of TB</source>
-      <translation>Usar &amp;GB en lugar de TB</translation>
+      <translation>&amp;Использ. ГБ вместо ТБ</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="637"/>
       <source>About &amp;Qt</source>
-      <translation>Acerca de &amp;Qt</translation>
+      <translation>О &amp;Qt</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="72"/>
       <source>Start Self Test</source>
-      <translation>Iniciar Autotest</translation>
+      <translation>Начать самотестирование</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="76"/>
       <location filename="../src/mainwindow.cpp" line="463"/>
       <source>Self Test Log</source>
-      <translation>Registro del Autotest</translation>
+      <translation>Журнал самотестирования</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <location filename="../src/mainwindow.cpp" line="1028"/>
       <source>Critical Warning</source>
-      <translation>Aviso Importante</translation>
+      <translation>Критическое предупреждение</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <source>Grown Defect List</source>
-      <translation type="unfinished">Grown Defect List</translation>
+      <translation>Список наростающих дефектов</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="279"/>
       <location filename="../src/mainwindow.cpp" line="721"/>
       <location filename="../src/mainwindow.cpp" line="734"/>
       <source>Good</source>
-      <translation>Bueno</translation>
+      <translation>Хорошее</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="282"/>
       <location filename="../src/mainwindow.cpp" line="719"/>
       <location filename="../src/mainwindow.cpp" line="732"/>
       <source>Caution</source>
-      <translation>Precaución</translation>
+      <translation>Предупреждение</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="285"/>
       <location filename="../src/mainwindow.cpp" line="717"/>
       <location filename="../src/mainwindow.cpp" line="730"/>
       <source>Bad</source>
-      <translation>Malo</translation>
+      <translation>Плохое</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="288"/>
       <source>Unknown</source>
-      <translation>Desconocido</translation>
+      <translation>Неизвестно</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Status</source>
-      <translation>Estado</translation>
+      <translation>Статус</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="497"/>
       <source>count</source>
-      <translation>veces</translation>
+      <translation>раз</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="508"/>
       <source>hours</source>
-      <translation>horas</translation>
+      <translation>часов</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="770"/>
       <location filename="../src/mainwindow.cpp" line="820"/>
       <source>Short</source>
-      <translation>Corto</translation>
+      <translation>Коротко</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="772"/>
       <source>Conveyance</source>
-      <translation>Transferencia</translation>
+      <translation type="unfinished">Conveyance</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="774"/>
       <location filename="../src/mainwindow.cpp" line="826"/>
       <source>Extended</source>
-      <translation>Extendido</translation>
+      <translation>Расширенно</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="779"/>
@@ -267,135 +267,135 @@
     <message>
       <location filename="../src/mainwindow.cpp" line="884"/>
       <source>Read</source>
-      <translation type="unfinished">Read</translation>
+      <translation>Чтение</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="886"/>
       <source>Write</source>
-      <translation type="unfinished">Write</translation>
+      <translation>Запись</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="888"/>
       <source>Verify</source>
-      <translation type="unfinished">Verify</translation>
+      <translation>Проверить</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>ID</source>
-      <translation type="unfinished">ID</translation>
+      <translation>ID</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Attribute Name</source>
-      <translation>Nombre del Atributo</translation>
+      <translation>Название атрибута</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Raw Values</source>
-      <translation>Valores en Bruto</translation>
+      <translation>Raw Значение</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="966"/>
       <source>Available spare capacity has fallen below the threshold</source>
-      <translation>El espacio libre disponible ha caído por debajo del umbral</translation>
+      <translation>Запас емкости упал ниже порогового значения</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="968"/>
       <source>Temperature error (Overheat or Overcool)</source>
-      <translation>Error de temperatura (Sobrecalentado o Sobre-enfriado)</translation>
+      <translation>Ошибка температуры (перегрев или переохлаждение)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="970"/>
       <source>NVM subsystem reliability has been degraded</source>
-      <translation>La fiabilidad del subsitema NVM se ha degradado</translation>
+      <translation>Надежность подсистемы NVM деградировала</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="972"/>
       <source>Media has been placed in Read Only Mode</source>
-      <translation>El medio se ha configurado en Modo de Solo Lectura</translation>
+      <translation>Медиа было помещено в режим "Только для чтения"</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="974"/>
       <source>Volatile memory backup device has Failed</source>
-      <translation>No se pudo crear el archivo de reversión de memoria no volátil</translation>
+      <translation type="unfinished">Volatile memory backup device has Failed</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="976"/>
       <source>Persistent memory region has become Read-Only</source>
-      <translation>Una región de memoria no volátil se ha vuelto de Solo Lectura</translation>
+      <translation>Постоянная область памяти стала только для чтения</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Current</source>
-      <translation>Actual</translation>
+      <translation>Текущее</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Worst</source>
-      <translation>Peor</translation>
+      <translation>Худшее</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Threshold</source>
-      <translation>Umbral</translation>
+      <translation>Порог</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1191"/>
       <source>Empty JSON</source>
-      <translation>Archivo JSON vacío</translation>
+      <translation>Пустой JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1192"/>
       <source>The JSON is empty</source>
-      <translation>El archivo JSON está vacío</translation>
+      <translation>JSON пустой</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1197"/>
       <source>Save JSON</source>
-      <translation>Guardar archivo JSON</translation>
+      <translation>Сохранить JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1198"/>
       <source>JSON (*.json);;All Files (*)</source>
-      <translation>JSON (*.json);;Todos los archivos (*)</translation>
+      <translation>JSON (*.json);;Все Файлы (*)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1204"/>
       <source>Unable to open file for writing</source>
-      <translation>No se ha podido abrir el archivo de escritura</translation>
+      <translation>Не удается открыть файл для записи</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1224"/>
       <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux</source>
-      <translation>Un visor de datos S.M.A.R.T. para ATA y NVMe</translation>
+      <translation>Просмотрщик данных ATA і NVMe S.M.A.R.T. для Linux</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1225"/>
       <source>Licensed under the GNU G.P.L. Version 3</source>
-      <translation>Licenciado bajo Licencia Pública General de GNU, Versión 3</translation>
+      <translation>Лицензия GNU G.P.L. Версия 3</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1226"/>
       <source>Made by Samantas5855</source>
-      <translation>Hecho por Samantas5855</translation>
+      <translation>Разработано Samantas5855</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1227"/>
       <source>Version</source>
-      <translation>Versión</translation>
+      <translation>Версия</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1229"/>
       <source>About QDiskInfo</source>
-      <translation>Acerca de QDiskInfo</translation>
+      <translation>Об QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1234"/>
       <source>About Qt</source>
-      <translation>Acerca de Qt</translation>
+      <translation>О Qt</translation>
     </message>
   </context>
   <context>
@@ -408,84 +408,84 @@
       <location filename="../src/utils.cpp" line="159"/>
       <location filename="../src/utils.cpp" line="202"/>
       <source>QDiskInfo Error</source>
-      <translation>Error de QDiskInfo</translation>
+      <translation>Ошибка QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="57"/>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation>¡QDiskInfo necesita acceso root para poder leer información S.M.A.R.T!</translation>
+      <translation>QDiskInfo нужен root доступ, чтобы прочитать данные S.M.A.R.T.</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="90"/>
       <source>smartctl was not found, please install it!</source>
-      <translation>smartctl no ha sido encontrado. ¡Por favor, instálalo!</translation>
+      <translation>smartctl не найден, пожалуйста, установите его!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="148"/>
       <source>QDiskInfo needs root access in order to abort a self-test!</source>
-      <translation>¡QDiskInfo necesita acceso root para poder abortar un autotest!</translation>
+      <translation>QDiskInfo нужен root доступ, чтобы прервать самотестирование!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="150"/>
       <location filename="../src/utils.cpp" line="200"/>
       <source>Test Requested</source>
-      <translation>Autotest Solicitado</translation>
+      <translation>Тестирование запрошено</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="150"/>
       <source>The self-test has been aborted</source>
-      <translation>El autotest ha sido abortado</translation>
+      <translation>Самотестирование прервано</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="152"/>
       <location filename="../src/utils.cpp" line="202"/>
       <source>Error: Something went wrong</source>
-      <translation>Error: Algo ha salido mal</translation>
+      <translation>Ошибка – что-то пошло не так</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="159"/>
       <source>QDiskInfo needs root access in order to request a self-test!</source>
-      <translation>¡QDiskInfo necesita acceso root para poder solicitar un autotest!</translation>
+      <translation>QDiskInfo нужен root доступ, чтобы запросить самотестирование!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="178"/>
       <source>remaining</source>
-      <translation>restante</translation>
+      <translation>осталось</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="179"/>
       <source>completed</source>
-      <translation>completado</translation>
+      <translation>завершено</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="183"/>
       <source>Test Already Running</source>
-      <translation>Autotest ya ejecutándose</translation>
+      <translation>Тест уже запущен</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="184"/>
       <source>A self-test is already being performed</source>
-      <translation>Un autotest ya está siendo realizado</translation>
+      <translation>Самотестирование уже проводится</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="184"/>
       <source>You can press the Ok button in order to abort the test that is currently running</source>
-      <translation>Puedes pulsar el botón &apos;Aceptar&apos; para abortar el test que se está realizando</translation>
+      <translation>Вы можете нажать кнопку Ок, чтобы прервать тест, который сейчас запущен</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="196"/>
       <source>A self-test has been requested successfully</source>
-      <translation>El autotest ha sido solicitado exitosamente</translation>
+      <translation>Самотестирование было запрошено успешно</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="198"/>
       <source>It will be completed after</source>
-      <translation>Se completará en</translation>
+      <translation>Оно будет завершено через</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="198"/>
       <source>minutes</source>
-      <translation>minutos</translation>
+      <translation>минут</translation>
     </message>
   </context>
 </TS>

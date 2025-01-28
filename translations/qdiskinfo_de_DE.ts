@@ -1,401 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES" sourcelanguage="en">
+<TS version="2.1" language="de_DE" sourcelanguage="en">
   <context>
     <name>MainWindow</name>
     <message>
       <location filename="../src/mainwindow.ui" line="23"/>
       <source>QDiskInfo</source>
-      <translation type="unfinished">QDiskInfo</translation>
+      <translation>QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="56"/>
       <location filename="../src/mainwindow.ui" line="243"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Estado&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Gesundheitsstatus&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="72"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Bueno&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Gut&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="95"/>
       <location filename="../src/mainwindow.ui" line="364"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperatura&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperatur&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="111"/>
       <location filename="../src/mainwindow.ui" line="354"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="156"/>
       <source>Firmware</source>
-      <translation type="unfinished">Firmware</translation>
+      <translation>Firmware</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="170"/>
       <source>Serial Number</source>
-      <translation>Número de Serie</translation>
+      <translation>Seriennummer</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="184"/>
       <source>Protocol</source>
-      <translation>Protocolo</translation>
+      <translation>Protokoll</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="198"/>
       <source>Device Node</source>
-      <translation>Archivo de Dispositivo</translation>
+      <translation>Geräteknoten</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="233"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="250"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Type</source>
-      <translation>Tipo</translation>
+      <translation>Art</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="272"/>
       <source>Total Host Reads</source>
-      <translation>Lecturas Totales</translation>
+      <translation>Gesamte Lesezugriffe</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="286"/>
       <source>Total Host Writes</source>
-      <translation>Escrituras Totales</translation>
+      <translation>Gesamte Schreibzugriffe</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="300"/>
       <source>Rotation Rate</source>
-      <translation>Velocidad Rotacional</translation>
+      <translation>Drehrate</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="314"/>
       <source>Power On Count</source>
-      <translation>Veces Encendido</translation>
+      <translation>Anzahl der Einschaltungen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="328"/>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Power On Hours</source>
-      <translation>Horas Encendido</translation>
+      <translation>Betriebsstunden</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="402"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Nombre del Disco&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Festplatten Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="498"/>
       <source>File</source>
-      <translation>Archivo</translation>
+      <translation>Datei</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="505"/>
       <source>Settings</source>
-      <translation>Ajustes</translation>
+      <translation>Einstellungen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="515"/>
       <source>&amp;Help</source>
-      <translation>Ayuda</translation>
+      <translation>&amp;Hilfe</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="524"/>
       <source>De&amp;vice</source>
-      <translation>Dispositi&amp;vo</translation>
+      <translation>Gerät</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="531"/>
       <location filename="../src/mainwindow.cpp" line="293"/>
       <source>Disk</source>
-      <translation>Disco</translation>
+      <translation>Festplatte</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="545"/>
       <source>&amp;Save JSON</source>
-      <translation>Guardar Archivo JSON</translation>
+      <translation>&amp;Als JSON speichern</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="553"/>
       <source>&amp;Quit</source>
-      <translation>Salir</translation>
+      <translation>&amp;Beenden</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="564"/>
       <source>&amp;Refresh Devices</source>
-      <translation>Actualizar Dispositivos</translation>
+      <translation>&amp;Geräte neu laden</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="572"/>
       <source>&amp;GitHub</source>
-      <translation type="unfinished">&amp;GitHub</translation>
+      <translation>&amp;GitHub</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="581"/>
       <source>&amp;About QDiskInfo</source>
-      <translation>Acerca de &amp;QDiskInfo</translation>
+      <translation>&amp;Über QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="592"/>
       <source>&amp;Ignore C4 (Reallocated Event Count)</source>
-      <translation>&amp;Ignorar C4 (Reallocated Event Count)</translation>
+      <translation>C4 ignorieren (neu zugewiesene Ereignisanzahl)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="600"/>
       <source>&amp;Convert Raw values to HEX</source>
-      <translation>&amp;Convertir valores en Bruto a HEX</translation>
+      <translation>&amp;Rohwert nach HEX konvertieren</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="608"/>
       <source>&amp;Use Fahrenheit</source>
-      <translation>&amp;Usar Fahrenheit</translation>
+      <translation>&amp;Fahrenheit benutzen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="613"/>
       <source>Self Test</source>
-      <translation>Ejecutar Autotest</translation>
+      <translation>Selbsttest</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="621"/>
       <source>Cyclic &amp;Navigation</source>
-      <translation>&amp;Navegación Cíclica</translation>
+      <translation>Zyklische &amp;Navigation</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="629"/>
       <source>Use &amp;GB instead of TB</source>
-      <translation>Usar &amp;GB en lugar de TB</translation>
+      <translation>&amp;GB statt TB benutzen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="637"/>
       <source>About &amp;Qt</source>
-      <translation>Acerca de &amp;Qt</translation>
+      <translation>Über &amp;Qt</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="72"/>
       <source>Start Self Test</source>
-      <translation>Iniciar Autotest</translation>
+      <translation>Selbsttest starten</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="76"/>
       <location filename="../src/mainwindow.cpp" line="463"/>
       <source>Self Test Log</source>
-      <translation>Registro del Autotest</translation>
+      <translation>Selbsttest Log</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <location filename="../src/mainwindow.cpp" line="1028"/>
       <source>Critical Warning</source>
-      <translation>Aviso Importante</translation>
+      <translation>Kritische Warnung</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <source>Grown Defect List</source>
-      <translation type="unfinished">Grown Defect List</translation>
+      <translation>Gewachsene Defekt Liste</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="279"/>
       <location filename="../src/mainwindow.cpp" line="721"/>
       <location filename="../src/mainwindow.cpp" line="734"/>
       <source>Good</source>
-      <translation>Bueno</translation>
+      <translation>Gut</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="282"/>
       <location filename="../src/mainwindow.cpp" line="719"/>
       <location filename="../src/mainwindow.cpp" line="732"/>
       <source>Caution</source>
-      <translation>Precaución</translation>
+      <translation>Vorsicht</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="285"/>
       <location filename="../src/mainwindow.cpp" line="717"/>
       <location filename="../src/mainwindow.cpp" line="730"/>
       <source>Bad</source>
-      <translation>Malo</translation>
+      <translation>Schlecht</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="288"/>
       <source>Unknown</source>
-      <translation>Desconocido</translation>
+      <translation>Unbekannt</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="418"/>
       <source>Status</source>
-      <translation>Estado</translation>
+      <translation>Status</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="497"/>
       <source>count</source>
-      <translation>veces</translation>
+      <translation>Anzahl</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="508"/>
       <source>hours</source>
-      <translation>horas</translation>
+      <translation>Stunden</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="770"/>
       <location filename="../src/mainwindow.cpp" line="820"/>
       <source>Short</source>
-      <translation>Corto</translation>
+      <translation>Kurz</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="772"/>
       <source>Conveyance</source>
-      <translation>Transferencia</translation>
+      <translation>Übermittlung</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="774"/>
       <location filename="../src/mainwindow.cpp" line="826"/>
       <source>Extended</source>
-      <translation>Extendido</translation>
+      <translation>Erweitert</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="779"/>
       <source>Min.)</source>
-      <translation type="unfinished">Min.)</translation>
+      <translation>Min.)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="884"/>
       <source>Read</source>
-      <translation type="unfinished">Read</translation>
+      <translation>Lesen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="886"/>
       <source>Write</source>
-      <translation type="unfinished">Write</translation>
+      <translation>Schreiben</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="888"/>
       <source>Verify</source>
-      <translation type="unfinished">Verify</translation>
+      <translation>Verifizieren</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>ID</source>
-      <translation type="unfinished">ID</translation>
+      <translation>ID</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Attribute Name</source>
-      <translation>Nombre del Atributo</translation>
+      <translation>Attributname</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Raw Values</source>
-      <translation>Valores en Bruto</translation>
+      <translation>Rohwerte</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="966"/>
       <source>Available spare capacity has fallen below the threshold</source>
-      <translation>El espacio libre disponible ha caído por debajo del umbral</translation>
+      <translation>Die verfügbaren Kapazitätsreserven sind unter den Schwellenwert gefallen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="968"/>
       <source>Temperature error (Overheat or Overcool)</source>
-      <translation>Error de temperatura (Sobrecalentado o Sobre-enfriado)</translation>
+      <translation>Temperaturfehler (Überhitzung oder Unterkühlung)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="970"/>
       <source>NVM subsystem reliability has been degraded</source>
-      <translation>La fiabilidad del subsitema NVM se ha degradado</translation>
+      <translation>Die Zuverlässigkeit des NVM Untersystems ist gesunken</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="972"/>
       <source>Media has been placed in Read Only Mode</source>
-      <translation>El medio se ha configurado en Modo de Solo Lectura</translation>
+      <translation>Medium wurde in den nur-Lesen Modus versetzt</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="974"/>
       <source>Volatile memory backup device has Failed</source>
-      <translation>No se pudo crear el archivo de reversión de memoria no volátil</translation>
+      <translation>Sicherungsgerät mit flüchtigem Speicher ist ausgefallen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="976"/>
       <source>Persistent memory region has become Read-Only</source>
-      <translation>Una región de memoria no volátil se ha vuelto de Solo Lectura</translation>
+      <translation>Dauerhafte Speicherregion wurde schreibgeschützt</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Current</source>
-      <translation>Actual</translation>
+      <translation>Momentan</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Worst</source>
-      <translation>Peor</translation>
+      <translation>Am schlechtesten</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>Threshold</source>
-      <translation>Umbral</translation>
+      <translation>Schwellenwert</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1191"/>
       <source>Empty JSON</source>
-      <translation>Archivo JSON vacío</translation>
+      <translation>Leeres JSON</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1192"/>
       <source>The JSON is empty</source>
-      <translation>El archivo JSON está vacío</translation>
+      <translation>Das JSON ist leer</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1197"/>
       <source>Save JSON</source>
-      <translation>Guardar archivo JSON</translation>
+      <translation>Als JSON speichern</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1198"/>
       <source>JSON (*.json);;All Files (*)</source>
-      <translation>JSON (*.json);;Todos los archivos (*)</translation>
+      <translation>JSON (*.json);;Alle Dateien (*)</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1204"/>
       <source>Unable to open file for writing</source>
-      <translation>No se ha podido abrir el archivo de escritura</translation>
+      <translation>Konnte Datei nicht zum Schreiben öffnen</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1224"/>
       <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux</source>
-      <translation>Un visor de datos S.M.A.R.T. para ATA y NVMe</translation>
+      <translation>Eine ATA und NVMe S.M.A.R.T. Datenanzeige für Linux</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1225"/>
       <source>Licensed under the GNU G.P.L. Version 3</source>
-      <translation>Licenciado bajo Licencia Pública General de GNU, Versión 3</translation>
+      <translation>Lizenziert unter der GNU G.P.L. Version 3</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1226"/>
       <source>Made by Samantas5855</source>
-      <translation>Hecho por Samantas5855</translation>
+      <translation>Erstellt von Samantas5855</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1227"/>
       <source>Version</source>
-      <translation>Versión</translation>
+      <translation>Version</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1229"/>
       <source>About QDiskInfo</source>
-      <translation>Acerca de QDiskInfo</translation>
+      <translation>Über QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="1234"/>
       <source>About Qt</source>
-      <translation>Acerca de Qt</translation>
+      <translation>Über Qt</translation>
     </message>
   </context>
   <context>
@@ -408,84 +408,84 @@
       <location filename="../src/utils.cpp" line="159"/>
       <location filename="../src/utils.cpp" line="202"/>
       <source>QDiskInfo Error</source>
-      <translation>Error de QDiskInfo</translation>
+      <translation>QDiskInfo Fehler</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="57"/>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation>¡QDiskInfo necesita acceso root para poder leer información S.M.A.R.T!</translation>
+      <translation>QDiskInfo benötigt Rootzugriff um S.M.A.R.T. Daten zu lesen!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="90"/>
       <source>smartctl was not found, please install it!</source>
-      <translation>smartctl no ha sido encontrado. ¡Por favor, instálalo!</translation>
+      <translation>smartctl wurde nicht gefunden, bitte installiere es!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="148"/>
       <source>QDiskInfo needs root access in order to abort a self-test!</source>
-      <translation>¡QDiskInfo necesita acceso root para poder abortar un autotest!</translation>
+      <translation>QDiskInfo benötigt Rootzugriff um einen Selbsttest abzubrechen!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="150"/>
       <location filename="../src/utils.cpp" line="200"/>
       <source>Test Requested</source>
-      <translation>Autotest Solicitado</translation>
+      <translation>Test angefragt</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="150"/>
       <source>The self-test has been aborted</source>
-      <translation>El autotest ha sido abortado</translation>
+      <translation>Der Selbsttest wurde abgebrochen</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="152"/>
       <location filename="../src/utils.cpp" line="202"/>
       <source>Error: Something went wrong</source>
-      <translation>Error: Algo ha salido mal</translation>
+      <translation>Fehler: Etwas ging schief</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="159"/>
       <source>QDiskInfo needs root access in order to request a self-test!</source>
-      <translation>¡QDiskInfo necesita acceso root para poder solicitar un autotest!</translation>
+      <translation>QDiskInfo benötigt Rootzugriff um einen Selbsttest anzufragen!</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="178"/>
       <source>remaining</source>
-      <translation>restante</translation>
+      <translation>übrig</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="179"/>
       <source>completed</source>
-      <translation>completado</translation>
+      <translation>vollendet</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="183"/>
       <source>Test Already Running</source>
-      <translation>Autotest ya ejecutándose</translation>
+      <translation>Test läuft bereits</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="184"/>
       <source>A self-test is already being performed</source>
-      <translation>Un autotest ya está siendo realizado</translation>
+      <translation>Ein Selbsttest läuft bereits</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="184"/>
       <source>You can press the Ok button in order to abort the test that is currently running</source>
-      <translation>Puedes pulsar el botón &apos;Aceptar&apos; para abortar el test que se está realizando</translation>
+      <translation>Du kannst den Ok Knopf drücken, um den Test abzubrechen</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="196"/>
       <source>A self-test has been requested successfully</source>
-      <translation>El autotest ha sido solicitado exitosamente</translation>
+      <translation>Ein Selbsttest wurde erfolgreich in Auftrag gegeben</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="198"/>
       <source>It will be completed after</source>
-      <translation>Se completará en</translation>
+      <translation>Er wird fertig sein nach</translation>
     </message>
     <message>
       <location filename="../src/utils.cpp" line="198"/>
       <source>minutes</source>
-      <translation>minutos</translation>
+      <translation>Minuten</translation>
     </message>
   </context>
 </TS>
