@@ -6,7 +6,7 @@
     <message>
       <location filename="../src/mainwindow.ui" line="23"/>
       <source>QDiskInfo</source>
-      <translation type="unfinished">QDiskInfo</translation>
+      <translation>QDiskInfo</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="56"/>
@@ -29,7 +29,7 @@
       <location filename="../src/mainwindow.ui" line="111"/>
       <location filename="../src/mainwindow.ui" line="354"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="156"/>
@@ -137,7 +137,7 @@
     <message>
       <location filename="../src/mainwindow.ui" line="572"/>
       <source>&amp;GitHub</source>
-      <translation type="unfinished">&amp;GitHub</translation>
+      <translation>&amp;GitHub</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.ui" line="581"/>
@@ -199,7 +199,7 @@
     <message>
       <location filename="../src/mainwindow.cpp" line="248"/>
       <source>Grown Defect List</source>
-      <translation type="unfinished">Grown Defect List</translation>
+      <translation>生长缺陷列表</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="279"/>
@@ -283,7 +283,7 @@
       <location filename="../src/mainwindow.cpp" line="939"/>
       <location filename="../src/mainwindow.cpp" line="1041"/>
       <source>ID</source>
-      <translation type="unfinished">ID</translation>
+      <translation>ID</translation>
     </message>
     <message>
       <location filename="../src/mainwindow.cpp" line="939"/>
