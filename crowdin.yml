@@ -1,0 +1,3 @@
+files:
+  - source: /translations/qdiskinfo_en_US.ts
+    translation: /translations/qdiskinfo_%locale_with_underscore%.ts
