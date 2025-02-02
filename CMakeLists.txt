@@ -12,6 +12,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wuseless-cast 
 
 if(NOT DEFINED QT_VERSION_MAJOR)
     set(QT_VERSION_MAJOR 6)
+    set(QT_VERSION_MINOR 7)
 endif()
 
 if(ENABLE_TRANSLATIONS)
@@ -40,6 +41,7 @@ if(ENABLE_TRANSLATIONS)
                 QM_FILES_OUTPUT_VARIABLE QM_FILES
                 LUPDATE_OPTIONS -no-obsolete -locations none
         )
+        set(CALL_LUPDATE TRUE)
     else()
         qt_add_translation(QM_FILES ${TS_FILES})
     endif()
@@ -54,6 +56,10 @@ if(ENABLE_TRANSLATIONS)
 endif()
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+
+if(CALL_LUPDATE)
+    add_dependencies(${PROJECT_NAME} update_translations)
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     PROJECT_VERSION_MAJOR=${${PROJECT_NAME}_VERSION_MAJOR}
