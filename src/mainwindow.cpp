@@ -1297,3 +1297,20 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         onPrevButtonClicked();
     }
 }
+
+void MainWindow::on_actionClear_Settings_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(QObject::tr("Clear Settings"));
+    msgBox.setText(QObject::tr("Are you sure you want to clear the settings saved on disk?"));
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.addButton(QMessageBox::Cancel);
+    QPushButton *clearSettingsButton = msgBox.addButton(QMessageBox::Ok);
+
+    msgBox.exec();
+
+    if (msgBox.clickedButton() == clearSettingsButton) {
+        settings.clear();
+    }
+}
+

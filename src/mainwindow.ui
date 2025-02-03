@@ -490,7 +490,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -509,6 +509,8 @@
     <addaction name="actionUse_Fahrenheit"/>
     <addaction name="actionCyclic_Navigation"/>
     <addaction name="actionUse_GB_instead_of_TB"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_Settings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -635,6 +637,11 @@
    </property>
    <property name="text">
     <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="actionClear_Settings">
+   <property name="text">
+    <string>Clear Settings</string>
    </property>
   </action>
  </widget>
