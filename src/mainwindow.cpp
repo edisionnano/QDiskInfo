@@ -1311,6 +1311,23 @@ void MainWindow::on_actionClear_Settings_triggered()
 
     if (msgBox.clickedButton() == clearSettingsButton) {
         settings.clear();
+
+        settings.setValue("IgnoreC4", true);
+        settings.setValue("HEX", true);
+        settings.setValue("Fahrenheit", false);
+        settings.setValue("CyclicNavigation", false);
+        settings.setValue("UseGB", false);
+
+        ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(true);
+        ui->actionHEX->setChecked(true);
+        ui->actionUse_Fahrenheit->setChecked(false);
+        ui->actionCyclic_Navigation->setChecked(false);
+        ui->actionUse_GB_instead_of_TB->setChecked(false);
+
+        if (!initializing) {
+            Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
+            updateUI();
+        }
     }
 }
 
