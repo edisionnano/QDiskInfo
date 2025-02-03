@@ -10,16 +10,20 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wuseless-cast -Wconversion -Wsign-conversion -Wshadow")
 
-if(NOT DEFINED QT_VERSION_MAJOR)
-    set(QT_VERSION_MAJOR 6)
-    set(QT_VERSION_MINOR 7)
+if (NOT DEFINED QT_VERSION_MAJOR)
+    find_package(QT NAMES Qt6 COMPONENTS Core QUIET)
+    if (NOT QT_FOUND)
+        find_package(QT NAMES Qt5 COMPONENTS Core QUIET)
+    endif()
+else()
+    find_package(QT NAMES Qt${QT_VERSION_MAJOR} COMPONENTS Core QUIET)
 endif()
 
+set(QT_COMPONENTS Widgets)
 if(ENABLE_TRANSLATIONS)
-    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
-else()
-    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+    list(APPEND QT_COMPONENTS LinguistTools)
 endif()
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS ${QT_COMPONENTS})
 
 file(GLOB_RECURSE PROJECT_SOURCES
     src/*.h
