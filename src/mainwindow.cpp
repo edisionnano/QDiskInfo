@@ -1194,7 +1194,7 @@ void MainWindow::on_actionSave_JSON_triggered()
     }
 
     QString fileName = QFileDialog::getSaveFileName(this,
-                                                    tr("Save JSON"), "",
+                                                    tr("Save JSON"), deviceNodeLineEdit->text().section('/', -1) + ".json",
                                                     tr("JSON (*.json);;All Files (*)"));
     if (fileName.isEmpty())
         return;
