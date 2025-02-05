@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QUrl>
 #include <QTextEdit>
+#include <QDialogButtonBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
