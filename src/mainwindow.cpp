@@ -1,10 +1,15 @@
 #include "mainwindow.h"
+#include "asciiview.h"
+#include "statusdot.h"
+#include "custombutton.h"
+#include "jsonparser.h"
 
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QJsonDocument>
 #include <QMessageBox>
 #include <QUrl>
+#include <QTextEdit>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -756,6 +761,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     if (protocol == "ATA") {
         addSmartAttributesTable(attributes);
         selfTestMenu->clear();
+        ui->actionASCII_View->setEnabled(true);
 
         if (keys.isEmpty()) {
             selfTestMenu->setDisabled(true);
@@ -803,13 +809,14 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         }
     } else if (protocol == "SCSI") {
             selfTestMenu->clear();
+            ui->actionASCII_View->setEnabled(true);
             selfTestMenu->setDisabled(true);
             selfTestLogAction->setDisabled(true);
             addSCSIErrorCounterLogTable(scsiErrorCounterLog);
     } else {
         addNvmeLogTable(nvmeLogOrdered);
-
         selfTestMenu->clear();
+        ui->actionASCII_View->setDisabled(true); // TODO: Implement this for NVMe drives too
 
         if (nvmeHasSelfTest) {
             selfTestMenu->setEnabled(true);
@@ -1201,7 +1208,7 @@ void MainWindow::on_actionSave_JSON_triggered()
     else {
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::information(this, tr("Unable to open file for writing"),
+            QMessageBox::critical(this, tr("Unable to open file for writing"),
                                      file.errorString());
             return;
         }
@@ -1329,5 +1336,59 @@ void MainWindow::on_actionClear_Settings_triggered()
             updateUI();
         }
     }
+}
+
+void MainWindow::on_actionASCII_View_triggered()
+{
+    QString deviceNodePath = deviceNodeLineEdit->text();
+
+    QProcess *process = new QProcess(this);
+    process->start("pkexec", {QCoreApplication::applicationFilePath(), "--ascii-view", deviceNodePath});
+
+    if (!process->waitForFinished()) {
+        return;
+    }
+
+    QByteArray binaryData = process->readAllStandardOutput();
+    QByteArray errorData = process->readAllStandardError();
+
+    if (!errorData.isEmpty()) {
+        QMessageBox::critical(this, tr("QDiskInfo Error"), tr("QDiskInfo needs root access in order to read S.M.A.R.T. data!"));
+        return;
+    }
+
+    AsciiView asciiview;
+    QString hexDumpOutput = asciiview.hexDump(QVector<unsigned char>(binaryData.begin(), binaryData.end()));
+
+    QDialog *asciiViewDialog = new QDialog(this);
+    asciiViewDialog->setWindowTitle(tr("ASCII View"));
+
+    QTextEdit *textView = new QTextEdit(asciiViewDialog);
+    textView->setText(hexDumpOutput);
+    textView->setReadOnly(true);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Close, asciiViewDialog);
+    connect(buttonBox, &QDialogButtonBox::rejected, asciiViewDialog, &QDialog::close);
+    connect(buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, [binaryData, this, deviceNodePath]() {
+        QString filePath = QFileDialog::getSaveFileName(this, tr("Save Binary Data"),  deviceNodePath.section('/', -1) + ".bin", tr("Binary Files (*.bin);;All Files (*)"));
+        if (!filePath.isEmpty()) {
+            QFile file(filePath);
+            if (file.open(QIODevice::WriteOnly)) {
+                file.write(binaryData);
+                file.close();
+                QMessageBox::information(this, tr("Success"), tr("Binary data saved successfully."));
+            } else {
+                QMessageBox::critical(this, tr("Unable to open file for writing"), file.errorString());
+            }
+        }
+    });
+
+    QVBoxLayout *layout = new QVBoxLayout(asciiViewDialog);
+    layout->addWidget(textView);
+    layout->addWidget(buttonBox);
+
+    asciiViewDialog->setLayout(layout);
+    asciiViewDialog->resize(550, 500);
+    asciiViewDialog->exec();
 }
 

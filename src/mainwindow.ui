@@ -527,6 +527,8 @@
     </property>
     <addaction name="actionRescan_Refresh"/>
     <addaction name="separator"/>
+    <addaction name="actionASCII_View"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuDisk">
     <property name="title">
@@ -641,7 +643,12 @@
   </action>
   <action name="actionClear_Settings">
    <property name="text">
-    <string>Clear Settings</string>
+    <string>Clear &amp;Settings</string>
+   </property>
+  </action>
+  <action name="actionASCII_View">
+   <property name="text">
+    <string>ASCII View</string>
    </property>
   </action>
  </widget>

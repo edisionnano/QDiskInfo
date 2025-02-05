@@ -304,7 +304,35 @@
         <translation type="unfinished">About Qt</translation>
     </message>
     <message>
-        <source>Clear Settings</source>
+        <source>Clear &amp;Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ASCII View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QDiskInfo Error</source>
+        <translation type="unfinished">QDiskInfo Error</translation>
+    </message>
+    <message>
+        <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
+        <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+    </message>
+    <message>
+        <source>Save Binary Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Binary Files (*.bin);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Binary data saved successfully.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

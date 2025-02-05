@@ -8,11 +8,9 @@
 #include <QSettings>
 #include <QTableWidget>
 #include <QWidget>
+#include <QProcess>
 #include <cmath>
 
-#include "statusdot.h"
-#include "custombutton.h"
-#include "jsonparser.h"
 #include "utils.h"
 #include "./ui_mainwindow.h"
 
@@ -44,6 +42,8 @@ private slots:
     void on_actionUse_GB_instead_of_TB_toggled(bool arg1);
 
     void on_actionClear_Settings_triggered();
+
+    void on_actionASCII_View_triggered();
 
 private:
     Ui::MainWindow *ui;
