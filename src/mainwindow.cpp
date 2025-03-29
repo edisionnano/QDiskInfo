@@ -75,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
     menuDevice = ui->menuDevice;
     menuDisk = ui->menuDisk;
 
-    selfTestMenu = new QMenu(tr("Start Self Test"), this);
+    selfTestMenu = new QMenu(tr("Start Self Test"), menuDevice);
     menuDevice->addMenu(selfTestMenu);
     selfTestMenu->setToolTipsVisible(true);
 
