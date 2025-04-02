@@ -32,11 +32,24 @@ chmod +x ./lib4bin
 	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/xcbglintegrations/* \
 	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/wayland-*/*
 
+# also use lib4bin to make a portable smartctl with wrappe 
+./lib4bin --with-wrappe "$(command -v smartctl)"  
+
 # prepare sharun
 echo '#!/bin/sh
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
+CACHEDIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 [ -f "$APPIMAGE".stylesheet ] && APPIMAGE_QT_THEME="$APPIMAGE.stylesheet"
 [ -f "$APPIMAGE_QT_THEME" ] && set -- "$@" "-stylesheet" "$APPIMAGE_QT_THEME"
+
+if ! command -v smartctl >/dev/null 2>&1; then
+	echo "smartctl is not on the system, using bundled binary..."
+	export PATH="$PATH:"$CACHEDIR"/qdiskinfo-appimage"
+	mkdir -p "$CACHEDIR"/qdiskinfo-appimage
+	cp -v "$CURRENTDIR"/smartctl "$CACHEDIR"/qdiskinfo-appimage
+	chmod +x "$CACHEDIR"/qdiskinfo-appimage/smartctl
+fi
+
 exec "$CURRENTDIR"/bin/QDiskInfo "$@"' > ./AppRun
 chmod +x ./AppRun
 ./sharun -g
