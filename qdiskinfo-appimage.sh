@@ -12,7 +12,7 @@ LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bi
 VERSION="$(echo "$GITHUB_SHA" | cut -c 1-9)-anylinux"
 
 # Prepare AppDir
-mkdir ./AppDir/shared/bin
+mkdir -p ./AppDir/shared/bin
 cp -v ./dist/QDiskInfo.desktop      ./AppDir
 cp -v ./dist/QDiskInfo-256x256.png  ./AppDir/QDiskInfo.png
 cp -v ./dist/QDiskInfo-256x256.png  ./AppDir/.DirIcon
