@@ -51,9 +51,3 @@ chmod +x ./appimagetool
 	--mksquashfs-opt 22 \
 	--no-appstream -u "$UPINFO" \
 	"$PWD"/AppDir "$PWD"/"$APP"-"$VERSION"-"$ARCH".AppImage
-
-
-
-
-
-
