@@ -38,7 +38,7 @@ CURRENTDIR="$(dirname "$(readlink -f "$0")")"
 [ -f "$APPIMAGE".stylesheet ] && APPIMAGE_QT_THEME="$APPIMAGE.stylesheet"
 [ -f "$APPIMAGE_QT_THEME" ] && set -- "$@" "-stylesheet" "$APPIMAGE_QT_THEME"
 exec "$CURRENTDIR"/bin/QDiskInfo "$@"' > ./AppRun
-chmod +x
+chmod +x ./AppRun
 ./sharun -g
 
 # Make AppImage with uruntime
