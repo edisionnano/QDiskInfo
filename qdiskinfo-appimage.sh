@@ -21,6 +21,7 @@ cd ./AppDir
 
 # ADD LIBRARIES
 wget "$LIB4BN" -O ./lib4bin
+chmod +x ./lib4bin
 ./lib4bin -p -v -s -k  \
 	./shared/bin/QDiskInfo \
 	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/iconengines/* \
