@@ -19,7 +19,18 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y qt6-base-dev qt6-tools-dev qt6-svg-dev libgl1-mesa-dev libxkbcommon-dev libvulkan-dev qmake6 smartmontools qt6ct patchelf
+        sudo apt install -y \
+          libgl1-mesa-dev   \
+          libvulkan-dev     \
+          libxkbcommon-dev  \
+          patchelf          \
+          qmake6            \
+          qt6-base-dev      \
+          qt6ct             \
+          qt6-svg-dev       \
+          qt6-tools-dev     \
+          smartmontools     \
+          wget
 
     - name: Build
       run: |
@@ -28,28 +39,9 @@ jobs:
 
     - name: Package AppImage
       run: |
-        export APPIMAGE_EXTRACT_AND_RUN=1 ARCH=x86_64 VERSION=anylinux
-        curl -sSfL "https://github.com/probonopd/go-appimage/releases/download/832/appimagetool-823-x86_64.AppImage" -o appimagetool-static.AppImage
-        chmod a+x *.AppImage
-         
-        mkdir -p AppDir/usr/bin/../share/applications
-        cp build/QDiskInfo AppDir/usr/bin/
-        cp dist/QDiskInfo.desktop AppDir/usr/share/applications
-        cp dist/QDiskInfo-256x256.png AppDir/QDiskInfo.png
+        chmod +x ./qdiskinfo-appimage.sh
+        ./qdiskinfo-appimage.sh
         
-        ./appimagetool-static.AppImage -s deploy AppDir/usr/share/applications/*.desktop
-
-        # deploy qt6ct
-        mkdir -p ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/../styles
-        cp -v /usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/libqt6ct.so ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes
-        cp -v /usr/lib/x86_64-linux-gnu/qt6/plugins/styles/libqt6ct-style.so ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles
-        cp -v /usr/lib/x86_64-linux-gnu/libqt6ct* ./AppDir/lib/x86_64-linux-gnu
-
-        # HACK
-        patchelf --set-rpath '$ORIGIN/../../../../../bin:$ORIGIN/../../../../../lib64:$ORIGIN/../../../../../../lib64:$ORIGIN/../../../..:$ORIGIN/../../../../../../lib:$ORIGIN/../../../libfakeroot:$ORIGIN/../../../../../local/lib:$ORIGIN/../../../../../local/lib/x86_64-linux-gnu:$ORIGIN/../../../../../../lib/x86_64-linux-gnu:$ORIGIN/../../..:$ORIGIN/../../../../../../lib32:$ORIGIN/../../../../../lib32:$ORIGIN/../../../../../../lib/x86_64-linux-gnu/gconv:$ORIGIN/.:$ORIGIN/../iconengines:$ORIGIN/../imageformats:$ORIGIN/../xcbglintegrations' ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/platformthemes/* ./AppDir/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/* ./AppDir/lib/x86_64-linux-gnu/libqt6ct*
-
-        ./appimagetool-static.AppImage AppDir
-
     - name: Upload AppImage
       uses: actions/upload-artifact@v4
       with:
