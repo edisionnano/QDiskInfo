@@ -12,24 +12,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    container: ghcr.io/pkgforge-dev/archlinux:latest
 
     steps:
     - uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
-        sudo apt update
-        sudo apt install -y \
-          libgl1-mesa-dev   \
-          libvulkan-dev     \
-          libxkbcommon-dev  \
-          patchelf          \
-          qmake6            \
-          qt6-base-dev      \
-          qt6ct             \
-          qt6-svg-dev       \
-          qt6-tools-dev     \
-          smartmontools     \
+        pacman -Syu --noconfirm \
+          base-devel     \
+          breeze         \
+          clang          \
+          cmake          \
+          libxkbcommon   \
+          mesa           \
+          patchelf       \
+          qt6-base       \
+          qt6ct          \
+          qt6-svg        \
+          qt6-tools      \
+          smartmontools  \
+          vulkan-devel   \
           wget
 
     - name: Build
