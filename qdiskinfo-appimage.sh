@@ -11,6 +11,17 @@ UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*-$AR
 LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
 VERSION="$(echo "$GITHUB_SHA" | cut -c 1-9)-anylinux"
 
+# Get iculess qt6-base, removes a 30 MiB lib from the appimage
+if [ "$ARCH" = 'x86_64' ]; then
+	PKG_TYPE='x86_64.pkg.tar.zst'
+else
+	PKG_TYPE='aarch64.pkg.tar.xz'
+fi
+QT6_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/qt6-base-iculess-$PKG_TYPE"
+wget --retry-connrefused --tries=30 "$QT6_URL" -O ./qt6-base-iculess.pkg.tar.zst
+pacman -U --noconfirm ./qt6-base-iculess.pkg.tar.zst
+rm -f ./qt6-base-iculess.pkg.tar.zst
+
 # Prepare AppDir
 mkdir -p ./AppDir/shared/bin
 cp -v ./dist/QDiskInfo.desktop      ./AppDir
@@ -24,16 +35,16 @@ wget "$LIB4BN" -O ./lib4bin
 chmod +x ./lib4bin
 ./lib4bin -p -v -s -k  \
 	./shared/bin/QDiskInfo \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/iconengines/* \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/imageformats/* \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/platforms/* \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/platformthemes/* \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/styles/* \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/xcbglintegrations/* \
-	/usr/lib/"$ARCH"-linux-gnu/qt6/plugins/wayland-*/*
+	/usr/lib/qt6/plugins/iconengines/* \
+	/usr/lib/qt6/plugins/imageformats/* \
+	/usr/lib/qt6/plugins/platforms/* \
+	/usr/lib/qt6/plugins/platformthemes/* \
+	/usr/lib/qt6/plugins/styles/* \
+	/usr/lib/qt6/plugins/xcbglintegrations/* \
+	/usr/lib/qt6/plugins/wayland-*/*
 
 # also use lib4bin to make a portable smartctl with wrappe 
-./lib4bin --with-wrappe "$(command -v smartctl)"  
+./lib4bin -s --with-wrappe "$(command -v smartctl)"  
 
 # prepare sharun
 echo '#!/bin/sh
