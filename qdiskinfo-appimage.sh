@@ -4,6 +4,7 @@ set -eu
 
 export ARCH="$(uname -m)"
 export APPIMAGE_EXTRACT_AND_RUN=1
+export QT_STYLE_OVERRIDE=Breeze # Make sure the breeze theme is dlopened
 
 APP=QDiskInfo
 APPIMAGETOOL="https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage"
