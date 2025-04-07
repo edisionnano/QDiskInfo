@@ -71,8 +71,5 @@ cd ..
 wget "$APPIMAGETOOL" -O ./appimagetool
 chmod +x ./appimagetool
 
-./appimagetool --comp zstd \
-	--mksquashfs-opt -Xcompression-level \
-	--mksquashfs-opt 22 \
-	--no-appstream -u "$UPINFO" \
+./appimagetool --no-appstream -u "$UPINFO" \
 	"$PWD"/AppDir "$PWD"/"$APP"-"$VERSION"-"$ARCH".AppImage
