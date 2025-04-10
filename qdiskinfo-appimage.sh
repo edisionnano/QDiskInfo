@@ -51,6 +51,7 @@ chmod +x ./lib4bin
 echo '#!/bin/sh
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
 CACHEDIR="${XDG_CACHE_HOME:-$HOME/.cache}"
+export QT_STYLE_OVERRIDE=${QT_STYLE_OVERRIDE:-Breeze}
 [ -f "$APPIMAGE".stylesheet ] && APPIMAGE_QT_THEME="$APPIMAGE.stylesheet"
 [ -f "$APPIMAGE_QT_THEME" ] && set -- "$@" "-stylesheet" "$APPIMAGE_QT_THEME"
 
