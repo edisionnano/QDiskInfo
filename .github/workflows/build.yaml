@@ -3,53 +3,70 @@ name: Build
 on:
   push:
     branches:
-    - main
+      - main
     paths-ignore:
-    - '**.md'
+      - "**.md"
   pull_request:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      security-events: write
+      contents: write
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        include:
+          - arch: aarch64
+            platform: linux/arm64
+            runs-on: ubuntu-24.04-arm
+          - arch: x86_64
+            platform: linux/amd64
+            runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/pkgforge-dev/archlinux:latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y \
-          libgl1-mesa-dev   \
-          libvulkan-dev     \
-          libxkbcommon-dev  \
-          patchelf          \
-          qmake6            \
-          qt6-base-dev      \
-          qt6ct             \
-          qt6-svg-dev       \
-          qt6-tools-dev     \
-          smartmontools     \
-          wget
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm \
+            base-devel     \
+            breeze         \
+            clang          \
+            cmake          \
+            libxkbcommon   \
+            mesa           \
+            patchelf       \
+            qt6-base       \
+            qt6ct          \
+            qt6-svg        \
+            qt6-tools      \
+            smartmontools  \
+            vulkan-devel   \
+            wget
 
-    - name: Build
-      run: |
-        cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6 -DENABLE_TRANSLATIONS=ON
-        cmake --build build
+      - name: Build
+        run: |
+          cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DQT_VERSION_MAJOR=6 -DENABLE_TRANSLATIONS=ON
+          cmake --build build
 
-    - name: Package AppImage
-      run: |
-        chmod +x ./qdiskinfo-appimage.sh
-        ./qdiskinfo-appimage.sh
-        
-    - name: Upload AppImage
-      uses: actions/upload-artifact@v4
-      with:
-        name: QDiskInfo-anylinux-AppImage
-        path: ./QDiskInfo*.AppImage
+      - name: Package AppImage
+        run: |
+          chmod +x ./qdiskinfo-appimage.sh
+          ./qdiskinfo-appimage.sh
 
-    - name: Upload Binaries
-      uses: actions/upload-artifact@v4
-      with:
-        name: QDiskInfo-Qt6-bin
-        path: ./build/QDiskInfo
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: QDiskInfo-${{ matrix.arch }}-AppImage
+          path: ./QDiskInfo*.AppImage
+
+      - name: Upload Binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: QDiskInfo-Qt6-${{ matrix.arch }}-bin
+          path: ./build/QDiskInfo
