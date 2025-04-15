@@ -59,11 +59,14 @@ jobs:
           chmod +x ./qdiskinfo-appimage.sh
           ./qdiskinfo-appimage.sh
 
+      - name: List Files
+        run: ls
+
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
           name: QDiskInfo-${{ matrix.arch }}-AppImage
-          path: ./QDiskInfo*.AppImage*
+          path: ./QDiskInfo*.AppImage
 
       - name: Upload Binaries
         uses: actions/upload-artifact@v4
