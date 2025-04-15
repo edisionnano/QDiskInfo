@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "asciiview.h"
 #include "statusdot.h"
 #include "custombutton.h"

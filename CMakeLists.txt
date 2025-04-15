@@ -26,7 +26,7 @@ endif()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS ${QT_COMPONENTS})
 
 file(GLOB_RECURSE PROJECT_SOURCES
-    src/*.h
+    include/*.h
     src/*.cpp
     src/*.ui
     src/resources.qrc
@@ -64,6 +64,8 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 if(CALL_LUPDATE)
     add_dependencies(${PROJECT_NAME} update_translations)
 endif()
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     PROJECT_VERSION_MAJOR=${${PROJECT_NAME}_VERSION_MAJOR}

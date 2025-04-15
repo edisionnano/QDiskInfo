@@ -3,8 +3,10 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QJsonObject>
+#include <QLabel>
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QPushButton>
 #include <QSettings>
 #include <QTableWidget>
 #include <QWidget>
@@ -12,7 +14,6 @@
 #include <cmath>
 
 #include "utils.h"
-#include "./ui_mainwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
