@@ -200,6 +200,7 @@ void MainWindow::updateUI()
 
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
         QString temperature = "-- °C";
+        QJsonValue smartStatusValue = localObj.value("smart_status");
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
         bool bad = false;
@@ -287,7 +288,7 @@ void MainWindow::updateUI()
         } else if (healthPassed && caution && !bad) {
             health = tr("Caution");
             healthColor = cautionColor;
-        } else if ((bad || !healthPassed) && !modelName.isEmpty()){
+        } else if ((bad || !healthPassed) && !modelName.isEmpty() && !smartStatusValue.isNull()){
             health = tr("Bad");
             healthColor = badColor;
         } else {
