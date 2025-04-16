@@ -6,6 +6,7 @@ GenericName=SMART Viewer
 Comment=SMART data viewer
 Icon=QDiskInfo
 Exec=QDiskInfo
+StartupWMClass=QDiskInfo
 Terminal=false
 Categories=System;Monitor;
 Keywords=system;process;task
