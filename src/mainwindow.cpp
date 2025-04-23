@@ -177,6 +177,13 @@ void MainWindow::updateUI()
     bool firstTime = true;
     globalIsNvme = false;
 
+    QList<QAction*> oldActions = disksGroup->actions();
+    for (QAction *action : std::as_const(oldActions)) {
+        disksGroup->removeAction(action);
+        menuDisk->removeAction(action);
+        delete action;
+    }
+
     for (int i = 0; i < devices.size(); ++i) {
         QJsonObject device = devices[i].toObject();
         QString deviceName = device["name"].toString();
