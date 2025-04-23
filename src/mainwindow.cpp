@@ -4,6 +4,7 @@
 #include "statusdot.h"
 #include "custombutton.h"
 #include "jsonparser.h"
+#include "gridview.h"
 
 #include <QDesktopServices>
 #include <QFileDialog>
@@ -244,7 +245,12 @@ void MainWindow::updateUI()
             }
         } else if (isScsi) {
             QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
-            for (const QString key : {"read", "write", "verify"}) {
+            static const QString keys[] = {
+                QStringLiteral("read"),
+                QStringLiteral("write"),
+                QStringLiteral("verify")
+            };
+            for (const QString& key : keys) {
                 if (scsiErrorCounterLog.value(key).toObject().value("total_uncorrected_errors").toInt() != 0) {
                     caution = true;
                 }
@@ -1372,7 +1378,7 @@ void MainWindow::on_actionASCII_View_triggered()
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Close, asciiViewDialog);
     connect(buttonBox, &QDialogButtonBox::rejected, asciiViewDialog, &QDialog::close);
-    connect(buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, [binaryData, this, deviceNodePath]() {
+    connect(buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, this, [binaryData, this, deviceNodePath]() {
         QString filePath = QFileDialog::getSaveFileName(this, tr("Save Binary Data"),  deviceNodePath.section('/', -1) + ".bin", tr("Binary Files (*.bin);;All Files (*)"));
         if (!filePath.isEmpty()) {
             QFile file(filePath);
@@ -1393,5 +1399,13 @@ void MainWindow::on_actionASCII_View_triggered()
     asciiViewDialog->setLayout(layout);
     asciiViewDialog->resize(550, 500);
     asciiViewDialog->exec();
+}
+
+
+void MainWindow::on_actionGrid_View_triggered()
+{
+    auto *gridView = new GridView(nullptr);
+    gridView->setAttribute(Qt::WA_DeleteOnClose);
+    gridView->show();
 }
 

@@ -46,6 +46,8 @@ private slots:
 
     void on_actionASCII_View_triggered();
 
+    void on_actionGrid_View_triggered();
+
 private:
     Ui::MainWindow *ui;
     QSettings settings;
