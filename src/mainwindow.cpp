@@ -335,6 +335,7 @@ void MainWindow::updateUI()
 
         connect(diskAction, &QAction::triggered, this, [=]() {
             updateWindow();
+            button->setChecked(true);
         });
 
         if (firstTime) {
