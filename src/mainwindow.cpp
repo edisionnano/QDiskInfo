@@ -176,6 +176,13 @@ void MainWindow::updateUI()
     bool firstTime = true;
     globalIsNvme = false;
 
+    QList<QAction*> oldActions = disksGroup->actions();
+    for (QAction *action : std::as_const(oldActions)) {
+        disksGroup->removeAction(action);
+        menuDisk->removeAction(action);
+        delete action;
+    }
+
     for (int i = 0; i < devices.size(); ++i) {
         QJsonObject device = devices[i].toObject();
         QString deviceName = device["name"].toString();
@@ -244,7 +251,12 @@ void MainWindow::updateUI()
             }
         } else if (isScsi) {
             QJsonObject scsiErrorCounterLog = localObj.value("scsi_error_counter_log").toObject();
-            for (const QString key : {"read", "write", "verify"}) {
+            static const QString keys[] = {
+                QStringLiteral("read"),
+                QStringLiteral("write"),
+                QStringLiteral("verify")
+            };
+            for (const QString& key : keys) {
                 if (scsiErrorCounterLog.value(key).toObject().value("total_uncorrected_errors").toInt() != 0) {
                     caution = true;
                 }
@@ -329,6 +341,7 @@ void MainWindow::updateUI()
 
         connect(diskAction, &QAction::triggered, this, [=]() {
             updateWindow();
+            button->setChecked(true);
         });
 
         if (firstTime) {
@@ -960,6 +973,9 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 
         QString key = pair.first;
         QString name = key.replace("_", " ");
+        if (name == "nsid") { // smartctl now adds an nsid field, skip it for now
+            continue;
+        }
         name = Utils.toTitleCase(name);
 
         int rawInt = pair.second;
@@ -1372,7 +1388,7 @@ void MainWindow::on_actionASCII_View_triggered()
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Close, asciiViewDialog);
     connect(buttonBox, &QDialogButtonBox::rejected, asciiViewDialog, &QDialog::close);
-    connect(buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, [binaryData, this, deviceNodePath]() {
+    connect(buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, this, [binaryData, this, deviceNodePath]() {
         QString filePath = QFileDialog::getSaveFileName(this, tr("Save Binary Data"),  deviceNodePath.section('/', -1) + ".bin", tr("Binary Files (*.bin);;All Files (*)"));
         if (!filePath.isEmpty()) {
             QFile file(filePath);
