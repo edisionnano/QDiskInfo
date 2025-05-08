@@ -9,6 +9,7 @@
 #include <QProcess>
 #include <QPushButton>
 #include <QTimer>
+#include <qactiongroup.h>
 
 void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
 {
@@ -19,7 +20,19 @@ void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalL
     }
     horizontalLayout->removeItem(buttonStretch);
     delete buttonStretch;
-    menuDisk->clear();
+
+    // Dirty hack to remove only the radio buttons
+    QList<QAction*> actions = menuDisk->actions();
+    bool foundSeparator = false;
+
+    for (int i = 0; i < actions.size(); ++i) {
+        QAction* action = actions[i];
+        if (foundSeparator) {
+            menuDisk->removeAction(action);
+        } else if (action->isSeparator()) {
+            foundSeparator = true;
+        }
+    }
 }
 
 QString utils::getSmartctlPath() {

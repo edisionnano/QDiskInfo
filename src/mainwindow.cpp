@@ -4,6 +4,7 @@
 #include "statusdot.h"
 #include "custombutton.h"
 #include "jsonparser.h"
+#include "gridview.h"
 
 #include <QDesktopServices>
 #include <QFileDialog>
@@ -1409,5 +1410,13 @@ void MainWindow::on_actionASCII_View_triggered()
     asciiViewDialog->setLayout(layout);
     asciiViewDialog->resize(550, 500);
     asciiViewDialog->exec();
+}
+
+
+void MainWindow::on_actionGrid_View_triggered()
+{
+    auto *gridView = new GridView(nullptr);
+    gridView->setAttribute(Qt::WA_DeleteOnClose);
+    gridView->show();
 }
 

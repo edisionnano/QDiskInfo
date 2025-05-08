@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/icons">
         <file alias="icon.svg">../dist/QDiskInfo.svg</file>
+        <file alias="Disk_Good.svg">../dist/status/Disk_Good.svg</file>
+        <file alias="Disk_Bad.svg">../dist/status/Disk_Bad.svg</file>
+        <file alias="Disk_Warning.svg">../dist/status/Disk_Warning.svg</file>
+        <file alias="Disk_Unknown.svg">../dist/status/Disk_Unknown.svg</file>
     </qresource>
 </RCC>
