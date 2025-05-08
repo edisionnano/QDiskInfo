@@ -974,6 +974,9 @@ void MainWindow::addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrde
 
         QString key = pair.first;
         QString name = key.replace("_", " ");
+        if (name == "nsid") { // smartctl now adds an nsid field, skip it for now
+            continue;
+        }
         name = Utils.toTitleCase(name);
 
         int rawInt = pair.second;

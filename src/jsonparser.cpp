@@ -29,6 +29,8 @@ QVector<QPair<QString, int>> JsonParser::parse(const QString &json)
         if (found) {
             if (trimmedLine.contains("}")) {
                 break;
+            } else if (trimmedLine.contains("nsid")) { // smartctl now adds an nsid field, skip it for now
+                continue;
             }
             qsizetype colonPos = trimmedLine.indexOf(":");
             if (colonPos != -1) {
