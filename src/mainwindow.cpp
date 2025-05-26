@@ -4,7 +4,6 @@
 #include "statusdot.h"
 #include "custombutton.h"
 #include "jsonparser.h"
-#include "gridview.h"
 
 #include <QDesktopServices>
 #include <QFileDialog>
@@ -94,6 +93,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     statusLabel = new QLabel;
 
+    gridView = new GridView(nullptr);
+
     ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("IgnoreC4", true).toBool());
     ui->actionHEX->setChecked(settings.value("HEX", true).toBool());
     ui->actionUse_Fahrenheit->setChecked(settings.value("Fahrenheit", false).toBool());
@@ -174,6 +175,8 @@ void MainWindow::updateNavigationButtons(qsizetype currentIndex)
 
 void MainWindow::updateUI()
 {
+    QVector<DiskItem> diskItems;
+
     bool firstTime = true;
     globalIsNvme = false;
 
@@ -326,6 +329,8 @@ void MainWindow::updateUI()
 
         qsizetype buttonIndex = buttonGroup->buttons().indexOf(button);
 
+        diskItems.append({ deviceName, temperature, health });
+
         auto updateWindow = [=]() {
             if (isNvme) {
                 populateWindow(localObj, health, nvmeSmartOrdered);
@@ -368,6 +373,7 @@ void MainWindow::updateUI()
     }
 
     updateNavigationButtons(buttonGroup->buttons().indexOf(buttonGroup->checkedButton()));
+    gridView->setDisks(diskItems);
 }
 
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
@@ -1207,6 +1213,16 @@ void MainWindow::transformWindow() {
     ui->centralwidget->setAutoFillBackground(true);
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::ForwardButton && nextButton->isEnabled()) {
+        onNextButtonClicked();
+    } else if (event->button() == Qt::BackButton && prevButton->isEnabled()) {
+        onPrevButtonClicked();
+    }
+}
+
+// Slots
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
@@ -1316,15 +1332,6 @@ void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
     }
 }
 
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::ForwardButton && nextButton->isEnabled()) {
-        onNextButtonClicked();
-    } else if (event->button() == Qt::BackButton && prevButton->isEnabled()) {
-        onPrevButtonClicked();
-    }
-}
-
 void MainWindow::on_actionClear_Settings_triggered()
 {
     QMessageBox msgBox;
@@ -1412,11 +1419,8 @@ void MainWindow::on_actionASCII_View_triggered()
     asciiViewDialog->exec();
 }
 
-
 void MainWindow::on_actionGrid_View_triggered()
 {
-    auto *gridView = new GridView(nullptr);
-    gridView->setAttribute(Qt::WA_DeleteOnClose);
     gridView->show();
 }
 

@@ -50,18 +50,16 @@ GridView::GridView(QWidget *parent) : QWidget(parent) {
     gridLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
     gridLayout->setSpacing(gridLayoutSpacing);
     gridFrame->setLayout(gridLayout);
-    disks = {
-        {"/dev/sda", "40C", "Bad"},
-        {"/dev/sdb", "40C", "Good"},
-        {"/dev/sdc", "40C", "Unknown"},
-        {"/dev/sdd", "40C", "Warning"}
-    };
-    populateGrid();
 
     setLayout(mainLayout);
 }
 
 void GridView::resizeEvent(QResizeEvent *) {
+    populateGrid();
+}
+
+void GridView::setDisks(const QVector<DiskItem> &newDisks) {
+    disks = newDisks;
     populateGrid();
 }
 
@@ -86,7 +84,7 @@ void GridView::populateGrid() {
         const DiskItem &disk = *it;
         if (searchQuery.isEmpty() ||
             disk.name.contains(searchQuery, Qt::CaseInsensitive) ||
-            disk.category.contains(searchQuery, Qt::CaseInsensitive)) {
+            disk.temperature.contains(searchQuery, Qt::CaseInsensitive)) {
             filteredDisks.append(disk);
         }
     }
@@ -103,7 +101,7 @@ void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int 
         diskLayout->setContentsMargins(0, 0, 0, 0);
 
         QPushButton *iconButton = new QPushButton();
-        QString iconPath = QString(":/icons/Disk_%1.svg").arg(disk.icon);
+        QString iconPath = QString(":/icons/Disk_%1.svg").arg(disk.health);
         iconButton->setIcon(QIcon(iconPath));
         iconButton->setIconSize(QSize(48, 48));
         iconButton->setFixedSize(iconButtonSize, iconButtonSize);
@@ -116,9 +114,9 @@ void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int 
 
         QLabel *nameLabel = new QLabel(disk.name);
         nameLabel->setAlignment(Qt::AlignCenter);
-        QLabel *categoryLabel = new QLabel(disk.category);
-        categoryLabel->setAlignment(Qt::AlignCenter);
-        categoryLabel->setStyleSheet("font-size: 10px; color: gray;");
+        QLabel *temperatureLabel = new QLabel(disk.temperature);
+        temperatureLabel->setAlignment(Qt::AlignCenter);
+        temperatureLabel->setStyleSheet("font-size: 10px; color: gray;");
 
         connect(iconButton, &QPushButton::clicked, this, [this, iconButton]() {
             if (selectedButton) {
@@ -133,7 +131,7 @@ void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int 
 
         diskLayout->addWidget(iconButton, 0, Qt::AlignCenter);
         diskLayout->addWidget(nameLabel, 0, Qt::AlignCenter);
-        diskLayout->addWidget(categoryLabel, 0, Qt::AlignCenter);
+        diskLayout->addWidget(temperatureLabel, 0, Qt::AlignCenter);
         diskWidget->setLayout(diskLayout);
         gridLayout->addWidget(diskWidget, row, col);
 

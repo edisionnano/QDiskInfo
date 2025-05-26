@@ -5,22 +5,22 @@
 #include <QPushButton>
 #include <QScrollArea>
 
+#include "diskitem.h"
+
 class GridView : public QWidget {
     Q_OBJECT
 
 public:
     explicit GridView(QWidget *parent = nullptr);
+    void setDisks(const QVector<DiskItem> &newDisks);
 
 protected:
     void resizeEvent(QResizeEvent *) override;
 
-private:
-    struct DiskItem {
-        QString name;
-        QString category;
-        QString icon;
-    };
+signals:
+    void diskSelected(const QString &diskName);
 
+private:
     QString searchQuery;
     QScrollArea *scrollArea;
     QWidget *gridContainer;

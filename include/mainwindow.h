@@ -14,6 +14,7 @@
 #include <cmath>
 
 #include "utils.h"
+#include "gridview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -80,6 +81,7 @@ private:
     QString globalHealth;
     bool globalIsNvme;
     QVector<QPair<QString, int>> globalNvmeSmartOrdered;
+    GridView *gridView;
 
     void onNextButtonClicked();
     void onPrevButtonClicked();
