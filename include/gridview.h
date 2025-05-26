@@ -18,7 +18,7 @@ protected:
     void resizeEvent(QResizeEvent *) override;
 
 signals:
-    void diskSelected(const QString &diskName);
+    void diskSelected(int index);
 
 private:
     QString searchQuery;

@@ -34,9 +34,6 @@ GridView::GridView(QWidget *parent) : QWidget(parent) {
     selectedColor = palette.color(QPalette::Highlight).name();
 
     QFrame *gridFrame = new QFrame();
-    gridFrame->setStyleSheet(QString(
-                                 "QFrame { background-color: %1; border-radius: 5px; }"
-                                 ).arg(bgColor, borderColor));
 
     scrollArea = new QScrollArea();
     scrollArea->setWidgetResizable(true);
@@ -118,7 +115,7 @@ void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int 
         temperatureLabel->setAlignment(Qt::AlignCenter);
         temperatureLabel->setStyleSheet("font-size: 10px; color: gray;");
 
-        connect(iconButton, &QPushButton::clicked, this, [this, iconButton]() {
+        connect(iconButton, &QPushButton::clicked, this, [this, iconButton, disk, i]() {
             if (selectedButton) {
                 selectedButton->setStyleSheet(iconButton->styleSheet());
             }
@@ -127,6 +124,7 @@ void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int 
                 QString(
                     "QPushButton { border: 2px solid %1; background-color: %2; }")
                     .arg(selectedColor, hoverColor));
+            emit diskSelected(i);
         });
 
         diskLayout->addWidget(iconButton, 0, Qt::AlignCenter);

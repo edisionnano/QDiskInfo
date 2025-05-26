@@ -93,7 +93,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     statusLabel = new QLabel;
 
-    gridView = new GridView(nullptr);
+    gridView = new GridView(this);
+    gridView->setWindowFlag(Qt::Window);
 
     ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("IgnoreC4", true).toBool());
     ui->actionHEX->setChecked(settings.value("HEX", true).toBool());
@@ -361,6 +362,15 @@ void MainWindow::updateUI()
                 globalNvmeSmartOrdered = nvmeSmartOrdered;
             }
         }
+
+        connect(gridView, &GridView::diskSelected, this, [=](int selectedIndex) {
+            if (selectedIndex >= 0 && selectedIndex < buttonGroup->buttons().size()) {
+                auto *gridButton = qobject_cast<QPushButton *>(buttonGroup->buttons().at(selectedIndex));
+                if (gridButton) {
+                    gridButton->click();
+                }
+            }
+        });
     }
 
     buttonStretch = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
