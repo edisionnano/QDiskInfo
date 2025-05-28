@@ -365,7 +365,7 @@ void MainWindow::updateUI()
 
         connect(gridView, &GridView::diskSelected, this, [=](int selectedIndex) {
             if (selectedIndex >= 0 && selectedIndex < buttonGroup->buttons().size()) {
-                auto *gridButton = qobject_cast<QPushButton *>(buttonGroup->buttons().at(selectedIndex));
+                QAbstractButton *gridButton = buttonGroup->buttons().at(selectedIndex);
                 if (gridButton) {
                     gridButton->click();
                 }
