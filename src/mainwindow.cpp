@@ -170,8 +170,16 @@ void MainWindow::onPrevButtonClicked()
 
 void MainWindow::updateNavigationButtons(qsizetype currentIndex)
 {
-    prevButton->setEnabled(currentIndex > 0 || (ui->actionCyclic_Navigation->isChecked() && buttonGroup->buttons().size() > 1)); // We can use setVisible if we want to mimic CrystalDiskInfo
-    nextButton->setEnabled(currentIndex < buttonGroup->buttons().size() - 1 || ui->actionCyclic_Navigation->isChecked());
+    const qsizetype totalButtons = buttonGroup->buttons().size();
+    const bool isCyclic = ui->actionCyclic_Navigation->isChecked();
+
+    prevButton->setEnabled( // We can use setVisible if we want to mimic CrystalDiskInfo
+        (currentIndex > 0) || (isCyclic && totalButtons > 1)
+    );
+
+    nextButton->setEnabled(
+        (currentIndex < totalButtons - 1) || (isCyclic && totalButtons > 1)
+    );
 }
 
 void MainWindow::updateUI()
