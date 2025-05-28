@@ -55,13 +55,13 @@ export QT_STYLE_OVERRIDE="${QT_STYLE_OVERRIDE:-Breeze}"
 [ -f "$APPIMAGE".stylesheet ] && APPIMAGE_QT_THEME="$APPIMAGE.stylesheet"
 [ -f "$APPIMAGE_QT_THEME" ] && set -- "$@" "-stylesheet" "$APPIMAGE_QT_THEME"
 
-if ! command -v smartctl >/dev/null 2>&1; then
-	echo "smartctl is not on the system, using bundled binary..."
-	export PATH="$PATH:"$CACHEDIR"/qdiskinfo-appimage"
+#if ! command -v smartctl >/dev/null 2>&1; then
+#	echo "smartctl is not on the system, using bundled binary..."
+	export PATH="$CACHEDIR/qdiskinfo-appimage:$PATH"
 	mkdir -p "$CACHEDIR"/qdiskinfo-appimage
 	cp -v "$CURRENTDIR"/smartctl "$CACHEDIR"/qdiskinfo-appimage
 	chmod +x "$CACHEDIR"/qdiskinfo-appimage/smartctl
-fi
+#fi
 
 exec "$CURRENTDIR"/bin/QDiskInfo "$@"' > ./AppRun
 chmod +x ./AppRun
