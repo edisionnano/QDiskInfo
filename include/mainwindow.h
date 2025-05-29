@@ -1,5 +1,8 @@
 #pragma once
 
+#include "utils.h"
+#include "gridview.h"
+
 #include <QAction>
 #include <QActionGroup>
 #include <QJsonObject>
@@ -12,9 +15,6 @@
 #include <QWidget>
 #include <QProcess>
 #include <cmath>
-
-#include "utils.h"
-#include "gridview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

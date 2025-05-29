@@ -1,11 +1,11 @@
 #pragma once
 
+#include "diskitem.h"
+
 #include <QDialog>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QScrollArea>
-
-#include "diskitem.h"
 
 class GridView : public QWidget {
     Q_OBJECT
