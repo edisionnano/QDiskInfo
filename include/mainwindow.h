@@ -1,5 +1,8 @@
 #pragma once
 
+#include "utils.h"
+#include "gridview.h"
+
 #include <QAction>
 #include <QActionGroup>
 #include <QJsonObject>
@@ -12,8 +15,6 @@
 #include <QWidget>
 #include <QProcess>
 #include <cmath>
-
-#include "utils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -45,6 +46,8 @@ private slots:
     void on_actionClear_Settings_triggered();
 
     void on_actionASCII_View_triggered();
+
+    void on_actionGrid_View_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -78,11 +81,12 @@ private:
     QString globalHealth;
     bool globalIsNvme;
     QVector<QPair<QString, int>> globalNvmeSmartOrdered;
+    GridView *gridView;
 
     void onNextButtonClicked();
     void onPrevButtonClicked();
     void updateNavigationButtons(qsizetype currentIndex);
-    void updateUI();
+    void updateUI(const QString &currentDeviceName = QString());
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addSCSIErrorCounterLogTable(const QJsonObject &scsiErrorCounterLog);
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);

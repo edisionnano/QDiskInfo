@@ -534,6 +534,8 @@
     <property name="title">
      <string>Disk</string>
     </property>
+    <addaction name="actionGrid_View"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDevice"/>
@@ -649,6 +651,14 @@
   <action name="actionASCII_View">
    <property name="text">
     <string>ASCII View</string>
+   </property>
+  </action>
+  <action name="actionGrid_View">
+   <property name="icon">
+    <iconset theme="start-here"/>
+   </property>
+   <property name="text">
+    <string>Grid View</string>
    </property>
   </action>
  </widget>

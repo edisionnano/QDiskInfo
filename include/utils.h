@@ -11,7 +11,7 @@ class utils
 public:
     utils() = default;
 
-    void clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk);
+    QString clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk);
     QString getSmartctlPath();
     QString getSmartctlOutput(const QStringList &arguments, bool root, bool initializing);
     QPair<QStringList, QJsonArray> scanDevices(bool initializing);
