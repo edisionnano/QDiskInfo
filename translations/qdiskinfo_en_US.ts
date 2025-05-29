@@ -2,17 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
-    <name>GridView</name>
-    <message>
-        <source>Grid View</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search for a disk...</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>MainWindow</name>
     <message>
         <source>QDiskInfo</source>
@@ -100,6 +89,10 @@
     </message>
     <message>
         <source>Disk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -340,34 +333,6 @@
     </message>
     <message>
         <source>Binary data saved successfully.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Save (JSON)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+T</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid View</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save (Image)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PNG Files (*.png)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Save JSON</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
