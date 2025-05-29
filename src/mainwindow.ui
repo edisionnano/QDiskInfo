@@ -498,6 +498,7 @@
      <string>File</string>
     </property>
     <addaction name="actionSave_JSON"/>
+    <addaction name="actionSave_Image"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
@@ -548,7 +549,10 @@
     <iconset theme="document-save"/>
    </property>
    <property name="text">
-    <string>&amp;Save JSON</string>
+    <string>&amp;Save (JSON)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
   <action name="actionQuit">
@@ -659,6 +663,17 @@
    </property>
    <property name="text">
     <string>Grid View</string>
+   </property>
+  </action>
+  <action name="actionSave_Image">
+   <property name="icon">
+    <iconset theme="image-x-generic"/>
+   </property>
+   <property name="text">
+    <string>Save (Image)</string>
+   </property>
+   <property name="shortcut">
+    <string/>
    </property>
   </action>
  </widget>

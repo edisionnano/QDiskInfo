@@ -49,6 +49,8 @@ private slots:
 
     void on_actionGrid_View_triggered();
 
+    void on_actionSave_Image_triggered();
+
 private:
     Ui::MainWindow *ui;
     QSettings settings;

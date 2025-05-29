@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     nextButton->setFocusPolicy(Qt::NoFocus);
     prevButton->setFocusPolicy(Qt::NoFocus);
 
-    ui->actionSave_JSON->setShortcut(QKeySequence::Save);
+    ui->actionSave_Image->setShortcut(QKeySequence::Save);
     ui->actionQuit->setShortcut(QKeySequence::Quit);
     ui->actionRescan_Refresh->setShortcut(QKeySequence::Refresh);
 
@@ -1295,7 +1295,7 @@ void MainWindow::on_actionSave_JSON_triggered()
     }
 
     QString fileName = QFileDialog::getSaveFileName(this,
-                                                    tr("Save JSON"), deviceNodeLineEdit->text().section('/', -1) + ".json",
+                                                    tr("Save JSON"), "QDiskInfo_" + deviceNodeLineEdit->text().section('/', -1) + ".json",
                                                     tr("JSON (*.json);;All Files (*)"));
     if (fileName.isEmpty())
         return;
@@ -1474,5 +1474,12 @@ void MainWindow::on_actionASCII_View_triggered()
 void MainWindow::on_actionGrid_View_triggered()
 {
     gridView->show();
+}
+
+
+void MainWindow::on_actionSave_Image_triggered()
+{
+    QPixmap screenshot = this->grab();
+    screenshot.save(QFileDialog::getSaveFileName(this, tr("Save Image"), "QDiskInfo_" + deviceNodeLineEdit->text().section('/', -1) + ".png", tr("PNG Files (*.png)")));
 }
 
