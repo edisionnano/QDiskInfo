@@ -152,7 +152,7 @@
     </message>
     <message>
       <source>Self Test Log</source>
-      <translation>Registro dell'autotest</translation>
+      <translation>Registro dell&apos;autotest</translation>
     </message>
     <message>
       <source>Critical Warning</source>
@@ -240,7 +240,7 @@
     </message>
     <message>
       <source>NVM subsystem reliability has been degraded</source>
-      <translation>L'affidabilità del sottosistema NVM è diminuita</translation>
+      <translation>L&apos;affidabilità del sottosistema NVM è diminuita</translation>
     </message>
     <message>
       <source>Media has been placed in Read Only Mode</source>
@@ -320,11 +320,11 @@
     </message>
     <message>
       <source>QDiskInfo Error</source>
-      <translation type="unfinished">QDiskInfo Error</translation>
+      <translation>Errore QDiskInfo</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo ha bisogno di accesso root per leggere i dati S.M.A.R.T!</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
@@ -395,7 +395,7 @@
     </message>
     <message>
       <source>The self-test has been aborted</source>
-      <translation>L'autotest è stato interrotto</translation>
+      <translation>L&apos;autotest è stato interrotto</translation>
     </message>
     <message>
       <source>Error: Something went wrong</source>
