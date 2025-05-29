@@ -21,7 +21,9 @@ GridView::GridView(QWidget *parent) : QWidget(parent) {
 
     QComboBox *searchField = new QComboBox();
     searchField->setEditable(true);
-    connect(searchField->lineEdit(), &QLineEdit::textChanged, this, [this](const QString &text) {
+    QLineEdit *lineEdit = searchField->lineEdit();
+    lineEdit->setPlaceholderText(tr("Search for a disk..."));
+    connect(lineEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
         this->searchQuery = text;
         populateGrid();
     });
