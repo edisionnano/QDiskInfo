@@ -324,7 +324,7 @@
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation>QDiskInfo 需要 root 權限才能讀取 S.M.A.R.T. 資訊！</translation>
+      <translation>QDiskInfo 需要 root 權限才能讀取 S.M.A.R.T. 數據！</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
