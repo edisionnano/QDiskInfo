@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QDiskInfo VERSION 0.3 LANGUAGES CXX)
+project(QDiskInfo VERSION 0.4 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
