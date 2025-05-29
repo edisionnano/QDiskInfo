@@ -30,6 +30,6 @@ private:
 
     QList<DiskItem> disks;
 
-    void extracted(const QVector<DiskItem> &filteredApps, int &cols, int &row, int &col);
+    void extracted(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col);
     void populateGrid();
 };
