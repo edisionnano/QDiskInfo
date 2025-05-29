@@ -196,7 +196,7 @@
     </message>
     <message>
       <source>Conveyance</source>
-      <translation/>
+      <translation>Conveyance</translation>
     </message>
     <message>
       <source>Extended</source>
@@ -204,7 +204,7 @@
     </message>
     <message>
       <source>Min.)</source>
-      <translation/>
+      <translation>Min.)</translation>
     </message>
     <message>
       <source>Read</source>
@@ -244,11 +244,11 @@
     </message>
     <message>
       <source>Media has been placed in Read Only Mode</source>
-      <translation>Медиа было помещено в режим "Только для чтения"</translation>
+      <translation>Медиа было помещено в режим &quot;Только для чтения&quot;</translation>
     </message>
     <message>
       <source>Volatile memory backup device has Failed</source>
-      <translation type="unfinished">Volatile memory backup device has Failed</translation>
+      <translation>Volatile memory backup device has Failed</translation>
     </message>
     <message>
       <source>Persistent memory region has become Read-Only</source>
@@ -320,11 +320,11 @@
     </message>
     <message>
       <source>QDiskInfo Error</source>
-      <translation type="unfinished">QDiskInfo Error</translation>
+      <translation>Ошибка QDiskInfo</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo нужен root доступ, чтобы прочитать данные S.M.A.R.T.</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
