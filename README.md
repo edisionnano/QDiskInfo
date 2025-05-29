@@ -8,8 +8,7 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 <br>Other than those mentioned in the widget above, there is also:
  - A [Fedora Copr Repository](https://copr.fedorainfracloud.org/coprs/birkch/QDiskInfo)
  - A Flatpak is currently <span style="color:red">NOT</span> possible due to a [permission issue](https://github.com/flatpak/flatpak/issues/2452)
- - AppImages which include smartctl can be downloaded [here](https://github.com/edisionnano/QDiskInfo/actions) if you are logged in with a GitHub account.
- - Binaries that work on every distro can be found [here](https://github.com/edisionnano/QDiskInfo/releases/latest)
+ - Binaries and Appimages that work on every distro can be found [here](https://github.com/edisionnano/QDiskInfo/releases/latest)
 
 ## Compiling and Installing
 ### Compilation and Runtime Dependencies
