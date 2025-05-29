@@ -20,7 +20,7 @@
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Стан здоров'я&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Стан здоров&apos;я&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -196,7 +196,7 @@
     </message>
     <message>
       <source>Conveyance</source>
-      <translation type="unfinished">Conveyance</translation>
+      <translation>Conveyance</translation>
     </message>
     <message>
       <source>Extended</source>
@@ -204,7 +204,7 @@
     </message>
     <message>
       <source>Min.)</source>
-      <translation type="unfinished">Min.)</translation>
+      <translation>Min.)</translation>
     </message>
     <message>
       <source>Read</source>
@@ -248,11 +248,11 @@
     </message>
     <message>
       <source>Volatile memory backup device has Failed</source>
-      <translation type="unfinished">Volatile memory backup device has Failed</translation>
+      <translation>Volatile memory backup device has Failed</translation>
     </message>
     <message>
       <source>Persistent memory region has become Read-Only</source>
-      <translation>Постійний регіон пам'яті став лише для читання</translation>
+      <translation>Постійний регіон пам&apos;яті став лише для читання</translation>
     </message>
     <message>
       <source>Current</source>
@@ -320,11 +320,11 @@
     </message>
     <message>
       <source>QDiskInfo Error</source>
-      <translation type="unfinished">QDiskInfo Error</translation>
+      <translation>Помилка QDiskInfo</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo потрібен root-доступ для читання даних S.M.A.R.T.</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
