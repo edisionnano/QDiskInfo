@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="pl_PL" sourcelanguage="en">
+<TS version="2.1" language="lv_LV" sourcelanguage="en">
   <context>
     <name>GridView</name>
     <message>
@@ -20,15 +20,15 @@
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Veselības stāvoklis&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Labs&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Temperatūra&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -36,79 +36,79 @@
     </message>
     <message>
       <source>Firmware</source>
-      <translation>Firmware</translation>
+      <translation>Aparātprogrammatūra</translation>
     </message>
     <message>
       <source>Serial Number</source>
-      <translation>Serial Number</translation>
+      <translation>Sērijas numurs</translation>
     </message>
     <message>
       <source>Protocol</source>
-      <translation>Protocol</translation>
+      <translation>Protokols</translation>
     </message>
     <message>
       <source>Device Node</source>
-      <translation>Device Node</translation>
+      <translation>Ceļš uz ierīci</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Labs 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation>Type</translation>
+      <translation>Tips</translation>
     </message>
     <message>
       <source>Total Host Reads</source>
-      <translation>Total Host Reads</translation>
+      <translation type="unfinished">Total Host Reads</translation>
     </message>
     <message>
       <source>Total Host Writes</source>
-      <translation>Total Host Writes</translation>
+      <translation type="unfinished">Total Host Writes</translation>
     </message>
     <message>
       <source>Rotation Rate</source>
-      <translation>Rotation Rate</translation>
+      <translation>Rotācijas ātrums</translation>
     </message>
     <message>
       <source>Power On Count</source>
-      <translation>Power On Count</translation>
+      <translation>Ieslēgšanu skaits</translation>
     </message>
     <message>
       <source>Power On Hours</source>
-      <translation>Power On Hours</translation>
+      <translation>Darbojies</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Datu nesēja nosaukums&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>File</source>
-      <translation>File</translation>
+      <translation>Fails</translation>
     </message>
     <message>
       <source>Settings</source>
-      <translation>Settings</translation>
+      <translation>Iestatījumi</translation>
     </message>
     <message>
       <source>&amp;Help</source>
-      <translation>&amp;Help</translation>
+      <translation type="unfinished">&amp;Help</translation>
     </message>
     <message>
       <source>De&amp;vice</source>
-      <translation>De&amp;vice</translation>
+      <translation>&amp;Ierīce</translation>
     </message>
     <message>
       <source>Disk</source>
-      <translation>Disk</translation>
+      <translation>Disks</translation>
     </message>
     <message>
       <source>&amp;Quit</source>
-      <translation>&amp;Quit</translation>
+      <translation type="unfinished">&amp;Quit</translation>
     </message>
     <message>
       <source>&amp;Refresh Devices</source>
-      <translation>&amp;Refresh Devices</translation>
+      <translation>Atsvaidzināt ie&amp;rīces</translation>
     </message>
     <message>
       <source>&amp;GitHub</source>
@@ -116,107 +116,107 @@
     </message>
     <message>
       <source>&amp;About QDiskInfo</source>
-      <translation>&amp;About QDiskInfo</translation>
+      <translation>P&amp;ar QDiskInfo</translation>
     </message>
     <message>
       <source>&amp;Ignore C4 (Reallocated Event Count)</source>
-      <translation>&amp;Ignore C4 (Reallocated Event Count)</translation>
+      <translation type="unfinished">&amp;Ignore C4 (Reallocated Event Count)</translation>
     </message>
     <message>
       <source>&amp;Convert Raw values to HEX</source>
-      <translation>&amp;Convert Raw values to HEX</translation>
+      <translation>Pārveidot Raw vērtības uz heksade&amp;cimālām vērtībām</translation>
     </message>
     <message>
       <source>&amp;Use Fahrenheit</source>
-      <translation>&amp;Use Fahrenheit</translation>
+      <translation>&amp;Temperatūra Fārenheita grādos</translation>
     </message>
     <message>
       <source>Self Test</source>
-      <translation>Self Test</translation>
+      <translation>Pašpārbaude</translation>
     </message>
     <message>
       <source>Cyclic &amp;Navigation</source>
-      <translation>Cyclic &amp;Navigation</translation>
+      <translation type="unfinished">Cyclic &amp;Navigation</translation>
     </message>
     <message>
       <source>Use &amp;GB instead of TB</source>
-      <translation>Use &amp;GB instead of TB</translation>
+      <translation>Lietot &amp;GB nevis TB</translation>
     </message>
     <message>
       <source>About &amp;Qt</source>
-      <translation>About &amp;Qt</translation>
+      <translation>Par &amp;Qt</translation>
     </message>
     <message>
       <source>Start Self Test</source>
-      <translation>Start Self Test</translation>
+      <translation type="unfinished">Start Self Test</translation>
     </message>
     <message>
       <source>Self Test Log</source>
-      <translation>Self Test Log</translation>
+      <translation>Pašpārbaudes žurnāls</translation>
     </message>
     <message>
       <source>Critical Warning</source>
-      <translation>Critical Warning</translation>
+      <translation type="unfinished">Critical Warning</translation>
     </message>
     <message>
       <source>Grown Defect List</source>
-      <translation>Grown Defect List</translation>
+      <translation type="unfinished">Grown Defect List</translation>
     </message>
     <message>
       <source>Good</source>
-      <translation>Good</translation>
+      <translation>Labs</translation>
     </message>
     <message>
       <source>Caution</source>
-      <translation>Caution</translation>
+      <translation type="unfinished">Caution</translation>
     </message>
     <message>
       <source>Bad</source>
-      <translation>Bad</translation>
+      <translation>Slikts</translation>
     </message>
     <message>
       <source>Unknown</source>
-      <translation>Unknown</translation>
+      <translation>Nezināms</translation>
     </message>
     <message>
       <source>Status</source>
-      <translation>Status</translation>
+      <translation>Statuss</translation>
     </message>
     <message>
       <source>count</source>
-      <translation>count</translation>
+      <translation>reizes ieslēgts</translation>
     </message>
     <message>
       <source>hours</source>
-      <translation>hours</translation>
+      <translation>stundas</translation>
     </message>
     <message>
       <source>Short</source>
-      <translation>Short</translation>
+      <translation type="unfinished">Short</translation>
     </message>
     <message>
       <source>Conveyance</source>
-      <translation>Conveyance</translation>
+      <translation type="unfinished">Conveyance</translation>
     </message>
     <message>
       <source>Extended</source>
-      <translation>Extended</translation>
+      <translation type="unfinished">Extended</translation>
     </message>
     <message>
       <source>Min.)</source>
-      <translation>Min.)</translation>
+      <translation type="unfinished">Min.)</translation>
     </message>
     <message>
       <source>Read</source>
-      <translation>Read</translation>
+      <translation type="unfinished">Read</translation>
     </message>
     <message>
       <source>Write</source>
-      <translation>Write</translation>
+      <translation type="unfinished">Write</translation>
     </message>
     <message>
       <source>Verify</source>
-      <translation>Verify</translation>
+      <translation type="unfinished">Verify</translation>
     </message>
     <message>
       <source>ID</source>
@@ -224,115 +224,115 @@
     </message>
     <message>
       <source>Attribute Name</source>
-      <translation>Attribute Name</translation>
+      <translation>Atribūta nosaukums</translation>
     </message>
     <message>
       <source>Raw Values</source>
-      <translation>Raw Values</translation>
+      <translation>Raw vērtības</translation>
     </message>
     <message>
       <source>Available spare capacity has fallen below the threshold</source>
-      <translation>Available spare capacity has fallen below the threshold</translation>
+      <translation type="unfinished">Available spare capacity has fallen below the threshold</translation>
     </message>
     <message>
       <source>Temperature error (Overheat or Overcool)</source>
-      <translation>Temperature error (Overheat or Overcool)</translation>
+      <translation type="unfinished">Temperature error (Overheat or Overcool)</translation>
     </message>
     <message>
       <source>NVM subsystem reliability has been degraded</source>
-      <translation>NVM subsystem reliability has been degraded</translation>
+      <translation type="unfinished">NVM subsystem reliability has been degraded</translation>
     </message>
     <message>
       <source>Media has been placed in Read Only Mode</source>
-      <translation>Media has been placed in Read Only Mode</translation>
+      <translation type="unfinished">Media has been placed in Read Only Mode</translation>
     </message>
     <message>
       <source>Volatile memory backup device has Failed</source>
-      <translation>Volatile memory backup device has Failed</translation>
+      <translation type="unfinished">Volatile memory backup device has Failed</translation>
     </message>
     <message>
       <source>Persistent memory region has become Read-Only</source>
-      <translation>Persistent memory region has become Read-Only</translation>
+      <translation type="unfinished">Persistent memory region has become Read-Only</translation>
     </message>
     <message>
       <source>Current</source>
-      <translation>Current</translation>
+      <translation type="unfinished">Current</translation>
     </message>
     <message>
       <source>Worst</source>
-      <translation>Worst</translation>
+      <translation type="unfinished">Worst</translation>
     </message>
     <message>
       <source>Threshold</source>
-      <translation>Threshold</translation>
+      <translation type="unfinished">Threshold</translation>
     </message>
     <message>
       <source>Empty JSON</source>
-      <translation>Empty JSON</translation>
+      <translation type="unfinished">Empty JSON</translation>
     </message>
     <message>
       <source>The JSON is empty</source>
-      <translation>The JSON is empty</translation>
+      <translation type="unfinished">The JSON is empty</translation>
     </message>
     <message>
       <source>Save JSON</source>
-      <translation>Save JSON</translation>
+      <translation>Saglabāt JSON</translation>
     </message>
     <message>
       <source>JSON (*.json);;All Files (*)</source>
-      <translation>JSON (*.json);;All Files (*)</translation>
+      <translation>JSON (*.json);;Visi faili (*)</translation>
     </message>
     <message>
       <source>Unable to open file for writing</source>
-      <translation>Unable to open file for writing</translation>
+      <translation type="unfinished">Unable to open file for writing</translation>
     </message>
     <message>
       <source>An ATA and NVMe S.M.A.R.T. data viewer for Linux</source>
-      <translation>An ATA and NVMe S.M.A.R.T. data viewer for Linux</translation>
+      <translation>ATA un NVMe S.M.A.R.T. datu skatītājs Linux operētājsistēmām</translation>
     </message>
     <message>
       <source>Licensed under the GNU G.P.L. Version 3</source>
-      <translation>Licensed under the GNU G.P.L. Version 3</translation>
+      <translation type="unfinished">Licensed under the GNU G.P.L. Version 3</translation>
     </message>
     <message>
       <source>Made by Samantas5855</source>
-      <translation>Made by Samantas5855</translation>
+      <translation>Izstrādāja Samantas5855</translation>
     </message>
     <message>
       <source>Version</source>
-      <translation>Version</translation>
+      <translation>Versija</translation>
     </message>
     <message>
       <source>About QDiskInfo</source>
-      <translation>About QDiskInfo</translation>
+      <translation>Par QDiskInfo</translation>
     </message>
     <message>
       <source>About Qt</source>
-      <translation>About Qt</translation>
+      <translation>Par Qt</translation>
     </message>
     <message>
       <source>Clear &amp;Settings</source>
-      <translation type="unfinished">Clear &amp;Settings</translation>
+      <translation>Notīrīt ie&amp;statījumus</translation>
     </message>
     <message>
       <source>ASCII View</source>
-      <translation type="unfinished">ASCII View</translation>
+      <translation>ASCII skats</translation>
     </message>
     <message>
       <source>QDiskInfo Error</source>
-      <translation>QDiskInfo Error</translation>
+      <translation>QDiskInfo kļūda</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation>QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo nepieciešama root piekļuve, lai lasītu S.M.A.R.T. datus!</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
-      <translation type="unfinished">Save Binary Data</translation>
+      <translation>Saglabāt bināros datus</translation>
     </message>
     <message>
       <source>Binary Files (*.bin);;All Files (*)</source>
-      <translation type="unfinished">Binary Files (*.bin);;All Files (*)</translation>
+      <translation>Binārie faili (*.bin);;Visi faili (*)</translation>
     </message>
     <message>
       <source>Success</source>
@@ -368,82 +368,82 @@
     </message>
     <message>
       <source>&amp;Save JSON</source>
-      <translation>&amp;Save JSON</translation>
+      <translation>&amp;Saglabāt JSON</translation>
     </message>
   </context>
   <context>
     <name>QObject</name>
     <message>
       <source>QDiskInfo Error</source>
-      <translation>QDiskInfo Error</translation>
+      <translation>QDiskInfo kļūda</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation>QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo nepieciešama root piekļuve, lai lasītu S.M.A.R.T. datus!</translation>
     </message>
     <message>
       <source>smartctl was not found, please install it!</source>
-      <translation>smartctl was not found, please install it!</translation>
+      <translation>smartctl netika atrasts, lūdzu, uzstādiet to!</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to abort a self-test!</source>
-      <translation>QDiskInfo needs root access in order to abort a self-test!</translation>
+      <translation>QDiskInfo nepieciešama root piekļuve, lai pārtrauktu pašpārbaudi!</translation>
     </message>
     <message>
       <source>Test Requested</source>
-      <translation>Test Requested</translation>
+      <translation type="unfinished">Test Requested</translation>
     </message>
     <message>
       <source>The self-test has been aborted</source>
-      <translation>The self-test has been aborted</translation>
+      <translation type="unfinished">The self-test has been aborted</translation>
     </message>
     <message>
       <source>Error: Something went wrong</source>
-      <translation>Error: Something went wrong</translation>
+      <translation type="unfinished">Error: Something went wrong</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to request a self-test!</source>
-      <translation>QDiskInfo needs root access in order to request a self-test!</translation>
+      <translation>QDiskInfo nepieciešama root piekļuve, lai varētu veikt pašpārbaudi!</translation>
     </message>
     <message>
       <source>remaining</source>
-      <translation>remaining</translation>
+      <translation>atlikušas</translation>
     </message>
     <message>
       <source>completed</source>
-      <translation>completed</translation>
+      <translation>pabeigts</translation>
     </message>
     <message>
       <source>Test Already Running</source>
-      <translation>Test Already Running</translation>
+      <translation type="unfinished">Test Already Running</translation>
     </message>
     <message>
       <source>A self-test is already being performed</source>
-      <translation>A self-test is already being performed</translation>
+      <translation type="unfinished">A self-test is already being performed</translation>
     </message>
     <message>
       <source>You can press the Ok button in order to abort the test that is currently running</source>
-      <translation>You can press the Ok button in order to abort the test that is currently running</translation>
+      <translation type="unfinished">You can press the Ok button in order to abort the test that is currently running</translation>
     </message>
     <message>
       <source>A self-test has been requested successfully</source>
-      <translation>A self-test has been requested successfully</translation>
+      <translation>Pašpārbaude ir veiksmīgi pieprasīta</translation>
     </message>
     <message>
       <source>It will be completed after</source>
-      <translation>It will be completed after</translation>
+      <translation>Tā tiks pabeigta pēc</translation>
     </message>
     <message>
       <source>minutes</source>
-      <translation>minutes</translation>
+      <translation>minūtes</translation>
     </message>
     <message>
       <source>Clear Settings</source>
-      <translation type="unfinished">Clear Settings</translation>
+      <translation>Notīrīt iestatījumus</translation>
     </message>
     <message>
       <source>Are you sure you want to clear the settings saved on disk?</source>
-      <translation type="unfinished">Are you sure you want to clear the settings saved on disk?</translation>
+      <translation>Vai tiešām vēlaties notīrīt diskā saglabātos iestatījumus?</translation>
     </message>
   </context>
 </TS>
