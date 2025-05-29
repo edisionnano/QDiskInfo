@@ -62,6 +62,35 @@ void GridView::setDisks(const QVector<DiskItem> &newDisks) {
     populateGrid();
 }
 
+void GridView::highlightDisk(qsizetype index) {
+    if (index < 0 || index >= gridLayout->count())
+        return;
+
+    QWidget *diskWidget = gridLayout->itemAt(static_cast<int>(index))->widget();
+    if (!diskWidget)
+        return;
+
+    QPushButton *iconButton = diskWidget->findChild<QPushButton *>();
+    if (!iconButton)
+        return;
+
+    if (selectedButton) {
+        selectedButton->setStyleSheet(iconButton->styleSheet());
+    }
+
+    selectedButton = iconButton;
+    selectedButton->setStyleSheet(
+        QString("QPushButton { border: 2px solid %1; background-color: %2; }")
+            .arg(selectedColor, hoverColor));
+}
+
+void GridView::setActiveIndex(qsizetype index) {
+    activeIndex = index;
+    if (gridLayout && gridLayout->count() > 0) {
+        highlightDisk(activeIndex);
+    }
+}
+
 void GridView::populateGrid() {
     selectedButton = nullptr;
     QLayoutItem *child;
@@ -89,6 +118,10 @@ void GridView::populateGrid() {
     }
 
     extracted(filteredDisks, cols, row, col);
+
+    if (activeIndex >= 0 && activeIndex < filteredDisks.size()) {
+        highlightDisk(activeIndex);
+    }
 }
 
 void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col) {

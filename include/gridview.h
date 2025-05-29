@@ -13,6 +13,8 @@ class GridView : public QWidget {
 public:
     explicit GridView(QWidget *parent = nullptr);
     void setDisks(const QVector<DiskItem> &newDisks);
+    void highlightDisk(qsizetype index);
+    void setActiveIndex(qsizetype index);
 
 protected:
     void resizeEvent(QResizeEvent *) override;
@@ -32,4 +34,6 @@ private:
 
     void extracted(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col);
     void populateGrid();
+
+    qsizetype activeIndex = -1;
 };

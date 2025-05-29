@@ -352,11 +352,15 @@ void MainWindow::updateUI()
         connect(button, &QPushButton::clicked, this, [=]() {
             updateWindow();
             disksGroup->actions().at(buttonIndex)->setChecked(true);
+            gridView->highlightDisk(buttonIndex);
+            gridView->setActiveIndex(buttonIndex);
         });
 
         connect(diskAction, &QAction::triggered, this, [=]() {
             updateWindow();
             button->setChecked(true);
+            gridView->highlightDisk(buttonIndex);
+            gridView->setActiveIndex(buttonIndex);
         });
 
         if (firstTime) {
@@ -364,6 +368,7 @@ void MainWindow::updateUI()
             globalHealth = health;
             button->setChecked(true);
             diskAction->setChecked(true);
+            gridView->setActiveIndex(0);
             firstTime = false;
             globalIsNvme = isNvme;
             if (isNvme) {
