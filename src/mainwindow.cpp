@@ -182,12 +182,20 @@ void MainWindow::updateNavigationButtons(qsizetype currentIndex)
     );
 }
 
-void MainWindow::updateUI()
+void MainWindow::updateUI(const QString &currentDeviceName)
 {
     QVector<DiskItem> diskItems;
 
     bool firstTime = true;
+    bool isFahrenheit = ui->actionUse_Fahrenheit->isChecked();
     globalIsNvme = false;
+
+    QString degreeSymbol;
+    if (isFahrenheit) { // We don't do Kelvin
+        degreeSymbol = "°F";
+    } else {
+        degreeSymbol = "°C";
+    }
 
     QList<QAction*> oldActions = disksGroup->actions();
     for (QAction *action : std::as_const(oldActions)) {
@@ -195,6 +203,8 @@ void MainWindow::updateUI()
         menuDisk->removeAction(action);
         delete action;
     }
+
+    int deviceToSelect = -1;
 
     for (int i = 0; i < devices.size(); ++i) {
         QJsonObject device = devices[i].toObject();
@@ -220,7 +230,7 @@ void MainWindow::updateUI()
         }
 
         QJsonArray attributes = localObj["ata_smart_attributes"].toObject()["table"].toArray();
-        QString temperature = "-- °C";
+        QString temperature = "-- " + degreeSymbol;
         QJsonValue smartStatusValue = localObj.value("smart_status");
         bool healthPassed = localObj["smart_status"].toObject()["passed"].toBool();
         bool caution = false;
@@ -243,12 +253,13 @@ void MainWindow::updateUI()
         QJsonObject temperatureObj = localObj["temperature"].toObject();
         int temperatureInt = temperatureObj["current"].toInt();
         if (temperatureInt > 0) {
-            if (ui->actionUse_Fahrenheit->isChecked()) {
+            if (isFahrenheit) {
                 int fahrenheit = static_cast<int>((temperatureInt * 9.0 / 5.0) + 32.0);
-                temperature = QString::number(fahrenheit) + " °F";
+                temperature = QString::number(fahrenheit);
             } else {
-                temperature = QString::number(temperatureInt) + " °C";
+                temperature = QString::number(temperatureInt);
             }
+            temperature = temperature + " " + degreeSymbol;
         }
 
         QVector<QPair<QString, int>> nvmeSmartOrdered;
@@ -324,6 +335,7 @@ void MainWindow::updateUI()
 
         CustomButton *button = new CustomButton(health, temperature, deviceName, healthColor, this);
         button->setToolTip(tr("Disk") + " " + QString::number(i) + " : " +  modelName + " : " + diskCapacityString);
+        button->setProperty("deviceName", deviceName);
 
         buttonGroup->addButton(button);
         horizontalLayout->addWidget(button);
@@ -376,6 +388,19 @@ void MainWindow::updateUI()
             }
         }
 
+        if (!currentDeviceName.isEmpty() && deviceName == currentDeviceName) {
+            deviceToSelect = i;
+            globalObj = localObj;
+            globalHealth = health;
+            globalIsNvme = isNvme;
+            if (isNvme) {
+                globalNvmeSmartOrdered = nvmeSmartOrdered;
+            }
+            button->setChecked(true);
+            diskAction->setChecked(true);
+            firstTime = false;
+        }
+
         connect(gridView, &GridView::diskSelected, this, [=](int selectedIndex) {
             if (selectedIndex >= 0 && selectedIndex < buttonGroup->buttons().size()) {
                 QAbstractButton *gridButton = buttonGroup->buttons().at(selectedIndex);
@@ -395,8 +420,10 @@ void MainWindow::updateUI()
         populateWindow(globalObj, globalHealth);
     }
 
-    updateNavigationButtons(buttonGroup->buttons().indexOf(buttonGroup->checkedButton()));
     gridView->setDisks(diskItems);
+    int activeIndex = deviceToSelect >= 0 ? deviceToSelect : 0;
+    gridView->setActiveIndex(activeIndex);
+    updateNavigationButtons(activeIndex);
 }
 
 void MainWindow::populateWindow(const QJsonObject &localObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered)
@@ -1315,8 +1342,7 @@ void MainWindow::on_actionRescan_Refresh_triggered()
     deviceOutputs = values.first;
     devices = values.second;
     if (!deviceOutputs.isEmpty()) {
-        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-        updateUI();
+        updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
     }
 }
 
@@ -1324,8 +1350,7 @@ void MainWindow::on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enable
 {
     settings.setValue("IgnoreC4", enabled);
     if (!initializing) {
-        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-        updateUI();
+        updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
     }
 }
 
@@ -1333,8 +1358,7 @@ void MainWindow::on_actionHEX_toggled(bool enabled)
 {
     settings.setValue("HEX", enabled);
     if (!initializing) {
-        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-        updateUI();
+        updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
     }
 }
 
@@ -1342,8 +1366,7 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
 {
     settings.setValue("Fahrenheit", enabled);
     if (!initializing) {
-        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-        updateUI();
+        updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
     }
 }
 
@@ -1358,8 +1381,7 @@ void MainWindow::on_actionUse_GB_instead_of_TB_toggled(bool gigabytes)
 {
     settings.setValue("UseGB", gigabytes);
     if (!initializing) {
-        Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-        updateUI();
+        updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
     }
 }
 
@@ -1390,8 +1412,7 @@ void MainWindow::on_actionClear_Settings_triggered()
         ui->actionUse_GB_instead_of_TB->setChecked(false);
 
         if (!initializing) {
-            Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk);
-            updateUI();
+            updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
         }
     }
 }

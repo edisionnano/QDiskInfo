@@ -11,8 +11,10 @@
 #include <QTimer>
 #include <qactiongroup.h>
 
-void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
+QString utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
 {
+    QString currentDeviceName = buttonGroup->checkedButton()->property("deviceName").toString();
+
     QList<QAbstractButton*> buttons = buttonGroup->buttons();
     for (QAbstractButton* button : std::as_const(buttons)) {
         buttonGroup->removeButton(button);
@@ -33,6 +35,8 @@ void utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalL
             foundSeparator = true;
         }
     }
+
+    return currentDeviceName;
 }
 
 QString utils::getSmartctlPath() {

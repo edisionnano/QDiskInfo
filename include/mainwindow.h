@@ -86,7 +86,7 @@ private:
     void onNextButtonClicked();
     void onPrevButtonClicked();
     void updateNavigationButtons(qsizetype currentIndex);
-    void updateUI();
+    void updateUI(const QString &currentDeviceName = QString());
     void populateWindow(const QJsonObject &tempObj, const QString &health, const QVector<QPair<QString, int>>& nvmeLogOrdered = QVector<QPair<QString, int>>());
     void addSCSIErrorCounterLogTable(const QJsonObject &scsiErrorCounterLog);
     void addNvmeLogTable(const QVector<QPair<QString, int>>& nvmeLogOrdered);
