@@ -320,11 +320,11 @@
     </message>
     <message>
       <source>QDiskInfo Error</source>
-      <translation type="unfinished">QDiskInfo Error</translation>
+      <translation>QDiskInfo Fehler</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>QDiskInfo benötigt Rootzugriff um S.M.A.R.T. Daten zu lesen!</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
