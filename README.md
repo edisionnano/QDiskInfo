@@ -67,9 +67,9 @@ You can translate QDiskInfo to your language very easily using [Crowdin](https:/
 LC_ALL=de_DE.UTF-8 ./QDiskInfo
 ```
 to force the app to use the language of your choice.<br>
-<br>If changes were made to the original strings and your Qt version is <6.7 you can use the `lupdate` command to update the .ts files, for example to update the German translation file you would run
+<br>If changes were made to the original strings and your Qt version is <6.7 you can use the `lupdate` command to update the .ts files, for example to update the German translation file from the project's root you would run
 ```sh
-lupdate src/ -ts translations/qdiskinfo_de_DE.ts -noobsolete
+lupdate . -ts translations/qdiskinfo_de_DE.ts -noobsolete
 ```
 For Qt >=6.7 this is done automatically when running `make`.
 
