@@ -704,7 +704,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         if (totalReadsInt < 1000 || useGB) {
             totalReads = QString::number(totalReadsInt) + " " + gbSymbol;
         } else {
-            totalReads = QString::number(totalReadsInt/1000) + " " + tbSymbol;
+            totalReads = QString::number(totalReadsInt/1000.0, 'f', 1) + " " + tbSymbol;
         }
     } else {
         totalReads = "----";
@@ -714,7 +714,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         if (totalWritesInt < 1000 || useGB) {
             totalWrites = QString::number(totalWritesInt) + " " + gbSymbol;
         } else {
-            totalWrites = QString::number(totalWritesInt/1000) + " " + tbSymbol;
+            totalWrites = QString::number(totalWritesInt/1000.0, 'f', 1) + " " + tbSymbol;
         }
     } else {
         totalWrites = "----";
