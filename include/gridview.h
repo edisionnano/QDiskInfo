@@ -32,8 +32,8 @@ private:
 
     QList<DiskItem> disks;
 
-    void extracted(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col);
     void populateGrid();
+    void extractDisksFromVector(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col);
 
     qsizetype activeIndex = -1;
 };

@@ -117,14 +117,14 @@ void GridView::populateGrid() {
         }
     }
 
-    extracted(filteredDisks, cols, row, col);
+    extractDisksFromVector(filteredDisks, cols, row, col);
 
     if (activeIndex >= 0 && activeIndex < filteredDisks.size()) {
         highlightDisk(activeIndex);
     }
 }
 
-void GridView::extracted(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col) {
+void GridView::extractDisksFromVector(const QVector<DiskItem> &filteredDisks, int &cols, int &row, int &col) {
     for (int i = 0; i < filteredDisks.size(); ++i) {
         const auto &disk = filteredDisks[i];
         QWidget *diskWidget = new QWidget();
