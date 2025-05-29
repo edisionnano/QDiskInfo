@@ -16,7 +16,7 @@
     <name>MainWindow</name>
     <message>
       <source>QDiskInfo</source>
-      <translation type="unfinished">QDiskInfo</translation>
+      <translation>QDiskInfo</translation>
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Health Status&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -32,11 +32,11 @@
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;23° C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>Firmware</source>
-      <translation type="unfinished">Firmware</translation>
+      <translation>Firmware</translation>
     </message>
     <message>
       <source>Serial Number</source>
@@ -52,7 +52,7 @@
     </message>
     <message>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <source>Type</source>
@@ -112,7 +112,7 @@
     </message>
     <message>
       <source>&amp;GitHub</source>
-      <translation type="unfinished">&amp;GitHub</translation>
+      <translation>&amp;GitHub</translation>
     </message>
     <message>
       <source>&amp;About QDiskInfo</source>
@@ -160,7 +160,7 @@
     </message>
     <message>
       <source>Grown Defect List</source>
-      <translation type="unfinished">Grown Defect List</translation>
+      <translation>Grown Defect List</translation>
     </message>
     <message>
       <source>Good</source>
@@ -204,23 +204,23 @@
     </message>
     <message>
       <source>Min.)</source>
-      <translation type="unfinished">Min.)</translation>
+      <translation>Min.)</translation>
     </message>
     <message>
       <source>Read</source>
-      <translation type="unfinished">Read</translation>
+      <translation>Read</translation>
     </message>
     <message>
       <source>Write</source>
-      <translation type="unfinished">Write</translation>
+      <translation>Write</translation>
     </message>
     <message>
       <source>Verify</source>
-      <translation type="unfinished">Verify</translation>
+      <translation>Verify</translation>
     </message>
     <message>
       <source>ID</source>
-      <translation type="unfinished">ID</translation>
+      <translation>ID</translation>
     </message>
     <message>
       <source>Attribute Name</source>
@@ -320,11 +320,11 @@
     </message>
     <message>
       <source>QDiskInfo Error</source>
-      <translation type="unfinished">QDiskInfo Error</translation>
+      <translation>Error de QDiskInfo</translation>
     </message>
     <message>
       <source>QDiskInfo needs root access in order to read S.M.A.R.T. data!</source>
-      <translation type="unfinished">QDiskInfo needs root access in order to read S.M.A.R.T. data!</translation>
+      <translation>¡QDiskInfo necesita acceso root para poder leer información S.M.A.R.T!</translation>
     </message>
     <message>
       <source>Save Binary Data</source>
