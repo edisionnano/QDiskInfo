@@ -156,7 +156,7 @@ void MainWindow::onNextButtonClicked()
 {
     qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
     qsizetype nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
-    buttonGroup->buttons().at(nextIndex)->click();
+    buttonGroup->buttons().at(static_cast<int>(nextIndex))->click();
     updateNavigationButtons(nextIndex);
 }
 
@@ -164,7 +164,7 @@ void MainWindow::onPrevButtonClicked()
 {
     qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
     qsizetype prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
-    buttonGroup->buttons().at(prevIndex)->click();
+    buttonGroup->buttons().at(static_cast<int>(prevIndex))->click();
     updateNavigationButtons(prevIndex);
 }
 
@@ -363,7 +363,7 @@ void MainWindow::updateUI(const QString &currentDeviceName)
 
         connect(button, &QPushButton::clicked, this, [=]() {
             updateWindow();
-            disksGroup->actions().at(buttonIndex)->setChecked(true);
+            disksGroup->actions().at(static_cast<int>(buttonIndex))->setChecked(true);
             gridView->highlightDisk(buttonIndex);
             gridView->setActiveIndex(buttonIndex);
         });
@@ -742,7 +742,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (stringValue.startsWith("Warning  Comp. Temp. Threshold")) {
                 qsizetype pos = stringValue.indexOf(':');
                 if (pos != -1) {
-                    QString thresholdStr = stringValue.mid(pos + 1).trimmed();
+                    QString thresholdStr = stringValue.mid(static_cast<int>(pos + 1)).trimmed();
                     int temperature = thresholdStr.section(' ', 0, 0).toInt();
                     if (temperature > 0) {
                         warningTemperature = temperature;
@@ -751,7 +751,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
             } else if (stringValue.startsWith("Critical Comp. Temp. Threshold")) {
                 qsizetype pos = stringValue.indexOf(':');
                 if (pos != -1) {
-                    QString thresholdStr = stringValue.mid(pos + 1).trimmed();
+                    QString thresholdStr = stringValue.mid(static_cast<int>(pos + 1)).trimmed();
                     int temperature = thresholdStr.section(' ', 0, 0).toInt();
                     if (temperature > 0) {
                         criticalTemperature = temperature;
@@ -1157,7 +1157,7 @@ void MainWindow::addSmartAttributesTable(const QJsonArray &attributes)
 
         qsizetype spaceIndex = rawHEX.indexOf(' ');
         if (spaceIndex != -1) {
-            rawHEX = rawHEX.left(spaceIndex);
+            rawHEX = rawHEX.left(static_cast<int>(spaceIndex));
         }
 
         if (rawHEX.startsWith("0x") && rawHEX.length() == 14) {

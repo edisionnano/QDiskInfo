@@ -43,6 +43,7 @@ if(ENABLE_TRANSLATIONS)
                 TS_FILES ${TS_FILES}
                 SOURCES ${PROJECT_SOURCES}
                 QM_FILES_OUTPUT_VARIABLE QM_FILES
+                INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/include
                 LUPDATE_OPTIONS -no-obsolete -locations none
         )
         set(CALL_LUPDATE TRUE)
