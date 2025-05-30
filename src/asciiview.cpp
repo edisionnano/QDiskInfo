@@ -56,8 +56,8 @@ QVector<unsigned char> AsciiView::readSMARTData(const QString& device_path) {
         return result;
     }
 
-    int currentSize = result.size();
-    result.resize(currentSize + INQUIRY_RESP_LEN);
+    qsizetype currentSize = result.size();
+    result.resize(static_cast<int>(currentSize + INQUIRY_RESP_LEN));
     memcpy(result.data() + currentSize, inquiry_resp, INQUIRY_RESP_LEN);
 
     close(fd);
