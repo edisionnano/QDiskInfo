@@ -366,10 +366,6 @@
         <source>PNG Files (*.png)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>&amp;Save JSON</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>QObject</name>

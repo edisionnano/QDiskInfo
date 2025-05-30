@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <QArrayDataPointer>
 
 QVector<unsigned char> AsciiView::readSMARTData(const QString& device_path) {
     int fd;
@@ -14,7 +15,12 @@ QVector<unsigned char> AsciiView::readSMARTData(const QString& device_path) {
     unsigned char sense_buffer[SENSE_BUFFER_LEN];
     sg_io_hdr_t io_hdr;
     QVector<unsigned char> result;
+
     fd = open(device_path.toStdString().c_str(), O_RDONLY);
+    if (fd < 0) {
+        return result;
+    }
+
     memset(&io_hdr, 0, sizeof(sg_io_hdr_t));
     io_hdr.interface_id = 'S';
     io_hdr.cmd_len = SMART_READ_CMD_LEN;
@@ -28,9 +34,11 @@ QVector<unsigned char> AsciiView::readSMARTData(const QString& device_path) {
 
     if (ioctl(fd, SG_IO, &io_hdr) < 0) {
         close(fd);
+        return result;
     }
 
-    result.append(QArrayDataPointer<unsigned char>::fromRawData(smart_read_resp, SMART_READ_RESP_LEN));
+    result.resize(SMART_READ_RESP_LEN);
+    memcpy(result.data(), smart_read_resp, SMART_READ_RESP_LEN);
 
     memset(&io_hdr, 0, sizeof(sg_io_hdr_t));
     io_hdr.interface_id = 'S';
@@ -45,9 +53,13 @@ QVector<unsigned char> AsciiView::readSMARTData(const QString& device_path) {
 
     if (ioctl(fd, SG_IO, &io_hdr) < 0) {
         close(fd);
+        return result;
     }
 
-    result.append(QArrayDataPointer<unsigned char>::fromRawData(inquiry_resp, INQUIRY_RESP_LEN));
+    int currentSize = result.size();
+    result.resize(currentSize + INQUIRY_RESP_LEN);
+    memcpy(result.data() + currentSize, inquiry_resp, INQUIRY_RESP_LEN);
+
     close(fd);
     return result;
 }

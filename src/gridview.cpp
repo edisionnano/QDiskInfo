@@ -58,7 +58,7 @@ void GridView::resizeEvent(QResizeEvent *) {
 }
 
 void GridView::setDisks(const QVector<DiskItem> &newDisks) {
-    disks = newDisks;
+    disks = newDisks.toList();
     populateGrid();
 }
 
