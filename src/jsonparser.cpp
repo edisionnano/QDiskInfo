@@ -34,8 +34,9 @@ QVector<QPair<QString, int>> JsonParser::parse(const QString &json)
             }
             qsizetype colonPos = trimmedLine.indexOf(":");
             if (colonPos != -1) {
-                QString key = removeQuotes(trimmedLine.left(colonPos));
-                QString valueString = trimmedLine.mid(colonPos + 1).trimmed();
+                int pos = static_cast<int>(colonPos);
+                QString key = removeQuotes(trimmedLine.left(pos));
+                QString valueString = trimmedLine.mid(pos + 1).trimmed();
                 valueString.chop(1);
                 int value = valueString.toInt();
                 data.append(qMakePair(key, value));

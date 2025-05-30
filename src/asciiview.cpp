@@ -73,9 +73,11 @@ QString AsciiView::hexDump(const QVector<unsigned char> &data) {
         QString line;
         line += QString("%1  ").arg(offset, 8, 16, QChar('0')).toUpper();
         offset += 16;
-        for (int j = 0; j < 16; ++j) {
+        for (qsizetype j = 0; j < 16; ++j) {
             if (i + j < dataSize) {
-                line += QString("%1 ").arg(static_cast<unsigned char>(data[i + j]), 2, 16, QChar('0')).toUpper();
+                line += QString("%1 ")
+                .arg(static_cast<unsigned char>(data[static_cast<int>(i + j)]), 2, 16, QChar('0'))
+                    .toUpper();
             } else {
                 line += "   ";
             }
@@ -83,8 +85,8 @@ QString AsciiView::hexDump(const QVector<unsigned char> &data) {
         }
 
         line += " ";
-        for (int j = 0; j < 16 && i + j < dataSize; ++j) {
-            unsigned char c = data[i + j];
+        for (qsizetype j = 0; j < 16 && i + j < dataSize; ++j) {
+            unsigned char c = data[static_cast<int>(i + j)];
             line += (c >= 32 && c <= 126) ? QChar::fromLatin1(static_cast<char>(c)) : QChar('.');
         }
         result += line + "\n";

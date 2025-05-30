@@ -115,15 +115,15 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 
     static const QRegularExpression regex("\\}\\n\\{");
 
-    while ((endIndex = allDevicesOutput.indexOf(regex, startIndex)) != -1) {
+    while ((endIndex = allDevicesOutput.indexOf(regex, static_cast<int>(startIndex))) != -1) {
         ++endIndex;
-        QString jsonFragment = allDevicesOutput.mid(startIndex, endIndex - startIndex);
+        QString jsonFragment = allDevicesOutput.mid(static_cast<int>(startIndex), static_cast<int>(endIndex - startIndex));
         deviceOutputs.append(jsonFragment);
         startIndex = endIndex;
     }
 
     if (startIndex < allDevicesOutput.size()) {
-        QString jsonFragment = allDevicesOutput.mid(startIndex);
+        QString jsonFragment = allDevicesOutput.mid(static_cast<int>(startIndex));
         deviceOutputs.append(jsonFragment);
     }
 
