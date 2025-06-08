@@ -609,8 +609,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 } else if (attrObj["name"] == "Total_LBAs_Written") {
                     int logicalBlockSize = localObj["logical_block_size"].toInt();
                     qlonglong lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                    qlonglong oneGB = static_cast<qlonglong>(std::pow(2, 30));
-                    qlonglong gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
+                    qlonglong gigabytes = (lbaWritten * logicalBlockSize) / 1e9;
                     int gigabytesInt = static_cast<int>(gigabytes);
                     if (!gigabytesInt) {
                         gigabytesInt = static_cast<int>(lbaWritten);
@@ -634,8 +633,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 } else if (attrObj["name"] == "Total_LBAs_Read") {
                     int logicalBlockSize = localObj["logical_block_size"].toInt();
                     qlonglong lbaRead = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                    qlonglong oneGB = static_cast<qlonglong>(std::pow(2, 30));
-                    qlonglong gigabytes = (lbaRead * logicalBlockSize) / oneGB;
+                    qlonglong gigabytes = (lbaRead * logicalBlockSize) / 1e9;
                     int gigabytesInt = static_cast<int>(gigabytes);
                     if (!gigabytesInt) {
                         gigabytesInt = static_cast<int>(lbaRead);
@@ -653,8 +651,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
                 if (attrObj["name"] == "Total_LBAs_Written") {
                     int logicalBlockSize = localObj["logical_block_size"].toInt();
                     qlonglong lbaWritten = attrObj["raw"].toObject()["value"].toVariant().toLongLong();
-                    qlonglong oneGB = static_cast<qlonglong>(std::pow(2, 30));
-                    qlonglong gigabytes = (lbaWritten * logicalBlockSize) / oneGB;
+                    qlonglong gigabytes = (lbaWritten * logicalBlockSize) / 1e9;
                     totalWritesInt = static_cast<int>(gigabytes);
                 }
             } else if (attrObj["name"] == "Remaining_Lifetime_Perc") {
