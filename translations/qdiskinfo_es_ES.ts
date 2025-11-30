@@ -5,11 +5,11 @@
     <name>GridView</name>
     <message>
         <source>Grid View</source>
-        <translation type="unfinished">Grid View</translation>
+        <translation type="unfinished">Vista cuadrícula</translation>
     </message>
     <message>
         <source>Search for a disk...</source>
-        <translation type="unfinished">Search for a disk...</translation>
+        <translation type="unfinished">Busca un disco...</translation>
     </message>
 </context>
 <context>
@@ -40,7 +40,7 @@
     </message>
     <message>
         <source>Serial Number</source>
-        <translation>Número de Serie</translation>
+        <translation>Número de serie</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -48,7 +48,7 @@
     </message>
     <message>
         <source>Device Node</source>
-        <translation>Archivo de Dispositivo</translation>
+        <translation>Archivo de dispositivo</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#000000;&quot;&gt;Good 100 %&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -60,23 +60,23 @@
     </message>
     <message>
         <source>Total Host Reads</source>
-        <translation>Lecturas Totales</translation>
+        <translation>Lecturas totales</translation>
     </message>
     <message>
         <source>Total Host Writes</source>
-        <translation>Escrituras Totales</translation>
+        <translation>Escrituras totales</translation>
     </message>
     <message>
         <source>Rotation Rate</source>
-        <translation>Velocidad Rotacional</translation>
+        <translation>Velocidad rotacional</translation>
     </message>
     <message>
         <source>Power On Count</source>
-        <translation>Veces Encendido</translation>
+        <translation>Veces encendido</translation>
     </message>
     <message>
         <source>Power On Hours</source>
-        <translation>Horas Encendido</translation>
+        <translation>Horas encendido</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -108,7 +108,7 @@
     </message>
     <message>
         <source>&amp;Refresh Devices</source>
-        <translation>Actualizar Dispositivos</translation>
+        <translation>Refrescar lista de dispositivos</translation>
     </message>
     <message>
         <source>&amp;GitHub</source>
@@ -124,7 +124,7 @@
     </message>
     <message>
         <source>&amp;Convert Raw values to HEX</source>
-        <translation>&amp;Convertir valores en Bruto a HEX</translation>
+        <translation>&amp;Convertir valores en bruto a HEX</translation>
     </message>
     <message>
         <source>&amp;Use Fahrenheit</source>
@@ -132,11 +132,11 @@
     </message>
     <message>
         <source>Self Test</source>
-        <translation>Ejecutar Autotest</translation>
+        <translation>Ejecutar autotest</translation>
     </message>
     <message>
         <source>Cyclic &amp;Navigation</source>
-        <translation>&amp;Navegación Cíclica</translation>
+        <translation>&amp;Navegación cíclica</translation>
     </message>
     <message>
         <source>Use &amp;GB instead of TB</source>
@@ -148,19 +148,19 @@
     </message>
     <message>
         <source>Start Self Test</source>
-        <translation>Iniciar Autotest</translation>
+        <translation>Iniciar autotest</translation>
     </message>
     <message>
         <source>Self Test Log</source>
-        <translation>Registro del Autotest</translation>
+        <translation>Registro del autotest</translation>
     </message>
     <message>
         <source>Critical Warning</source>
-        <translation>Aviso Importante</translation>
+        <translation>Aviso importante</translation>
     </message>
     <message>
         <source>Grown Defect List</source>
-        <translation>Grown Defect List</translation>
+        <translation>Lista de defectos acumulados</translation>
     </message>
     <message>
         <source>Good</source>
@@ -208,15 +208,15 @@
     </message>
     <message>
         <source>Read</source>
-        <translation>Read</translation>
+        <translation>Lectura</translation>
     </message>
     <message>
         <source>Write</source>
-        <translation>Write</translation>
+        <translation>Escritura</translation>
     </message>
     <message>
         <source>Verify</source>
-        <translation>Verify</translation>
+        <translation>Verificar</translation>
     </message>
     <message>
         <source>ID</source>
@@ -224,11 +224,11 @@
     </message>
     <message>
         <source>Attribute Name</source>
-        <translation>Nombre del Atributo</translation>
+        <translation>Nombre del atributo</translation>
     </message>
     <message>
         <source>Raw Values</source>
-        <translation>Valores en Bruto</translation>
+        <translation>Valores en bruto</translation>
     </message>
     <message>
         <source>Available spare capacity has fallen below the threshold</source>
@@ -236,7 +236,7 @@
     </message>
     <message>
         <source>Temperature error (Overheat or Overcool)</source>
-        <translation>Error de temperatura (Sobrecalentado o Sobre-enfriado)</translation>
+        <translation>Error de temperatura (sobrecalentado o sobreenfriado)</translation>
     </message>
     <message>
         <source>NVM subsystem reliability has been degraded</source>
@@ -244,15 +244,15 @@
     </message>
     <message>
         <source>Media has been placed in Read Only Mode</source>
-        <translation>El medio se ha configurado en Modo de Solo Lectura</translation>
+        <translation>El medio ha sido puesto en Modo Solo Lectura</translation>
     </message>
     <message>
         <source>Volatile memory backup device has Failed</source>
-        <translation>No se pudo crear el archivo de reversión de memoria no volátil</translation>
+        <translation>El dispositivo de respaldo de memoria volátil ha fallado</translation>
     </message>
     <message>
         <source>Persistent memory region has become Read-Only</source>
-        <translation>Una región de memoria no volátil se ha vuelto de Solo Lectura</translation>
+        <translation>Una región de memoria no volátil se encuentra en Modo Solo Lectura</translation>
     </message>
     <message>
         <source>Current</source>
@@ -312,11 +312,11 @@
     </message>
     <message>
         <source>Clear &amp;Settings</source>
-        <translation type="unfinished">Clear &amp;Settings</translation>
+        <translation type="unfinished">Restablecer &amp;ajustes</translation>
     </message>
     <message>
         <source>ASCII View</source>
-        <translation type="unfinished">ASCII View</translation>
+        <translation type="unfinished">Vista ASCII</translation>
     </message>
     <message>
         <source>QDiskInfo Error</source>
@@ -328,23 +328,23 @@
     </message>
     <message>
         <source>Save Binary Data</source>
-        <translation type="unfinished">Save Binary Data</translation>
+        <translation type="unfinished">Guardar datos binarios</translation>
     </message>
     <message>
         <source>Binary Files (*.bin);;All Files (*)</source>
-        <translation type="unfinished">Binary Files (*.bin);;All Files (*)</translation>
+        <translation type="unfinished">Archivos binarios (*.bin);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Success</source>
-        <translation type="unfinished">Success</translation>
+        <translation type="unfinished">Éxito</translation>
     </message>
     <message>
         <source>Binary data saved successfully.</source>
-        <translation type="unfinished">Binary data saved successfully.</translation>
+        <translation type="unfinished">Los datos binarios han sido guardados exitosamente.</translation>
     </message>
     <message>
         <source>&amp;Save (JSON)</source>
-        <translation type="unfinished">&amp;Save (JSON)</translation>
+        <translation type="unfinished">&amp;Guardar (JSON)</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -352,19 +352,19 @@
     </message>
     <message>
         <source>Grid View</source>
-        <translation type="unfinished">Grid View</translation>
+        <translation type="unfinished">Vista cuadrícula</translation>
     </message>
     <message>
         <source>Save (Image)</source>
-        <translation type="unfinished">Save (Image)</translation>
+        <translation type="unfinished">Guardar (Imágen)</translation>
     </message>
     <message>
         <source>Save Image</source>
-        <translation type="unfinished">Save Image</translation>
+        <translation type="unfinished">Guardar imágen</translation>
     </message>
     <message>
         <source>PNG Files (*.png)</source>
-        <translation type="unfinished">PNG Files (*.png)</translation>
+        <translation type="unfinished">Archivos PNG (*.png)</translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     </message>
     <message>
         <source>Test Requested</source>
-        <translation>Autotest Solicitado</translation>
+        <translation>Autotest solicitado</translation>
     </message>
     <message>
         <source>The self-test has been aborted</source>
@@ -395,7 +395,7 @@
     </message>
     <message>
         <source>Error: Something went wrong</source>
-        <translation>Error: Algo ha salido mal</translation>
+        <translation>Error: Algo salió mal</translation>
     </message>
     <message>
         <source>QDiskInfo needs root access in order to request a self-test!</source>
@@ -411,7 +411,7 @@
     </message>
     <message>
         <source>Test Already Running</source>
-        <translation>Autotest ya ejecutándose</translation>
+        <translation>Autotest en progreso</translation>
     </message>
     <message>
         <source>A self-test is already being performed</source>
@@ -435,11 +435,11 @@
     </message>
     <message>
         <source>Clear Settings</source>
-        <translation type="unfinished">Clear Settings</translation>
+        <translation type="unfinished">Restablecer ajustes</translation>
     </message>
     <message>
         <source>Are you sure you want to clear the settings saved on disk?</source>
-        <translation type="unfinished">Are you sure you want to clear the settings saved on disk?</translation>
+        <translation type="unfinished">¿Estás seguro que quieres restablecer los ajustes guardados?</translation>
     </message>
 </context>
 </TS>
