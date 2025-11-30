@@ -5,11 +5,11 @@
     <name>GridView</name>
     <message>
         <source>Grid View</source>
-        <translation type="unfinished">Vista cuadrícula</translation>
+        <translation>Vista cuadrícula</translation>
     </message>
     <message>
         <source>Search for a disk...</source>
-        <translation type="unfinished">Busca un disco...</translation>
+        <translation>Busca un disco...</translation>
     </message>
 </context>
 <context>
@@ -312,11 +312,11 @@
     </message>
     <message>
         <source>Clear &amp;Settings</source>
-        <translation type="unfinished">Restablecer &amp;ajustes</translation>
+        <translation>Restablecer &amp;ajustes</translation>
     </message>
     <message>
         <source>ASCII View</source>
-        <translation type="unfinished">Vista ASCII</translation>
+        <translation>Vista ASCII</translation>
     </message>
     <message>
         <source>QDiskInfo Error</source>
@@ -328,43 +328,43 @@
     </message>
     <message>
         <source>Save Binary Data</source>
-        <translation type="unfinished">Guardar datos binarios</translation>
+        <translation>Guardar datos binarios</translation>
     </message>
     <message>
         <source>Binary Files (*.bin);;All Files (*)</source>
-        <translation type="unfinished">Archivos binarios (*.bin);;Todos los archivos (*)</translation>
+        <translation>Archivos binarios (*.bin);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Success</source>
-        <translation type="unfinished">Éxito</translation>
+        <translation>Éxito</translation>
     </message>
     <message>
         <source>Binary data saved successfully.</source>
-        <translation type="unfinished">Los datos binarios han sido guardados exitosamente.</translation>
+        <translation>Los datos binarios han sido guardados exitosamente.</translation>
     </message>
     <message>
         <source>&amp;Save (JSON)</source>
-        <translation type="unfinished">&amp;Guardar (JSON)</translation>
+        <translation>&amp;Guardar (JSON)</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation type="unfinished">Ctrl+T</translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <source>Grid View</source>
-        <translation type="unfinished">Vista cuadrícula</translation>
+        <translation>Vista cuadrícula</translation>
     </message>
     <message>
         <source>Save (Image)</source>
-        <translation type="unfinished">Guardar (Imágen)</translation>
+        <translation>Guardar (Imágen)</translation>
     </message>
     <message>
         <source>Save Image</source>
-        <translation type="unfinished">Guardar imágen</translation>
+        <translation>Guardar imágen</translation>
     </message>
     <message>
         <source>PNG Files (*.png)</source>
-        <translation type="unfinished">Archivos PNG (*.png)</translation>
+        <translation>Archivos PNG (*.png)</translation>
     </message>
 </context>
 <context>
@@ -435,11 +435,11 @@
     </message>
     <message>
         <source>Clear Settings</source>
-        <translation type="unfinished">Restablecer ajustes</translation>
+        <translation>Restablecer ajustes</translation>
     </message>
     <message>
         <source>Are you sure you want to clear the settings saved on disk?</source>
-        <translation type="unfinished">¿Estás seguro que quieres restablecer los ajustes guardados?</translation>
+        <translation>¿Estás seguro que quieres restablecer los ajustes guardados?</translation>
     </message>
 </context>
 </TS>
