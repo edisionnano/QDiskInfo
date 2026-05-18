@@ -40,6 +40,7 @@ private slots:
     void on_actionIgnore_C4_Reallocation_Event_Count_toggled(bool enabled);
     void on_actionHEX_toggled(bool enabled);
     void on_actionUse_Fahrenheit_toggled(bool enabled);
+    void on_actionUse_Human_Readable_Time_toggled(bool enabled);
     void on_actionCyclic_Navigation_toggled(bool arg1);
     void on_actionUse_GB_instead_of_TB_toggled(bool arg1);
 

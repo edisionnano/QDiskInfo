@@ -75,7 +75,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Power On Hours</source>
+        <source>Power On Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -128,6 +128,10 @@
     </message>
     <message>
         <source>&amp;Use Fahrenheit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Human Readable Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -188,6 +192,14 @@
     </message>
     <message>
         <source>hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>years</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
