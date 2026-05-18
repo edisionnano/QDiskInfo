@@ -75,8 +75,8 @@
         <translation>Ieslēgšanu skaits</translation>
     </message>
     <message>
-        <source>Power On Hours</source>
-        <translation>Darbojies</translation>
+        <source>Power On Time</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Hard Drive Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -129,6 +129,10 @@
     <message>
         <source>&amp;Use Fahrenheit</source>
         <translation>&amp;Temperatūra Fārenheita grādos</translation>
+    </message>
+    <message>
+        <source>&amp;Use Human Readable Time</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Self Test</source>
@@ -189,6 +193,14 @@
     <message>
         <source>hours</source>
         <translation>stundas</translation>
+    </message>
+    <message>
+        <source>years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>days</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Short</source>

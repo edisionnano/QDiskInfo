@@ -103,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(settings.value("IgnoreC4", true).toBool());
     ui->actionHEX->setChecked(settings.value("HEX", true).toBool());
     ui->actionUse_Fahrenheit->setChecked(settings.value("Fahrenheit", false).toBool());
+    ui->actionUse_Fahrenheit->setChecked(settings.value("HumanReadableTime", false).toBool());
     ui->actionCyclic_Navigation->setChecked(settings.value("CyclicNavigation", false).toBool());
     ui->actionUse_GB_instead_of_TB->setChecked(settings.value("UseGB", false).toBool());
 
@@ -448,6 +449,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     int64_t totalMbWritesI64 = 0;
     int64_t totalMbReadsI64 = 0;
     bool useGB = ui->actionUse_GB_instead_of_TB->isChecked();
+    bool useHumanReadableTime = ui->actionUse_Human_Readable_Time->isChecked();
 
     QString diskCapacityString = getMbToPrettyString(diskCapacityMbI64, PRECISION_CAPACITY_TO_STR, useGB);
 
@@ -493,7 +495,7 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
         selfTestsTableWidget->setRowCount(static_cast<int>(rowCount));
         selfTestsTableWidget->setColumnCount(3);
         selfTestsTableWidget->verticalHeader()->setVisible(false);
-        selfTestsTableWidget->setHorizontalHeaderLabels({tr("Type"), tr("Status"), tr("Power On Hours")});
+        selfTestsTableWidget->setHorizontalHeaderLabels({tr("Type"), tr("Status"), tr("Power On Time")});
 
         for (int i = 0; i < rowCount; ++i) {
             QJsonObject entry = selfTestsTable[i].toObject();
@@ -583,7 +585,11 @@ void MainWindow::populateWindow(const QJsonObject &localObj, const QString &heal
     int powerOnTimeInt = localObj["power_on_time"].toObject().value("hours").toInt(-1);
     QString powerOnTime;
     if (powerOnTimeInt >= 0) {
-        powerOnTime = QString::number(powerOnTimeInt) + " " + tr("hours");
+        if (useHumanReadableTime) {
+            powerOnTime = QString::number(powerOnTimeInt / 24 / 365) + " " + tr("years") + " " + QString::number(powerOnTimeInt / 24 % 365) + " " + tr("days") + " " + QString::number(powerOnTimeInt % 24) + " " + tr("hours");
+        } else {
+            powerOnTime = QString::number(powerOnTimeInt) + " " + tr("hours");
+        }
     } else {
         powerOnTime = "Unknown";
     }
@@ -1391,6 +1397,14 @@ void MainWindow::on_actionUse_Fahrenheit_toggled(bool enabled)
     }
 }
 
+void MainWindow::on_actionUse_Human_Readable_Time_toggled(bool enabled)
+{
+    settings.setValue("HumanReadableTime", enabled);
+    if (!initializing) {
+        updateUI(Utils.clearButtonGroup(buttonGroup, horizontalLayout, buttonStretch, menuDisk));
+    }
+}
+
 void MainWindow::on_actionCyclic_Navigation_toggled(bool cyclicNavigation)
 {
     settings.setValue("CyclicNavigation", cyclicNavigation);
@@ -1423,12 +1437,14 @@ void MainWindow::on_actionClear_Settings_triggered()
         settings.setValue("IgnoreC4", true);
         settings.setValue("HEX", true);
         settings.setValue("Fahrenheit", false);
+        settings.setValue("HumanReadableTime", false);
         settings.setValue("CyclicNavigation", false);
         settings.setValue("UseGB", false);
 
         ui->actionIgnore_C4_Reallocation_Event_Count->setChecked(true);
         ui->actionHEX->setChecked(true);
         ui->actionUse_Fahrenheit->setChecked(false);
+        ui->actionUse_Human_Readable_Time->setChecked(false);
         ui->actionCyclic_Navigation->setChecked(false);
         ui->actionUse_GB_instead_of_TB->setChecked(false);
 
