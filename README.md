@@ -12,6 +12,9 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 
 ## Compiling and Installing
 ### Compilation and Runtime Dependencies
+QDiskInfo uses `pkexec` for privileged disk access. If `pkexec` is not installed,
+it uses systemd's `run0`.
+
 Debian and Debian-based distros (Ubuntu, Mint, Pop!_OS, etc.)
 ```sh
 sudo apt install build-essential cmake git libgl1-mesa-dev libxkbcommon-dev qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-wayland smartmontools

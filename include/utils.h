@@ -6,10 +6,14 @@
 #include <QMenu>
 #include <QSpacerItem>
 
+class QProcess;
+
 class utils
 {
 public:
     utils() = default;
+
+    static void startPrivilegedProcess(QProcess &process, const QStringList &arguments);
 
     QString clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk);
     QString getSmartctlPath();
