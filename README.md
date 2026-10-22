@@ -13,7 +13,7 @@ The icon is a modified version of the KDE Partition Manager logo which is availa
 ## Compiling and Installing
 ### Compilation and Runtime Dependencies
 QDiskInfo uses `pkexec` for privileged disk access. If `pkexec` is not installed,
-it uses systemd's `run0`, which supports systems such as secureblue.
+it uses systemd's `run0`.
 
 Debian and Debian-based distros (Ubuntu, Mint, Pop!_OS, etc.)
 ```sh
