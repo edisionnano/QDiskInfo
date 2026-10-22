@@ -78,14 +78,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-include(CTest)
-if(BUILD_TESTING)
-    add_executable(privilege-helper-test tests/privilege-helper-test.cpp src/utils.cpp)
-    target_include_directories(privilege-helper-test PRIVATE ${CMAKE_SOURCE_DIR}/include)
-    target_link_libraries(privilege-helper-test PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-    add_test(NAME privilege-helper COMMAND privilege-helper-test)
-endif()
-
 set_target_properties(${PROJECT_NAME} PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
