@@ -70,7 +70,7 @@ private:
     QColor goodColor, cautionColor, badColor, naColor;
     QLabel *statusLabel;
     QJsonObject deviceJson;
-    QSpacerItem *buttonStretch;
+    QSpacerItem *buttonStretch = nullptr;
     QAction *actionCyclic_Navigation;
     QMenu *menuDevice;
     QMenu *menuDisk;

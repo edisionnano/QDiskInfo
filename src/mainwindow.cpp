@@ -69,6 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(nextButton, &QPushButton::clicked, this, &MainWindow::onNextButtonClicked);
     connect(prevButton, &QPushButton::clicked, this, &MainWindow::onPrevButtonClicked);
+    updateNavigationButtons(-1);
 
     nextButton->setFocusPolicy(Qt::NoFocus);
     prevButton->setFocusPolicy(Qt::NoFocus);
@@ -163,17 +164,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::onNextButtonClicked()
 {
-    qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
-    qsizetype nextIndex = (currentIndex + 1) % buttonGroup->buttons().size();
-    buttonGroup->buttons().at(static_cast<int>(nextIndex))->click();
+    const auto buttons = buttonGroup->buttons();
+    if (buttons.isEmpty()) {
+        return;
+    }
+    qsizetype currentIndex = buttons.indexOf(buttonGroup->checkedButton());
+    qsizetype nextIndex = (currentIndex + 1) % buttons.size();
+    buttons.at(static_cast<int>(nextIndex))->click();
     updateNavigationButtons(nextIndex);
 }
 
 void MainWindow::onPrevButtonClicked()
 {
-    qsizetype currentIndex = buttonGroup->buttons().indexOf(buttonGroup->checkedButton());
-    qsizetype prevIndex = (currentIndex - 1 + buttonGroup->buttons().size()) % buttonGroup->buttons().size();
-    buttonGroup->buttons().at(static_cast<int>(prevIndex))->click();
+    const auto buttons = buttonGroup->buttons();
+    if (buttons.isEmpty()) {
+        return;
+    }
+    qsizetype currentIndex = buttons.indexOf(buttonGroup->checkedButton());
+    qsizetype prevIndex = (currentIndex - 1 + buttons.size()) % buttons.size();
+    buttons.at(static_cast<int>(prevIndex))->click();
     updateNavigationButtons(prevIndex);
 }
 
@@ -1443,7 +1452,7 @@ void MainWindow::on_actionASCII_View_triggered()
     QString deviceNodePath = deviceNodeLineEdit->text();
 
     QProcess *process = new QProcess(this);
-    process->start("pkexec", {QCoreApplication::applicationFilePath(), "--ascii-view", deviceNodePath});
+    Utils.startPrivilegedProcess(*process, {QCoreApplication::applicationFilePath(), "--ascii-view", deviceNodePath});
 
     if (!process->waitForFinished()) {
         return;

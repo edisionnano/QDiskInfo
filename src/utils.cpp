@@ -8,20 +8,24 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QPushButton>
+#include <QStandardPaths>
 #include <QTimer>
 #include <qactiongroup.h>
 
 QString utils::clearButtonGroup(QButtonGroup* buttonGroup, QHBoxLayout* horizontalLayout, QSpacerItem* buttonStretch, QMenu* menuDisk)
 {
-    QString currentDeviceName = buttonGroup->checkedButton()->property("deviceName").toString();
+    const auto currentButton = buttonGroup->checkedButton();
+    QString currentDeviceName = currentButton ? currentButton->property("deviceName").toString() : QString();
 
     QList<QAbstractButton*> buttons = buttonGroup->buttons();
     for (QAbstractButton* button : std::as_const(buttons)) {
         buttonGroup->removeButton(button);
         delete button;
     }
-    horizontalLayout->removeItem(buttonStretch);
-    delete buttonStretch;
+    if (buttonStretch) {
+        horizontalLayout->removeItem(buttonStretch);
+        delete buttonStretch;
+    }
 
     // Dirty hack to remove only the radio buttons
     QList<QAction*> actions = menuDisk->actions();
@@ -54,23 +58,28 @@ QString utils::getSmartctlPath() {
     return QString();
 }
 
+void utils::startPrivilegedProcess(QProcess &process, const QStringList &arguments)
+{
+    const QString pkexec = QStandardPaths::findExecutable("pkexec");
+    if (!pkexec.isEmpty()) {
+        process.start(pkexec, arguments);
+    } else {
+        process.start("run0", QStringList{"--pipe", "--background=", "--"} + arguments);
+    }
+}
+
 QString utils::getSmartctlOutput(const QStringList &arguments, bool root, bool initializing)
 {
     QProcess process;
-    QString command;
-
     if (root) {
-        command = "pkexec";
+        startPrivilegedProcess(process, arguments);
     } else {
-        command = getSmartctlPath();
+        process.start(getSmartctlPath(), arguments);
     }
+    process.waitForFinished(-1);
 
-    if (!getSmartctlPath().isEmpty()) {
-        process.start(command, arguments);
-        process.waitForFinished(-1);
-    }
-
-    if (process.exitCode() == 126 || process.exitCode() == 127) {
+    if (process.error() == QProcess::FailedToStart || process.exitCode() == 126 || process.exitCode() == 127 ||
+        (root && process.exitCode() != 0 && process.bytesAvailable() == 0)) {
         QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("QDiskInfo needs root access in order to read S.M.A.R.T. data!"));
         if (initializing) {
             QTimer::singleShot(0, qApp, &QApplication::quit);
@@ -88,11 +97,19 @@ QString utils::getSmartctlOutput(const QStringList &arguments, bool root, bool i
 
 QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
 {
+    QString smartctlPath = getSmartctlPath();
+    if (smartctlPath.isEmpty()) {
+        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("smartctl was not found, please install it!"));
+        QTimer::singleShot(0, qApp, &QApplication::quit);
+        return {};
+    }
     QString output = getSmartctlOutput({"--scan", "--json"}, false, initializing);
     QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
     QJsonObject jsonObj = doc.object();
     QJsonArray devices = jsonObj["devices"].toArray();
-    QString smartctlPath = getSmartctlPath();
+    if (devices.isEmpty()) {
+        return {};
+    }
     QStringList commandList;
     QStringList deviceOutputs;
 
@@ -102,11 +119,6 @@ QPair<QStringList, QJsonArray> utils::scanDevices(bool initializing)
         commandList.append((smartctlPath + " -x --json=o %1").arg(deviceName));
     }
     QString command = commandList.join(" ; ");
-
-    if (smartctlPath.isEmpty()) {
-        QMessageBox::critical(nullptr, QObject::tr("QDiskInfo Error"), QObject::tr("smartctl was not found, please install it!"));
-        QTimer::singleShot(0, qApp, &QApplication::quit);
-    }
 
     QString allDevicesOutput = getSmartctlOutput({"sh", "-c", command}, true, initializing);
 
@@ -141,7 +153,7 @@ QString utils::initiateSelfTest(const QString &testType, const QString &deviceNo
     QStringList arguments;
     arguments << command << "--json=o" << "-x" << "-t" << testType << deviceNode;
 
-    process.start("pkexec", arguments);
+    startPrivilegedProcess(process, arguments);
     process.waitForFinished(-1);
 
     if (process.isOpen()) {
@@ -158,7 +170,7 @@ void utils::cancelSelfTest(const QString &deviceNode)
     QStringList arguments;
     arguments << command << "-X" << deviceNode;
 
-    process.start("pkexec", arguments);
+    startPrivilegedProcess(process, arguments);
     process.waitForFinished(-1);
 
     if (process.exitCode() == 126 || process.exitCode() == 127) {
